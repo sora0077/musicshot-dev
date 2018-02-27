@@ -66,4 +66,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
+#
+# project settings
 vendor/bundle
+GoogleService-Info.plist
