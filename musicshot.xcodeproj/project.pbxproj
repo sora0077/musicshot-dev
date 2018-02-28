@@ -23,6 +23,15 @@
 		D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D95E04092046F91C00EACFB0 /* UIKitSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04032046F8D000EACFB0 /* UIKitSupport.framework */; };
 		D95E040A2046F91C00EACFB0 /* UIKitSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04032046F8D000EACFB0 /* UIKitSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E040F2046FFCB00EACFB0 /* AppleMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */; };
+		D95E04102046FFD100EACFB0 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040D2046FFBF00EACFB0 /* APIKit.framework */; };
+		D95E04112046FFD300EACFB0 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040C2046FFBF00EACFB0 /* Result.framework */; };
+		D95E04122046FFDF00EACFB0 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040D2046FFBF00EACFB0 /* APIKit.framework */; };
+		D95E04132046FFDF00EACFB0 /* APIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040D2046FFBF00EACFB0 /* APIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E04142046FFDF00EACFB0 /* AppleMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */; };
+		D95E04152046FFDF00EACFB0 /* AppleMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040C2046FFBF00EACFB0 /* Result.framework */; };
+		D95E04172046FFDF00EACFB0 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040C2046FFBF00EACFB0 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +63,10 @@
 			files = (
 				D95E040A2046F91C00EACFB0 /* UIKitSupport.framework in Embed Frameworks */,
 				D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */,
+				D95E04132046FFDF00EACFB0 /* APIKit.framework in Embed Frameworks */,
+				D95E04172046FFDF00EACFB0 /* Result.framework in Embed Frameworks */,
 				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
+				D95E04152046FFDF00EACFB0 /* AppleMusicKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +92,9 @@
 		D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
 		D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoLayoutSupport.framework; path = Carthage/Build/iOS/AutoLayoutSupport.framework; sourceTree = "<group>"; };
 		D95E04032046F8D000EACFB0 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
+		D95E040C2046FFBF00EACFB0 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		D95E040D2046FFBF00EACFB0 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
+		D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleMusicKit.framework; path = Carthage/Build/iOS/AppleMusicKit.framework; sourceTree = "<group>"; };
 		E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,7 +104,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */,
+				D95E04102046FFD100EACFB0 /* APIKit.framework in Frameworks */,
+				D95E04112046FFD300EACFB0 /* Result.framework in Frameworks */,
 				D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */,
+				D95E040F2046FFCB00EACFB0 /* AppleMusicKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,9 +115,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D95E04122046FFDF00EACFB0 /* APIKit.framework in Frameworks */,
 				D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */,
 				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
+				D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */,
 				9D74EA169A918AE842C9EB24 /* Pods_Musicshot_MusicshotApp.framework in Frameworks */,
+				D95E04142046FFDF00EACFB0 /* AppleMusicKit.framework in Frameworks */,
 				D95E04072046F91C00EACFB0 /* AutoLayoutSupport.framework in Frameworks */,
 				D95E04092046F91C00EACFB0 /* UIKitSupport.framework in Frameworks */,
 			);
@@ -172,6 +193,9 @@
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D95E040D2046FFBF00EACFB0 /* APIKit.framework */,
+				D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */,
+				D95E040C2046FFBF00EACFB0 /* Result.framework */,
 				D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */,
 				D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */,
 				D95E04032046F8D000EACFB0 /* UIKitSupport.framework */,

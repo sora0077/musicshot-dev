@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 import Alamofire
 import FoundationSupport
-
+import AppleMusicKit
 
 public func helloworld() {
     print("hello world", FirebaseApp.configure(), SessionManager.default)
@@ -31,6 +31,7 @@ public func helloworld() {
         .responseString { (response) in
             print(response.result.value)
         }
-    
-    print(1.contains(in: 0...10))
+
+    print(1.contains(in: 0...10), Authorization(developerToken: ""))
+
 }
