@@ -16,6 +16,13 @@
 		D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9093EAB20459D7300F60136 /* libMusicshotCore.a */; };
 		D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093ECD20459DC600F60136 /* MusicshotCore.swift */; };
 		D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9093ED72045B29600F60136 /* GoogleService-Info.plist */; };
+		D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
+		D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
+		D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E04072046F91C00EACFB0 /* AutoLayoutSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */; };
+		D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E04092046F91C00EACFB0 /* UIKitSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04032046F8D000EACFB0 /* UIKitSupport.framework */; };
+		D95E040A2046F91C00EACFB0 /* UIKitSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04032046F8D000EACFB0 /* UIKitSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +46,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D95E040B2046F91D00EACFB0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D95E040A2046F91C00EACFB0 /* UIKitSupport.framework in Embed Frameworks */,
+				D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */,
+				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +77,9 @@
 		D9093EC620459D8A00F60136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9093ECD20459DC600F60136 /* MusicshotCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicshotCore.swift; sourceTree = "<group>"; };
 		D9093ED72045B29600F60136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
+		D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoLayoutSupport.framework; path = Carthage/Build/iOS/AutoLayoutSupport.framework; sourceTree = "<group>"; };
+		D95E04032046F8D000EACFB0 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
 		E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -66,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */,
+				D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +98,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */,
+				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
 				9D74EA169A918AE842C9EB24 /* Pods_Musicshot_MusicshotApp.framework in Frameworks */,
+				D95E04072046F91C00EACFB0 /* AutoLayoutSupport.framework in Frameworks */,
+				D95E04092046F91C00EACFB0 /* UIKitSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +172,9 @@
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */,
+				D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */,
+				D95E04032046F8D000EACFB0 /* UIKitSupport.framework */,
 				37CBFFE10D9166B3CAAB3345 /* Pods_Musicshot_MusicshotApp.framework */,
 				E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */,
 			);
@@ -183,6 +213,7 @@
 				D9093EB620459D8A00F60136 /* Resources */,
 				0109A6A850E244BC2F2B7017 /* [CP] Embed Pods Frameworks */,
 				A722294E806B364307BC076F /* [CP] Copy Pods Resources */,
+				D95E040B2046F91D00EACFB0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -520,6 +551,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -536,6 +571,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -551,6 +590,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MusicshotApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sora0077.musicshot-dev";
@@ -566,6 +609,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MusicshotApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sora0077.musicshot-dev";

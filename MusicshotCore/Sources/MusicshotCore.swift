@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 import Alamofire
-
+import FoundationSupport
 
 
 public func helloworld() {
@@ -32,4 +32,5 @@ public func helloworld() {
             print(response.result.value)
         }
     
+    print(1.contains(in: 0...10))
 }
