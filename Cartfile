@@ -1,3 +1,7 @@
 github "sora0077/FoundationSupport" "master"
 github "sora0077/AutoLayoutSupport" "master"
 github "sora0077/AppleMusicKit" "master"
+
+github "ReactiveX/RxSwift"
+github "Alamofire/Alamofire"
+github "button/DeepLinkKit"

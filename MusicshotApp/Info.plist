@@ -23,7 +23,7 @@
 			<string>None</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>jp.sora0077.musicshot-dev</string>
+				<string>musicshot-dev</string>
 			</array>
 		</dict>
 	</array>

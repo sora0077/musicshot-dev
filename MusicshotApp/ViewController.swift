@@ -8,17 +8,36 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import SafariServices
+import RxSwift
 
 class ViewController: UIViewController {
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        DispatchQueue.main.async {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .blue
-            self.present(vc, animated: true, completion: nil)
+        if core.isLoggedIn {
+
+        } else {
+            let gitHub = core.gitHub(withAppScheme: "musicshot-dev://")
+            gitHub.asSingle()
+                .subscribe(
+                    onSuccess: {
+                        print("done")
+                },
+                    onError: { error in
+                        print(error)
+                }
+                )
+                .disposed(by: disposeBag)
+            DispatchQueue.main.async {
+                let vc = SFSafariViewController(url: gitHub.authorizeURL)
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
 
