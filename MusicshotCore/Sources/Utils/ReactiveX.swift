@@ -46,7 +46,7 @@ extension Reactive where Base: APIKit.Session {
 extension Reactive where Base: Auth {
     func signIn(with credential: AuthCredential) -> Single<User> {
         return Single.create { event in
-            Auth.auth().signIn(with: credential, completion: { (user, error) in
+            self.base.signIn(with: credential, completion: { (user, error) in
                 switch (user, error) {
                 case (_, let error?):
                     event(.error(error))
@@ -59,6 +59,35 @@ extension Reactive where Base: Auth {
             return Disposables.create()
         }
     }
+
+    func stateDidChange() -> Observable<(Auth, User?)> {
+        return Observable.create { observer in
+            let handle = self.base.addStateDidChangeListener { (auth, user) in
+                observer.onNext((auth, user))
+            }
+            return Disposables.create {
+                self.base.removeStateDidChangeListener(handle)
+            }
+        }
+    }
+}
+
+extension Reactive where Base: CollectionReference {
+    func document(_ path: String) -> Observable<DocumentSnapshot?> {
+        return Observable.create { observer in
+            let listener = self.base.document(path).addSnapshotListener { (snapshot, error) in
+                switch (snapshot, error) {
+                case (_, let error?):
+                    observer.onError(error)
+                case (let snapshot, _):
+                    observer.onNext(snapshot)
+                }
+            }
+            return Disposables.create {
+                listener.remove()
+            }
+        }
+    }
 }
 
 extension ObservableType {
@@ -66,5 +95,15 @@ extension ObservableType {
         return amb(Observable.just(())
             .delay(duration, scheduler: scheduler)
             .map(value))
+    }
+
+    func compactMap<T>(_ transform: @escaping (E) throws -> T?) -> Observable<T> {
+        return flatMap {
+            try transform($0).map(Observable.just) ?? .empty()
+        }
+    }
+
+    func compact<T>() -> Observable<T> where E == T? {
+        return compactMap { $0 }
     }
 }

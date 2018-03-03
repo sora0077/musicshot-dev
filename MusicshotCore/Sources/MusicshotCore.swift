@@ -41,13 +41,28 @@ public final class Core {
             .timeout(10 * 60) { throw OAuth.Error.timeout }
         oauth.1 = 0
 
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                Firestore.firestore().collection("users").document(user.uid).setData([
-                    "lastAccessAt": FieldValue.serverTimestamp()
-                ], options: .merge())
+        Auth.auth().rx.stateDidChange()
+            .do(onNext: { (_, user) in
+                if let user = user {
+                    Firestore.firestore().collection("users").document(user.uid).setData([
+                        "lastAccessAt": FieldValue.serverTimestamp()
+                    ], options: .merge())
+                }
+            })
+            .map { $1 }
+            .flatMapLatest { user in
+                user.map {
+                    Firestore.firestore().collection("developerTokens").rx.document($0.uid)
+                        .map { $0?.data()?["token"] as? String }
+                } ?? .just(nil)
             }
-        }
+            .catchError { _ in .empty() }
+            .subscribe(onNext: { [weak self] developerToken in
+                (self?.session.music as? AppleMusicKit.Session)?.authorization = developerToken.map {
+                    Authorization(developerToken: $0)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     public func handle(url: URL) -> Bool {
