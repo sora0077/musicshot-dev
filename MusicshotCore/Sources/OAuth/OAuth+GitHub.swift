@@ -1,5 +1,5 @@
 //
-//  OAuthGitHub.swift
+//  OAuth+GitHub.swift
 //  MusicshotCore
 //
 //  Created by 林達也 on 2018/03/03.
@@ -7,16 +7,11 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseAuth
+import FoundationSupport
 import APIKit
 import RxSwift
-import FoundationSupport
-
-public enum OAuth {
-    public enum Error: Swift.Error {
-        case timeout
-        case unexpectedObject(Any, HTTPURLResponse)
-    }
-}
 
 extension OAuth {
     public final class GitHub {
@@ -43,7 +38,7 @@ extension OAuth {
         }
 
         public func asSingle() -> Single<Void> {
-            return observable
+            return observable.subscribeOn(MainScheduler.instance)
         }
     }
 }

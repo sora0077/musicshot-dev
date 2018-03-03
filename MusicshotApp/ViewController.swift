@@ -20,22 +20,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        if core.isLoggedIn {
-
+        if core.oauth.isLoggedIn {
         } else {
-            let gitHub = core.gitHub(withAppScheme: "musicshot-dev://")
+            let gitHub = core.oauth.gitHub()
+            let vc = SFSafariViewController(url: gitHub.authorizeURL)
+            vc.modalPresentationStyle = .popover
+
             gitHub.asSingle()
                 .subscribe(
-                    onSuccess: {
-                        print("done")
-                },
-                    onError: { error in
-                        print(error)
-                }
+                    onSuccess: { [weak vc] in
+                        vc?.dismiss(animated: true, completion: nil)
+                    },
+                    onError: { [weak vc] error in
+                        vc?.dismiss(animated: true, completion: nil)
+                    }
                 )
                 .disposed(by: disposeBag)
             DispatchQueue.main.async {
-                let vc = SFSafariViewController(url: gitHub.authorizeURL)
                 self.present(vc, animated: true, completion: nil)
             }
         }

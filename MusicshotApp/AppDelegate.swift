@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Compass
 import MusicshotCore
 
-let core = Core()
+let core = Core(oauthScheme: "musicshot-dev-oauth://")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-        if core.handle(url: url) {
+        if core.oauth.handle(url: url) {
             return true
         }
+        do {
+            try Navigator.navigate(url: url)
+            return true
+        } catch {}
         return false
     }
 }
