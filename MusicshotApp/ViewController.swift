@@ -20,9 +20,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        if core.oauth.isLoggedIn {
+        if musicshot.oauth.isLoggedIn {
         } else {
-            let gitHub = core.oauth.gitHub()
+            let gitHub = musicshot.oauth.gitHub()
             let vc = SFSafariViewController(url: gitHub.authorizeURL)
             vc.modalPresentationStyle = .popover
 

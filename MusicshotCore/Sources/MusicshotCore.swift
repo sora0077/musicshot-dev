@@ -12,9 +12,21 @@ import FirebaseAuth
 import FoundationSupport
 import AppleMusicKit
 import RxSwift
+import RealmSwift
 import Keys
 
 let env = MusicshotKeys()
+
+extension Realm {
+    func add(_ object: Object?, update: Bool = true) {
+        guard let object = object else { return }
+        RealmSwift.Realm.add(self)(object, update: update)
+    }
+}
+
+public func musicshotCore(oauthScheme: String) -> Core {
+    return Core(oauthScheme: oauthScheme)
+}
 
 public final class Core {
     public let oauth: OAuth
@@ -22,8 +34,12 @@ public final class Core {
 
     private let developerToken: Observable<String?>
 
-    public init(oauthScheme: String) {
+    fileprivate init(oauthScheme: String) {
         FirebaseApp.configure()
+
+        var config = Realm.Configuration.defaultConfiguration
+        config.deleteRealmIfMigrationNeeded = true
+        Realm.Configuration.defaultConfiguration = config
 
         oauth = OAuth(scheme: oauthScheme)
 
@@ -41,6 +57,7 @@ public final class Core {
                         .map { $0?.data()?["token"] as? String }
                 } ?? .just(nil)
             }
+            .share()
 
         developerToken
             .catchError { _ in .empty() }

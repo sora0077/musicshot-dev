@@ -9,21 +9,26 @@
 import UIKit
 import Compass
 import MusicshotCore
+import Compass
 
-let core = Core(oauthScheme: "musicshot-dev-oauth://")
+let musicshot = musicshotCore(oauthScheme: "musicshot-dev-oauth://")
+
+private var postLoginRouter = Router()
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        setupRouting()
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-        if core.oauth.handle(url: url) {
+        if musicshot.oauth.handle(url: url) {
             return true
         }
         do {
@@ -31,5 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } catch {}
         return false
+    }
+}
+
+extension AppDelegate {
+    private func setupRouting() {
+        Navigator.scheme = "musicshot-dev"
+
+        Navigator.routes = Array(postLoginRouter.routes.keys)
     }
 }
