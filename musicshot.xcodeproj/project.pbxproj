@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9D74EA169A918AE842C9EB24 /* Pods_Musicshot_MusicshotApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CBFFE10D9166B3CAAB3345 /* Pods_Musicshot_MusicshotApp.framework */; };
 		D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093EBA20459D8A00F60136 /* AppDelegate.swift */; };
-		D9093EBD20459D8A00F60136 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093EBC20459D8A00F60136 /* ViewController.swift */; };
 		D9093EC220459D8A00F60136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9093EC120459D8A00F60136 /* Assets.xcassets */; };
 		D9093EC520459D8A00F60136 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9093EC320459D8A00F60136 /* LaunchScreen.storyboard */; };
 		D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9093EAB20459D7300F60136 /* libMusicshotCore.a */; };
@@ -141,7 +140,6 @@
 		D9093EAB20459D7300F60136 /* libMusicshotCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMusicshotCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9093EB820459D8A00F60136 /* MusicshotApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicshotApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9093EBA20459D8A00F60136 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D9093EBC20459D8A00F60136 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D9093EC120459D8A00F60136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9093EC420459D8A00F60136 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9093EC620459D8A00F60136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -282,11 +280,8 @@
 		D9093EB920459D8A00F60136 /* MusicshotApp */ = {
 			isa = PBXGroup;
 			children = (
-				D9B62E7B204C313A00DDE3B8 /* Views */,
-				D9AF1B1E204AF65C00FBA537 /* Routing */,
+				D9E0121A204C5EB500337E8A /* Sources */,
 				D9093ED72045B29600F60136 /* GoogleService-Info.plist */,
-				D9093EBA20459D8A00F60136 /* AppDelegate.swift */,
-				D9093EBC20459D8A00F60136 /* ViewController.swift */,
 				D9093EC120459D8A00F60136 /* Assets.xcassets */,
 				D9093EC320459D8A00F60136 /* LaunchScreen.storyboard */,
 				D9093EC620459D8A00F60136 /* Info.plist */,
@@ -387,6 +382,16 @@
 				D9D02A84204C4A9500DAAAD1 /* LoginViewController.swift */,
 			);
 			path = LoginView;
+			sourceTree = "<group>";
+		};
+		D9E0121A204C5EB500337E8A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D9093EBA20459D8A00F60136 /* AppDelegate.swift */,
+				D9B62E7B204C313A00DDE3B8 /* Views */,
+				D9AF1B1E204AF65C00FBA537 /* Routing */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
@@ -685,7 +690,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9093EBD20459D8A00F60136 /* ViewController.swift in Sources */,
 				D9AF1B20204AF68A00FBA537 /* Routers.swift in Sources */,
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,

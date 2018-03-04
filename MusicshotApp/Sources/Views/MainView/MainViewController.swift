@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import UIKitSupport
 import AutoLayoutSupport
+import Compass
 
 final class MainViewController: UITabBarController {
     private let customTabBar = TabBar()
@@ -54,23 +55,25 @@ final class MainViewController: UITabBarController {
 
     @objc
     private func pushView() {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-
-        let test = UIView().apply {
-            $0.backgroundColor = .yellow
-        }
-        vc.view.addSubview(test)
-        test.autolayout.apply {
-            $0.left.equal(to: vc.view)
-            $0.right.equal(to: vc.view)
-            $0.bottom.equal(to: vc.autolayout.safeArea.bottom)
-            $0.height.equal(to: 40)
-        }
-        nav.pushViewController(vc, animated: true)
+        try? Navigator.navigate(urn: "search:初音 ミク")
+//        let vc = UIViewController()
+//        vc.view.backgroundColor = .blue
+//
+//        let test = UIView().apply {
+//            $0.backgroundColor = .yellow
+//        }
+//        vc.view.addSubview(test)
+//        test.autolayout.apply {
+//            $0.left.equal(to: vc.view)
+//            $0.right.equal(to: vc.view)
+//            $0.bottom.equal(to: vc.autolayout.safeArea.bottom)
+//            $0.height.equal(to: 40)
+//        }
+//        nav.pushViewController(vc, animated: true)
     }
 }
 
+// MARK: - private
 private final class TabBar: UIView {
     private let contentView = UIView().apply { view in
         view.backgroundColor = UIColor.white.withAlphaComponent(0.6)
@@ -80,6 +83,7 @@ private final class TabBar: UIView {
         view.layer.shadowOffset.height = 2
         view.layer.shadowRadius = 8
     }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -92,7 +96,7 @@ private final class TabBar: UIView {
             $0.height.equal(to: 60)
         }
 
-        contentView.addMotionEffect(UIMotionEffectGroup().apply {
+        contentView.addMotionEffect(UIMotionEffectGroup().apply { group in
             let xMotion = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
             xMotion.minimumRelativeValue = -14
             xMotion.maximumRelativeValue = 14
@@ -101,10 +105,10 @@ private final class TabBar: UIView {
             yMotion.minimumRelativeValue = -28
             yMotion.maximumRelativeValue = 28
 
-            $0.motionEffects = [xMotion, yMotion]
+            group.motionEffects = [xMotion, yMotion]
         })
 
-        contentView.addMotionEffect(UIMotionEffectGroup().apply {
+        contentView.addMotionEffect(UIMotionEffectGroup().apply { group in
             let xMotion = UIInterpolatingMotionEffect(keyPath: "layer.shadowOffset.width", type: .tiltAlongHorizontalAxis)
             xMotion.minimumRelativeValue = 14
             xMotion.maximumRelativeValue = -14
@@ -113,7 +117,7 @@ private final class TabBar: UIView {
             yMotion.minimumRelativeValue = 28
             yMotion.maximumRelativeValue = -28
 
-            $0.motionEffects = [xMotion, yMotion]
+            group.motionEffects = [xMotion, yMotion]
         })
 
         contentView.addGestureRecognizer(UILongPressGestureRecognizer().apply {

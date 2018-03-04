@@ -66,37 +66,48 @@ extension AppDelegate {
     private func setupRouting() {
         Navigator.scheme = "musicshot-dev"
 
-        var preLoginRouter = Router()
-        preLoginRouter.routes = [
+        var loginRouter = Router()
+        loginRouter.routes = [
             "login": LoginRoute()
         ]
 
-        var postLoginRouter = Router()
-        postLoginRouter.routes = [
+        var mainRouter = Router()
+        mainRouter.routes = [
             "main": MainRoute(),
             "search:{term}": SearchRoute()
         ]
 
-        Navigator.routes = Array(preLoginRouter.routes.keys)
-            + Array(postLoginRouter.routes.keys)
+        var searchRouter = Router()
+        searchRouter.routes = [
+            "search:{term}": SearchRoute()
+        ]
+
+        Navigator.routes = Array(loginRouter.routes.keys)
+            + Array(mainRouter.routes.keys)
+            + Array(searchRouter.routes.keys)
 
         Navigator.handle = { [weak self] location in
-            if location.path.contains(in: preLoginRouter.routes.keys), let from = self?.manager[.login].rootViewController {
+            if location.path.contains(in: loginRouter.routes.keys), let from = self?.manager[.login].rootViewController {
                 self?.manager[.login].makeKey()
-                preLoginRouter.navigate(to: location, from: from)
+                loginRouter.navigate(to: location, from: from)
                 return
             }
             guard musicshot.oauth.isLoggedIn else { return }
 
-            if location.path.contains(in: postLoginRouter.routes.keys), let from = self?.manager[.main].rootViewController {
+            if location.path.contains(in: mainRouter.routes.keys), let from = self?.manager[.main].rootViewController {
                 self?.manager[.main].makeKey()
                 if let presented = from.presentedViewController {
                     presented.dismiss(animated: true, completion: {
-                        postLoginRouter.navigate(to: location, from: from)
+                        mainRouter.navigate(to: location, from: from)
                     })
                 } else {
-                    postLoginRouter.navigate(to: location, from: from)
+                    mainRouter.navigate(to: location, from: from)
                 }
+                return
+            }
+
+            if location.path.contains(in: searchRouter.routes.keys), let from = self?.manager[.search].rootViewController {
+
                 return
             }
         }
