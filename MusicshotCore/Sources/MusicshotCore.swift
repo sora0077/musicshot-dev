@@ -9,11 +9,11 @@
 import Foundation
 import Firebase
 import FirebaseAuth
-import FoundationSupport
 import AppleMusicKit
-import RxSwift
 import RealmSwift
 import Keys
+@_exported import FoundationSupport
+@_exported import RxSwift
 
 let env = MusicshotKeys()
 
@@ -40,16 +40,21 @@ public final class Core {
         var config = Realm.Configuration.defaultConfiguration
         config.deleteRealmIfMigrationNeeded = true
         Realm.Configuration.defaultConfiguration = config
+        #if DEBUG
+            if let path = config.fileURL?.absoluteString.components(separatedBy: "file://").last {
+                print("open \(path)")
+            }
+        #endif
 
         oauth = OAuth(scheme: oauthScheme)
 
         developerToken =  Auth.auth().rx.stateDidChange()
             .do(onNext: { (_, user) in
-                if let user = user {
-                    Firestore.firestore().collection("users").document(user.uid).setData([
-                        "lastAccessAt": FieldValue.serverTimestamp()
-                    ], options: .merge())
-                }
+//                if let user = user {
+//                    Firestore.firestore().collection("users").document(user.uid).setData([
+//                        "lastAccessAt": FieldValue.serverTimestamp()
+//                    ], options: .merge())
+//                }
             })
             .flatMapLatest { (_, user) in
                 user.map {

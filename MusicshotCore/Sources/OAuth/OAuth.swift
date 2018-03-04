@@ -47,7 +47,9 @@ public final class OAuth {
 }
 
 extension OAuth {
-    public var isLoggedIn: Bool { return Auth.auth().currentUser != nil }
+    public var isLoggedIn: Bool {
+        return Auth.auth().currentUser != nil
+    }
 
     public func signOut() throws {
         try Auth.auth().signOut()
@@ -77,5 +79,15 @@ extension OAuth {
             }
             .take(1)
             .asSingle())
+    }
+}
+
+// MARK: -
+extension OAuth: ReactiveCompatible {}
+extension Reactive where Base: OAuth {
+    public var isLoggedIn: Observable<Bool> {
+        return Auth.auth().rx.stateDidChange()
+            .subscribeOn(MainScheduler.instance)
+            .map { $1 != nil }
     }
 }

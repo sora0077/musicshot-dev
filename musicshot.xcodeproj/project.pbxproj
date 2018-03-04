@@ -10,7 +10,6 @@
 		9D74EA169A918AE842C9EB24 /* Pods_Musicshot_MusicshotApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CBFFE10D9166B3CAAB3345 /* Pods_Musicshot_MusicshotApp.framework */; };
 		D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093EBA20459D8A00F60136 /* AppDelegate.swift */; };
 		D9093EBD20459D8A00F60136 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093EBC20459D8A00F60136 /* ViewController.swift */; };
-		D9093EC020459D8A00F60136 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9093EBE20459D8A00F60136 /* Main.storyboard */; };
 		D9093EC220459D8A00F60136 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9093EC120459D8A00F60136 /* Assets.xcassets */; };
 		D9093EC520459D8A00F60136 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9093EC320459D8A00F60136 /* LaunchScreen.storyboard */; };
 		D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9093EAB20459D7300F60136 /* libMusicshotCore.a */; };
@@ -59,6 +58,7 @@
 		D9B62E78204BF7C300DDE3B8 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; };
 		D9B62E79204BF7C300DDE3B8 /* FontAwesome.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9B62E7A204BF7C900DDE3B8 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; };
+		D9B62E7E204C315200DDE3B8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B62E7D204C315200DDE3B8 /* MainViewController.swift */; };
 		D9CB00AE204B09C3006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
 		D9CB00AF204B09C6006DDFC9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AC204B09A0006DDFC9 /* Realm.framework */; };
 		D9CB00B0204B09CE006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
@@ -67,6 +67,7 @@
 		D9CB00B3204B09D2006DDFC9 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AC204B09A0006DDFC9 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9CB00B5204B09E6006DDFC9 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CB00B4204B09E6006DDFC9 /* Entity.swift */; };
 		D9CB00B7204B0A01006DDFC9 /* Entity+Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CB00B6204B0A01006DDFC9 /* Entity+Storefront.swift */; };
+		D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D02A84204C4A9500DAAAD1 /* LoginViewController.swift */; };
 		D9D73C39204BD51B000F1E5A /* Entity+Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C38204BD51B000F1E5A /* Entity+Song.swift */; };
 		D9D73C3B204BD6C0000F1E5A /* AppleMusicKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C3A204BD6C0000F1E5A /* AppleMusicKit.swift */; };
 		D9D73C3D204BD74C000F1E5A /* Entity+Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C3C204BD74C000F1E5A /* Entity+Genre.swift */; };
@@ -141,7 +142,6 @@
 		D9093EB820459D8A00F60136 /* MusicshotApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicshotApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9093EBA20459D8A00F60136 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9093EBC20459D8A00F60136 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D9093EBF20459D8A00F60136 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9093EC120459D8A00F60136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9093EC420459D8A00F60136 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9093EC620459D8A00F60136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,10 +169,12 @@
 		D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotUI.h; sourceTree = "<group>"; };
 		D9B62E6E204BF70900DDE3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
+		D9B62E7D204C315200DDE3B8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D9CB00AC204B09A0006DDFC9 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		D9CB00B4204B09E6006DDFC9 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		D9CB00B6204B0A01006DDFC9 /* Entity+Storefront.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Storefront.swift"; sourceTree = "<group>"; };
+		D9D02A84204C4A9500DAAAD1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D9D73C38204BD51B000F1E5A /* Entity+Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Song.swift"; sourceTree = "<group>"; };
 		D9D73C3A204BD6C0000F1E5A /* AppleMusicKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicKit.swift; sourceTree = "<group>"; };
 		D9D73C3C204BD74C000F1E5A /* Entity+Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Genre.swift"; sourceTree = "<group>"; };
@@ -280,11 +282,11 @@
 		D9093EB920459D8A00F60136 /* MusicshotApp */ = {
 			isa = PBXGroup;
 			children = (
+				D9B62E7B204C313A00DDE3B8 /* Views */,
 				D9AF1B1E204AF65C00FBA537 /* Routing */,
 				D9093ED72045B29600F60136 /* GoogleService-Info.plist */,
 				D9093EBA20459D8A00F60136 /* AppDelegate.swift */,
 				D9093EBC20459D8A00F60136 /* ViewController.swift */,
-				D9093EBE20459D8A00F60136 /* Main.storyboard */,
 				D9093EC120459D8A00F60136 /* Assets.xcassets */,
 				D9093EC320459D8A00F60136 /* LaunchScreen.storyboard */,
 				D9093EC620459D8A00F60136 /* Info.plist */,
@@ -348,6 +350,23 @@
 			path = MusicshotUI;
 			sourceTree = "<group>";
 		};
+		D9B62E7B204C313A00DDE3B8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9D02A83204C4A4B00DAAAD1 /* LoginView */,
+				D9B62E7C204C314300DDE3B8 /* MainView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9B62E7C204C314300DDE3B8 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				D9B62E7D204C315200DDE3B8 /* MainViewController.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		D9CB00AB204B0870006DDFC9 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +379,14 @@
 				D9D73C3C204BD74C000F1E5A /* Entity+Genre.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		D9D02A83204C4A4B00DAAAD1 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				D9D02A84204C4A9500DAAAD1 /* LoginViewController.swift */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
@@ -513,7 +540,6 @@
 				D9093EC520459D8A00F60136 /* LaunchScreen.storyboard in Resources */,
 				D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */,
 				D9093EC220459D8A00F60136 /* Assets.xcassets in Resources */,
-				D9093EC020459D8A00F60136 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +688,8 @@
 				D9093EBD20459D8A00F60136 /* ViewController.swift in Sources */,
 				D9AF1B20204AF68A00FBA537 /* Routers.swift in Sources */,
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
+				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
+				D9B62E7E204C315200DDE3B8 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,14 +716,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D9093EBE20459D8A00F60136 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9093EBF20459D8A00F60136 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D9093EC320459D8A00F60136 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -871,6 +891,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2TD54U4MA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -890,6 +911,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2TD54U4MA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

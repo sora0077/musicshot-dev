@@ -20,8 +20,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        if musicshot.oauth.isLoggedIn {
-        } else {
+//        if musicshot.oauth.isLoggedIn {
+//        } else {
             let gitHub = musicshot.oauth.gitHub()
             let vc = SFSafariViewController(url: gitHub.authorizeURL)
             vc.modalPresentationStyle = .popover
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.present(vc, animated: true, completion: nil)
             }
-        }
+//        }
     }
 
     override func didReceiveMemoryWarning() {
