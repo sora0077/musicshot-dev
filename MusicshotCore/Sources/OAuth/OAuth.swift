@@ -29,7 +29,7 @@ public final class OAuth {
 
     init(scheme: String) {
         self.scheme = scheme
-        kind.gitHub = router.rx.register("\(scheme)/oauth/github")
+        kind.gitHub = router.rx.register("\(scheme):///oauth/github")
             .flatMap { link -> Observable<(DPLDeepLink, code: String)> in
                 if let link = link, let code = link.queryParameters["code"] as? String {
                     return Observable.just((link, code))
@@ -56,7 +56,7 @@ extension OAuth {
 
 extension OAuth {
     public func gitHub() -> OAuth.GitHub {
-        let redirectURL = URL(string: "\(scheme)/oauth/github")!
+        let redirectURL = URL(string: "\(scheme):///oauth/github")!
         let state = String.random()
         return OAuth.GitHub(redirectURL: redirectURL, state: state, observable: kind.gitHub
             .map { args in

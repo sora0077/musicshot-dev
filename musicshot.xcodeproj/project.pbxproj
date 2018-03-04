@@ -51,6 +51,11 @@
 		D9AF1B1D204AF58100FBA537 /* Compass.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9AF1B1B204AF57400FBA537 /* Compass.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9AF1B20204AF68A00FBA537 /* Routers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF1B1F204AF68A00FBA537 /* Routers.swift */; };
 		D9AF1B22204AFE2B00FBA537 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF1B21204AFE2B00FBA537 /* OAuth.swift */; };
+		D9B62E4E204BED2C00DDE3B8 /* WindowKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */; };
+		D9B62E4F204BED2C00DDE3B8 /* WindowKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9B62E6F204BF70900DDE3B8 /* MusicshotUI.h in Headers */ = {isa = PBXBuildFile; fileRef = D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */; };
+		D9B62E74204BF72100DDE3B8 /* MusicshotUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9CB00AE204B09C3006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
 		D9CB00AF204B09C6006DDFC9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AC204B09A0006DDFC9 /* Realm.framework */; };
 		D9CB00B0204B09CE006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
@@ -76,6 +81,13 @@
 			remoteGlobalIDString = D9093EAA20459D7300F60136;
 			remoteInfo = MusicshotCore;
 		};
+		D9B62E75204BF72100DDE3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9093E822044608500F60136 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9B62E6A204BF70900DDE3B8;
+			remoteInfo = MusicshotUI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,12 +107,14 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D9AD991C204A60E300C4160D /* RxSwift.framework in Embed Frameworks */,
+				D9B62E74204BF72100DDE3B8 /* MusicshotUI.framework in Embed Frameworks */,
 				D9AD991A204A60E300C4160D /* RxCocoa.framework in Embed Frameworks */,
 				D9CB00B1204B09CE006DDFC9 /* RealmSwift.framework in Embed Frameworks */,
 				D95E040A2046F91C00EACFB0 /* UIKitSupport.framework in Embed Frameworks */,
 				D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */,
 				D95E04132046FFDF00EACFB0 /* APIKit.framework in Embed Frameworks */,
 				D95E04172046FFDF00EACFB0 /* Result.framework in Embed Frameworks */,
+				D9B62E4F204BED2C00DDE3B8 /* WindowKit.framework in Embed Frameworks */,
 				D9AD9916204A5FE700C4160D /* DeepLinkKit.framework in Embed Frameworks */,
 				D9CB00B3204B09D2006DDFC9 /* Realm.framework in Embed Frameworks */,
 				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
@@ -146,6 +160,10 @@
 		D9AF1B1B204AF57400FBA537 /* Compass.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Compass.framework; path = Carthage/Build/iOS/Compass.framework; sourceTree = "<group>"; };
 		D9AF1B1F204AF68A00FBA537 /* Routers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routers.swift; sourceTree = "<group>"; };
 		D9AF1B21204AFE2B00FBA537 /* OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
+		D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WindowKit.framework; path = Carthage/Build/iOS/WindowKit.framework; sourceTree = "<group>"; };
+		D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MusicshotUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotUI.h; sourceTree = "<group>"; };
+		D9B62E6E204BF70900DDE3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9CB00AC204B09A0006DDFC9 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		D9CB00B4204B09E6006DDFC9 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -185,6 +203,7 @@
 				D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */,
 				D9CB00B0204B09CE006DDFC9 /* RealmSwift.framework in Frameworks */,
 				D9AD9915204A5FE700C4160D /* DeepLinkKit.framework in Frameworks */,
+				D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */,
 				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
 				D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */,
 				D9AD9917204A60D200C4160D /* Alamofire.framework in Frameworks */,
@@ -196,6 +215,14 @@
 				D9AF1B1C204AF58100FBA537 /* Compass.framework in Frameworks */,
 				D9AD9919204A60E300C4160D /* RxCocoa.framework in Frameworks */,
 				D95E04092046F91C00EACFB0 /* UIKitSupport.framework in Frameworks */,
+				D9B62E4E204BED2C00DDE3B8 /* WindowKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9B62E67204BF70900DDE3B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +245,7 @@
 			children = (
 				D9093EAC20459D7300F60136 /* MusicshotCore */,
 				D9093EB920459D8A00F60136 /* MusicshotApp */,
+				D9B62E6C204BF70900DDE3B8 /* MusicshotUI */,
 				D9093E8C2044608600F60136 /* Products */,
 				D1F866744C326CBE3A3B6CD4 /* Pods */,
 				FF6A1FC1D776EB372BFDEDDD /* Frameworks */,
@@ -229,6 +257,7 @@
 			children = (
 				D9093EAB20459D7300F60136 /* libMusicshotCore.a */,
 				D9093EB820459D8A00F60136 /* MusicshotApp.app */,
+				D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +332,15 @@
 			path = Routing;
 			sourceTree = "<group>";
 		};
+		D9B62E6C204BF70900DDE3B8 /* MusicshotUI */ = {
+			isa = PBXGroup;
+			children = (
+				D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */,
+				D9B62E6E204BF70900DDE3B8 /* Info.plist */,
+			);
+			path = MusicshotUI;
+			sourceTree = "<group>";
+		};
 		D9CB00AB204B0870006DDFC9 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +358,7 @@
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */,
 				D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */,
 				D9CB00AC204B09A0006DDFC9 /* Realm.framework */,
 				D9AF1B1B204AF57400FBA537 /* Compass.framework */,
@@ -340,6 +379,17 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D9B62E68204BF70900DDE3B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9B62E6F204BF70900DDE3B8 /* MusicshotUI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		D9093EAA20459D7300F60136 /* MusicshotCore */ = {
@@ -377,11 +427,30 @@
 			);
 			dependencies = (
 				D9093ED42045B15A00F60136 /* PBXTargetDependency */,
+				D9B62E76204BF72100DDE3B8 /* PBXTargetDependency */,
 			);
 			name = MusicshotApp;
 			productName = MusicshotApp;
 			productReference = D9093EB820459D8A00F60136 /* MusicshotApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D9B62E6A204BF70900DDE3B8 /* MusicshotUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9B62E70204BF70900DDE3B8 /* Build configuration list for PBXNativeTarget "MusicshotUI" */;
+			buildPhases = (
+				D9B62E66204BF70900DDE3B8 /* Sources */,
+				D9B62E67204BF70900DDE3B8 /* Frameworks */,
+				D9B62E68204BF70900DDE3B8 /* Headers */,
+				D9B62E69204BF70900DDE3B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusicshotUI;
+			productName = MusicshotUI;
+			productReference = D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -402,6 +471,10 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					D9B62E6A204BF70900DDE3B8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = D9093E852044608500F60136 /* Build configuration list for PBXProject "musicshot" */;
@@ -419,6 +492,7 @@
 			targets = (
 				D9093EB720459D8A00F60136 /* MusicshotApp */,
 				D9093EAA20459D7300F60136 /* MusicshotCore */,
+				D9B62E6A204BF70900DDE3B8 /* MusicshotUI */,
 			);
 		};
 /* End PBXProject section */
@@ -432,6 +506,13 @@
 				D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */,
 				D9093EC220459D8A00F60136 /* Assets.xcassets in Resources */,
 				D9093EC020459D8A00F60136 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9B62E69204BF70900DDE3B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +657,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9B62E66204BF70900DDE3B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -583,6 +671,11 @@
 			isa = PBXTargetDependency;
 			target = D9093EAA20459D7300F60136 /* MusicshotCore */;
 			targetProxy = D9093ED32045B15A00F60136 /* PBXContainerItemProxy */;
+		};
+		D9B62E76204BF72100DDE3B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9B62E6A204BF70900DDE3B8 /* MusicshotUI */;
+			targetProxy = D9B62E75204BF72100DDE3B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -802,6 +895,46 @@
 			};
 			name = Release;
 		};
+		D9B62E71204BF70900DDE3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MusicshotUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D9B62E72204BF70900DDE3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MusicshotUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -828,6 +961,15 @@
 			buildConfigurations = (
 				D9093EC820459D8A00F60136 /* Debug */,
 				D9093EC920459D8A00F60136 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9B62E70204BF70900DDE3B8 /* Build configuration list for PBXNativeTarget "MusicshotUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9B62E71204BF70900DDE3B8 /* Debug */,
+				D9B62E72204BF70900DDE3B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,9 +1,11 @@
 github "sora0077/FoundationSupport" "master"
 github "sora0077/AutoLayoutSupport" "master"
 github "sora0077/AppleMusicKit" "master"
+github "sora0077/WindowKit" "master"
 
 github "ReactiveX/RxSwift"
 github "Alamofire/Alamofire"
 github "button/DeepLinkKit"
 github "hyperoslo/Compass"
 github "realm/realm-cocoa"
+github "thii/FontAwesome.swift"

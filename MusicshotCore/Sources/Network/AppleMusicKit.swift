@@ -19,8 +19,10 @@ typealias GetSong = AppleMusicKit.GetSong<Entity.Song, Entity.Album, Entity.Arti
 typealias GetMultipleSongs = AppleMusicKit.GetMultipleSongs<Entity.Song, Entity.Album, Entity.Artist, Entity.Genre, Entity.Storefront>
 
 typealias GetMusicVideo = AppleMusicKit.GetMusicVideo<Entity.MusicVideo, Entity.Album, Entity.Artist, Entity.Genre, Entity.Storefront>
+typealias GetMultipleMusicVideos = AppleMusicKit.GetMultipleMusicVideos<Entity.MusicVideo, Entity.Album, Entity.Artist, Entity.Genre, Entity.Storefront>
 
 typealias GetAlbum = AppleMusicKit.GetAlbum<Entity.Album, Entity.Song, Entity.MusicVideo, Entity.Artist, Entity.Storefront>
+typealias GetMultipleAlbums = AppleMusicKit.GetMultipleAlbums<Entity.Album, Entity.Song, Entity.MusicVideo, Entity.Artist, Entity.Storefront>
 
 typealias GetArtist = AppleMusicKit.GetArtist<Entity.Artist, Entity.Album, Entity.Genre, Entity.Storefront>
 typealias GetMultipleArtists = AppleMusicKit.GetMultipleArtists<Entity.Artist, Entity.Album, Entity.Genre, Entity.Storefront>

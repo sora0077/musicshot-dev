@@ -9,7 +9,13 @@
 import Foundation
 import Compass
 
-struct LoginRoute: Routable {
+struct StorefrontRoute: Routable {
+    func navigate(to location: Location, from currentController: CurrentController) throws {
+
+    }
+}
+
+struct SearchRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
 
     }
