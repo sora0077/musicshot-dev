@@ -18,8 +18,29 @@ extension Entity {
         public typealias PlayParameters = Entity.PlayParameters
         public typealias Identifier = String
 
-        @objc public dynamic var id: Identifier = ""
-        @objc public dynamic var name: String = ""
+        @objc public private(set) dynamic var id: Identifier = ""
+        @objc public private(set) dynamic var artistName: String = ""
+        @objc public private(set) dynamic var contentRating: String?
+        @objc public private(set) dynamic var copyright: String = ""
+        @objc public private(set) dynamic var editorialNotes: Entity.EditorialNotes?
+        @objc public private(set) dynamic var isComplete: Bool = false
+        @objc public private(set) dynamic var isSingle: Bool = false
+        @objc public private(set) dynamic var name: String = ""
+        @objc public private(set) dynamic var playParams: Entity.PlayParameters?
+        @objc public private(set) dynamic var trackCount: Int = -1
+
+        public var artwork: Entity.Artwork { return _artwork }
+        @objc private dynamic var _artwork: Entity.Artwork!
+
+        public var genreNames: [String] { return Array(_genreNames) }
+        private let _genreNames = List<String>()
+
+        public var trackNumber: Int? { return _trackNumber.value }
+        private let _trackNumber = RealmOptional<Int>()
+
+        @objc private dynamic var _releaseDate: String = ""
+
+        @objc private dynamic var _url: String = ""
 
         @objc override public class func primaryKey() -> String? { return "id" }
 
@@ -40,6 +61,20 @@ extension Entity {
             url: String
         ) throws {
             self.init()
+            self.id = id
+            self.artistName = artistName
+            self._artwork = artwork
+            self.contentRating = contentRating
+            self.copyright = copyright
+            self.editorialNotes = editorialNotes
+            self._genreNames.append(objectsIn: genreNames)
+            self.isComplete = isComplete
+            self.isSingle = isSingle
+            self.name = name
+            self.playParams = playParams
+            self._releaseDate = releaseDate
+            self.trackCount = trackCount
+            self._url = url
         }
     }
 }

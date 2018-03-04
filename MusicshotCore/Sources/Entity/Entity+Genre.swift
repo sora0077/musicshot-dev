@@ -15,8 +15,8 @@ extension Entity {
     public final class Genre: Object, AppleMusicKit.Genre {
         public typealias Identifier = String
 
-        @objc public dynamic var id: Identifier = ""
-        @objc public dynamic var name: String = ""
+        @objc public private(set) dynamic var id: Identifier = ""
+        @objc public private(set) dynamic var name: String = ""
 
         @objc override public class func primaryKey() -> String? { return "id" }
 

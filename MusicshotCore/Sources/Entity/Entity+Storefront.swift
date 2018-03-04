@@ -18,9 +18,9 @@ extension Entity {
         public typealias Identifier = String
         public typealias Language = String
 
-        @objc public dynamic var id: Identifier = ""
-        @objc public dynamic var defaultLanguageTag: Language = ""
-        @objc public dynamic var name: String = ""
+        @objc public private(set) dynamic var id: Identifier = ""
+        @objc public private(set) dynamic var defaultLanguageTag: Language = ""
+        @objc public private(set) dynamic var name: String = ""
         public let supportedLanguageTags = List<String>()
 
         @objc override public class func primaryKey() -> String? { return "id" }

@@ -16,8 +16,14 @@ extension Entity {
         public typealias EditorialNotes = Entity.EditorialNotes
         public typealias Identifier = String
 
-        @objc public dynamic var id: Identifier = ""
-        @objc public dynamic var name: String = ""
+        @objc public private(set) dynamic var id: Identifier = ""
+        @objc public private(set) dynamic var editorialNotes: Entity.EditorialNotes?
+        @objc public private(set) dynamic var name: String = ""
+
+        public var genreNames: [String] { return Array(_genreNames) }
+        private let _genreNames = List<String>()
+
+        @objc private dynamic var _url: String = ""
 
         @objc override public class func primaryKey() -> String? { return "id" }
 
@@ -29,6 +35,11 @@ extension Entity {
             url: String
         ) throws {
             self.init()
+            self.id = id
+            self._genreNames.append(objectsIn: genreNames)
+            self.editorialNotes = editorialNotes
+            self.name = name
+            self._url = url
         }
     }
 }

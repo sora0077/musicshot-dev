@@ -56,6 +56,9 @@
 		D9B62E6F204BF70900DDE3B8 /* MusicshotUI.h in Headers */ = {isa = PBXBuildFile; fileRef = D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */; };
 		D9B62E74204BF72100DDE3B8 /* MusicshotUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9B62E78204BF7C300DDE3B8 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; };
+		D9B62E79204BF7C300DDE3B8 /* FontAwesome.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9B62E7A204BF7C900DDE3B8 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */; };
 		D9CB00AE204B09C3006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
 		D9CB00AF204B09C6006DDFC9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AC204B09A0006DDFC9 /* Realm.framework */; };
 		D9CB00B0204B09CE006DDFC9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
@@ -115,6 +118,7 @@
 				D95E04132046FFDF00EACFB0 /* APIKit.framework in Embed Frameworks */,
 				D95E04172046FFDF00EACFB0 /* Result.framework in Embed Frameworks */,
 				D9B62E4F204BED2C00DDE3B8 /* WindowKit.framework in Embed Frameworks */,
+				D9B62E79204BF7C300DDE3B8 /* FontAwesome.framework in Embed Frameworks */,
 				D9AD9916204A5FE700C4160D /* DeepLinkKit.framework in Embed Frameworks */,
 				D9CB00B3204B09D2006DDFC9 /* Realm.framework in Embed Frameworks */,
 				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
@@ -164,6 +168,7 @@
 		D9B62E6B204BF70900DDE3B8 /* MusicshotUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MusicshotUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9B62E6D204BF70900DDE3B8 /* MusicshotUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotUI.h; sourceTree = "<group>"; };
 		D9B62E6E204BF70900DDE3B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
 		D9CB00AC204B09A0006DDFC9 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		D9CB00B4204B09E6006DDFC9 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -204,6 +209,7 @@
 				D9CB00B0204B09CE006DDFC9 /* RealmSwift.framework in Frameworks */,
 				D9AD9915204A5FE700C4160D /* DeepLinkKit.framework in Frameworks */,
 				D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */,
+				D9B62E78204BF7C300DDE3B8 /* FontAwesome.framework in Frameworks */,
 				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
 				D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */,
 				D9AD9917204A60D200C4160D /* Alamofire.framework in Frameworks */,
@@ -223,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B62E7A204BF7C900DDE3B8 /* FontAwesome.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +365,7 @@
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */,
 				D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */,
 				D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */,
 				D9CB00AC204B09A0006DDFC9 /* Realm.framework */,
@@ -904,6 +912,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MusicshotUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -924,6 +936,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MusicshotUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

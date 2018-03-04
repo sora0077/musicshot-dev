@@ -18,8 +18,30 @@ extension Entity {
         public typealias PlayParameters = Entity.PlayParameters
         public typealias Identifier = String
 
-        @objc public dynamic var id: Identifier = ""
-        @objc public dynamic var name: String = ""
+        @objc public private(set) dynamic var id: Identifier = ""
+        @objc public private(set) dynamic var artistName: String = ""
+        @objc public private(set) dynamic var contentRating: String?
+        @objc public private(set) dynamic var editorialNotes: Entity.EditorialNotes?
+        @objc public private(set) dynamic var name: String = ""
+        @objc public private(set) dynamic var playParams: Entity.PlayParameters?
+
+        public var artwork: Entity.Artwork { return _artwork }
+        @objc private dynamic var _artwork: Entity.Artwork!
+
+        public var durationInMillis: Int? { return _durationInMillis.value }
+        private let _durationInMillis = RealmOptional<Int>()
+
+        public var genreNames: [String] { return Array(_genreNames) }
+        private let _genreNames = List<String>()
+
+        public var trackNumber: Int? { return _trackNumber.value }
+        private let _trackNumber = RealmOptional<Int>()
+
+        @objc private dynamic var _releaseDate: String = ""
+
+        @objc private dynamic var _url: String = ""
+
+        @objc private dynamic var _videoSubType: String?
 
         @objc override public class func primaryKey() -> String? { return "id" }
 
@@ -39,6 +61,19 @@ extension Entity {
             videoSubType: String?
         ) throws {
             self.init()
+            self.id = id
+            self.artistName = artistName
+            self._artwork = artwork
+            self.contentRating = contentRating
+            self._durationInMillis.value = durationInMillis
+            self.editorialNotes = editorialNotes
+            self._genreNames.append(objectsIn: genreNames)
+            self.name = name
+            self.playParams = playParams
+            self._releaseDate = releaseDate
+            self._trackNumber.value = trackNumber
+            self._url = url
+            self._videoSubType = videoSubType
         }
     }
 }
