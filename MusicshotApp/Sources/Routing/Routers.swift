@@ -27,9 +27,14 @@ struct MainRoute: Routable {
     }
 }
 
-struct StorefrontRoute: Routable {
+struct StorefrontSelectRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
-
+        let vc = StorefrontSelectViewController()
+        let nav = UINavigationController(rootViewController: vc).apply { nav in
+            nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            nav.navigationBar.shadowImage = UIImage()
+        }
+        currentController.present(nav, animated: true, completion: nil)
     }
 }
 

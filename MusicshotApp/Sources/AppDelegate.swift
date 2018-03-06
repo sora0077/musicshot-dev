@@ -15,6 +15,10 @@ import MusicshotUI
 
 let musicshot = musicshotCore(oauthScheme: "musicshot-dev-oauth")
 
+private func appDelegate() -> AppDelegate {
+    return UIApplication.shared.delegate as! AppDelegate
+}
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     enum WindowLevel: Int, WindowKit.WindowLevel {
@@ -59,8 +63,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     private func setupWindows() {
-        manager[.search].rootViewController = UIViewController()
-        manager[.login].rootViewController = UIViewController()
+        UIViewController.swizzle_setNeedsStatusBarAppearanceUpdate()
+        manager[.search].rootViewController = MainStatusBarStyleUpdaterViewController()
+        manager[.login].rootViewController = MainStatusBarStyleViewController()
     }
 
     private func setupRouting() {
@@ -74,7 +79,7 @@ extension AppDelegate {
         var mainRouter = Router()
         mainRouter.routes = [
             "main": MainRoute(),
-            "search:{term}": SearchRoute()
+            "storefront/select": StorefrontSelectRoute()
         ]
 
         var searchRouter = Router()
@@ -88,12 +93,17 @@ extension AppDelegate {
 
         Navigator.handle = { [weak self] location in
             if location.path.contains(in: loginRouter.routes.keys), let from = self?.manager[.login].rootViewController {
+                // SFSafariViewController only work in key window.
                 self?.manager[.login].makeKey()
                 loginRouter.navigate(to: location, from: from)
                 return
             }
             guard musicshot.oauth.isLoggedIn else { return }
 
+            if location.path.contains(in: searchRouter.routes.keys), let from = self?.manager[.search].rootViewController {
+                searchRouter.navigate(to: location, from: from)
+                return
+            }
             if location.path.contains(in: mainRouter.routes.keys), let from = self?.manager[.main].rootViewController {
                 self?.manager[.main].makeKey()
                 if let presented = from.presentedViewController {
@@ -103,11 +113,6 @@ extension AppDelegate {
                 } else {
                     mainRouter.navigate(to: location, from: from)
                 }
-                return
-            }
-
-            if location.path.contains(in: searchRouter.routes.keys), let from = self?.manager[.search].rootViewController {
-
                 return
             }
         }
@@ -125,5 +130,53 @@ extension AppDelegate {
                 }
             })
             .disposed(by: disposeBag)
+    }
+}
+
+//
+// MARK: -
+private extension UIViewController {
+    static var swizzle_setNeedsStatusBarAppearanceUpdate: () -> Void = {
+        let original = class_getInstanceMethod(
+            UIViewController.self, #selector(UIViewController.setNeedsStatusBarAppearanceUpdate))
+        let replaced = class_getInstanceMethod(
+            UIViewController.self, #selector(UIViewController.swizzled_setNeedsStatusBarAppearanceUpdate))
+        method_exchangeImplementations(original!, replaced!)
+        return {}
+    }()
+
+    @objc
+    func swizzled_setNeedsStatusBarAppearanceUpdate() {
+        if let vc = appDelegate().manager[.login].rootViewController {
+            vc.swizzled_setNeedsStatusBarAppearanceUpdate()
+        } else {
+            swizzled_setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+}
+
+private final class MainStatusBarStyleViewController: UIViewController {
+    private static func dig(_ vc: UIViewController) -> UIStatusBarStyle? {
+        if vc.isBeingDismissed { return nil }
+        if let vc = vc.presentedViewController {
+            return dig(vc)
+        }
+        return vc.preferredStatusBarStyle
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return appDelegate().manager[.login].rootViewController?.presentedViewController
+            .flatMap(MainStatusBarStyleViewController.dig)
+            ?? appDelegate().manager[.main].rootViewController
+                .flatMap(MainStatusBarStyleViewController.dig)
+            ?? .default
+    }
+}
+
+private final class MainStatusBarStyleUpdaterViewController: UIViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        setNeedsStatusBarAppearanceUpdate()
     }
 }

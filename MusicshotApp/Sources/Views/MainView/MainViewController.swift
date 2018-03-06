@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import RxSwift
 import RxCocoa
 import UIKitSupport
 import AutoLayoutSupport
 import Compass
 
 final class MainViewController: UITabBarController {
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private let customTabBar = TabBar()
-    private var nav: UINavigationController!
+
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,23 +26,10 @@ final class MainViewController: UITabBarController {
 
         viewControllers = [
             UINavigationController().apply { nav in
-                self.nav = nav
+                nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
+                nav.navigationBar.shadowImage = UIImage()
                 let vc = UIViewController()
-                vc.view.backgroundColor = .white
-
-                let test = UIView().apply {
-                    $0.backgroundColor = .yellow
-                }
-                vc.view.addSubview(test)
-                test.autolayout.apply {
-                    $0.left.equal(to: vc.view)
-                    $0.right.equal(to: vc.view)
-                    $0.bottom.equal(to: vc.autolayout.safeArea.bottom)
-                    $0.height.equal(to: 40)
-                }
-                test.addGestureRecognizer(UITapGestureRecognizer().apply {
-                    $0.addTarget(self, action: #selector(pushView))
-                })
+                vc.view.backgroundColor = UIColor(named: "Background")
                 nav.viewControllers = [vc]
             }
         ]
@@ -51,33 +41,26 @@ final class MainViewController: UITabBarController {
             $0.right.equal(to: view.autolayout.right)
             $0.bottom.equal(to: autolayout.safeArea.bottom, constant: additionalSafeAreaInsets.bottom)
         }
+
+        rx.sentMessage(#selector(viewWillAppear))
+            .take(1)
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                try? Navigator.navigate(urn: "storefront/select")
+            })
+            .disposed(by: disposeBag)
     }
 
-    @objc
-    private func pushView() {
-        try? Navigator.navigate(urn: "search:初音 ミク")
-//        let vc = UIViewController()
-//        vc.view.backgroundColor = .blue
-//
-//        let test = UIView().apply {
-//            $0.backgroundColor = .yellow
-//        }
-//        vc.view.addSubview(test)
-//        test.autolayout.apply {
-//            $0.left.equal(to: vc.view)
-//            $0.right.equal(to: vc.view)
-//            $0.bottom.equal(to: vc.autolayout.safeArea.bottom)
-//            $0.height.equal(to: 40)
-//        }
-//        nav.pushViewController(vc, animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 }
 
 // MARK: - private
 private final class TabBar: UIView {
     private let contentView = UIView().apply { view in
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.6)
-        view.layer.cornerRadius = 24
+        view.backgroundColor = UIColor(named: "Primary")?.withAlphaComponent(0.9)
+        view.layer.cornerRadius = 20
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset.height = 2
