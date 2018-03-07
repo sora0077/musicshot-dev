@@ -42,13 +42,15 @@ final class MainViewController: UITabBarController {
             $0.bottom.equal(to: autolayout.safeArea.bottom, constant: additionalSafeAreaInsets.bottom)
         }
 
-        rx.sentMessage(#selector(viewWillAppear))
-            .take(1)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { _ in
-                try? Navigator.navigate(urn: "storefront/select")
-            })
-            .disposed(by: disposeBag)
+        if musicshot.repository.storefronts.selected() == nil {
+            rx.sentMessage(#selector(viewWillAppear))
+                .take(1)
+                .subscribeOn(MainScheduler.instance)
+                .subscribe(onNext: { _ in
+                    try? Navigator.navigate(urn: "storefront/select")
+                })
+                .disposed(by: disposeBag)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

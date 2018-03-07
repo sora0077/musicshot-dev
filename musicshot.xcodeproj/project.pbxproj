@@ -15,6 +15,7 @@
 		D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093ECD20459DC600F60136 /* MusicshotCore.swift */; };
 		D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9093ED72045B29600F60136 /* GoogleService-Info.plist */; };
 		D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */; };
+		D94CE9222050144700B8C71C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE9212050144700B8C71C /* Repository.swift */; };
 		D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
 		D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
 		D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -147,6 +148,7 @@
 		D9093ECD20459DC600F60136 /* MusicshotCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicshotCore.swift; sourceTree = "<group>"; };
 		D9093ED72045B29600F60136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorefrontSelectViewController.swift; sourceTree = "<group>"; };
+		D94CE9212050144700B8C71C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
 		D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoLayoutSupport.framework; path = Carthage/Build/iOS/AutoLayoutSupport.framework; sourceTree = "<group>"; };
 		D95E04032046F8D000EACFB0 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				D9AD990E204A57E000C4160D /* Network */,
 				D971E17B204A81C800F8AF4C /* OAuth */,
 				D9CB00AB204B0870006DDFC9 /* Entity */,
+				D94CE9202050142E00B8C71C /* Repository */,
 				D9722751204AC50C0096897F /* Utils */,
 				D9093ECD20459DC600F60136 /* MusicshotCore.swift */,
 			);
@@ -309,6 +312,14 @@
 				D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */,
 			);
 			path = StorefrontSelectView;
+			sourceTree = "<group>";
+		};
+		D94CE9202050142E00B8C71C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D94CE9212050144700B8C71C /* Repository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		D971E17B204A81C800F8AF4C /* OAuth */ = {
@@ -682,6 +693,7 @@
 			files = (
 				D9D73C39204BD51B000F1E5A /* Entity+Song.swift in Sources */,
 				D9CB00B7204B0A01006DDFC9 /* Entity+Storefront.swift in Sources */,
+				D94CE9222050144700B8C71C /* Repository.swift in Sources */,
 				D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */,
 				D9D73C41204BDA88000F1E5A /* Entity+Artist.swift in Sources */,
 				D9722753204AC51A0096897F /* ReactiveX.swift in Sources */,

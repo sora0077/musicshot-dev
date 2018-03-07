@@ -21,20 +21,30 @@ struct LoginRoute: Routable {
 
 struct MainRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
-        let vc = MainViewController()
-        vc.modalTransitionStyle = .crossDissolve
-        currentController.present(vc, animated: true, completion: nil)
+        let present = {
+            let vc = MainViewController()
+            vc.modalTransitionStyle = .crossDissolve
+            currentController.present(vc, animated: true, completion: nil)
+        }
+        if let presented = currentController.presentedViewController {
+            presented.dismiss(animated: true, completion: present)
+        } else {
+            present()
+        }
     }
 }
 
 struct StorefrontSelectRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
         let vc = StorefrontSelectViewController()
-        let nav = UINavigationController(rootViewController: vc).apply { nav in
+        class Nav: UINavigationController {
+            override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+        }
+        let nav = Nav(rootViewController: vc).apply { nav in
             nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
             nav.navigationBar.shadowImage = UIImage()
         }
-        currentController.present(nav, animated: true, completion: nil)
+        top(currentController).present(nav, animated: true, completion: nil)
     }
 }
 

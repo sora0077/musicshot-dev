@@ -30,21 +30,13 @@ public func musicshotCore(oauthScheme: String) -> Core {
 
 public final class Core {
     public let oauth: OAuth
+    public let repository = Repository()
     private let disposeBag = DisposeBag()
 
     private let developerToken: Observable<String?>
 
     fileprivate init(oauthScheme: String) {
         FirebaseApp.configure()
-
-        var config = Realm.Configuration.defaultConfiguration
-        config.deleteRealmIfMigrationNeeded = true
-        Realm.Configuration.defaultConfiguration = config
-        #if DEBUG
-            if let path = config.fileURL?.absoluteString.components(separatedBy: "file://").last {
-                print("open \(path)")
-            }
-        #endif
 
         oauth = OAuth(scheme: oauthScheme)
 

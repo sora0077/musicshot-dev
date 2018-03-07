@@ -19,6 +19,14 @@ private func appDelegate() -> AppDelegate {
     return UIApplication.shared.delegate as! AppDelegate
 }
 
+func top(_ viewController: UIViewController) -> UIViewController {
+    if let presented = viewController.presentedViewController {
+        return top(presented)
+    } else {
+        return viewController
+    }
+}
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     enum WindowLevel: Int, WindowKit.WindowLevel {
@@ -106,13 +114,7 @@ extension AppDelegate {
             }
             if location.path.contains(in: mainRouter.routes.keys), let from = self?.manager[.main].rootViewController {
                 self?.manager[.main].makeKey()
-                if let presented = from.presentedViewController {
-                    presented.dismiss(animated: true, completion: {
-                        mainRouter.navigate(to: location, from: from)
-                    })
-                } else {
-                    mainRouter.navigate(to: location, from: from)
-                }
+                mainRouter.navigate(to: location, from: from)
                 return
             }
         }
@@ -158,7 +160,7 @@ private extension UIViewController {
 private final class MainStatusBarStyleViewController: UIViewController {
     private static func dig(_ vc: UIViewController) -> UIStatusBarStyle? {
         if vc.isBeingDismissed { return nil }
-        if let vc = vc.presentedViewController {
+        if let vc = vc.presentedViewController, !vc.isBeingDismissed {
             return dig(vc)
         }
         return vc.preferredStatusBarStyle
@@ -167,15 +169,15 @@ private final class MainStatusBarStyleViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return appDelegate().manager[.login].rootViewController?.presentedViewController
             .flatMap(MainStatusBarStyleViewController.dig)
-            ?? appDelegate().manager[.main].rootViewController
+            ?? appDelegate().manager[.main].rootViewController?.presentedViewController
                 .flatMap(MainStatusBarStyleViewController.dig)
             ?? .default
     }
 }
 
 private final class MainStatusBarStyleUpdaterViewController: UIViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         setNeedsStatusBarAppearanceUpdate()
     }
