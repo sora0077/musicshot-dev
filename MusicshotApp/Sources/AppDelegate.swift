@@ -47,6 +47,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.view.backgroundColor = UIColor(named: "Background")
         }
         window?.makeKeyAndVisible()
+        window?.tintColor = UIColor(named: "Primary")
 
         setupWindows()
         setupRouting()
@@ -86,8 +87,13 @@ extension AppDelegate {
 
         var mainRouter = Router()
         mainRouter.routes = [
-            "main": MainRoute(),
-            "storefront/select": StorefrontSelectRoute()
+            "main": MainRoute()
+        ]
+
+        var postLoginRouter = Router()
+        postLoginRouter.routes = [
+            "storefront/select": StorefrontSelectRoute(),
+            "charts": ChartsRoute()
         ]
 
         var searchRouter = Router()
@@ -97,6 +103,7 @@ extension AppDelegate {
 
         Navigator.routes = Array(loginRouter.routes.keys)
             + Array(mainRouter.routes.keys)
+            + Array(postLoginRouter.routes.keys)
             + Array(searchRouter.routes.keys)
 
         Navigator.handle = { [weak self] location in
@@ -108,10 +115,17 @@ extension AppDelegate {
             }
             guard musicshot.oauth.isLoggedIn else { return }
 
+            if location.path.contains(in: postLoginRouter.routes.keys),
+                let from = self?.manager[.main].rootViewController?.presentedViewController {
+                postLoginRouter.navigate(to: location, from: from)
+                return
+            }
+
             if location.path.contains(in: searchRouter.routes.keys), let from = self?.manager[.search].rootViewController {
                 searchRouter.navigate(to: location, from: from)
                 return
             }
+
             if location.path.contains(in: mainRouter.routes.keys), let from = self?.manager[.main].rootViewController {
                 self?.manager[.main].makeKey()
                 mainRouter.navigate(to: location, from: from)

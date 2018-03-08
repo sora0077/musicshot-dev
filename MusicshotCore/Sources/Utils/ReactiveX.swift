@@ -12,6 +12,7 @@ import DeepLinkKit
 import Firebase
 import FirebaseAuth
 import APIKit
+import AppleMusicKit
 
 extension Reactive where Base: DPLDeepLinkRouter {
     func register(_ route: String) -> Observable<DPLDeepLink?> {
@@ -27,6 +28,23 @@ extension Reactive where Base: DPLDeepLinkRouter {
 extension APIKit.Session: ReactiveCompatible {}
 extension Reactive where Base: APIKit.Session {
     func send<Req: APIKit.Request>(_ request: Req) -> Single<Req.Response> {
+        return Single.create(subscribe: { event in
+            let task = self.base.send(request) { result in
+                switch result {
+                case .success(let response):
+                    event(.success(response))
+                case .failure(let error):
+                    event(.error(error))
+                }
+            }
+            return Disposables.create {
+                task?.cancel()
+            }
+        })
+    }
+}
+extension Reactive where Base: AppleMusicKit.Session {
+    func send<Req: AppleMusicKit.Request>(_ request: Req) -> Single<Req.Response> {
         return Single.create(subscribe: { event in
             let task = self.base.send(request) { result in
                 switch result {

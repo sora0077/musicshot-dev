@@ -48,6 +48,14 @@ struct StorefrontSelectRoute: Routable {
     }
 }
 
+struct ChartsRoute: Routable {
+    func navigate(to location: Location, from currentController: CurrentController) throws {
+        guard let from = currentController as? MainViewController else { return }
+        let vc = ChartsViewController()
+        from.present(vc, animated: true, completion: nil)
+    }
+}
+
 struct SearchRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
 

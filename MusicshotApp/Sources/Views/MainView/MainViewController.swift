@@ -13,7 +13,7 @@ import UIKitSupport
 import AutoLayoutSupport
 import Compass
 
-final class MainViewController: UITabBarController {
+final class MainViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private let customTabBar = TabBar()
 
@@ -22,17 +22,16 @@ final class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBar.isHidden = true
+        view.backgroundColor = UIColor(named: "Background")
 
-        viewControllers = [
-            UINavigationController().apply { nav in
-                nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-                nav.navigationBar.shadowImage = UIImage()
-                let vc = UIViewController()
-                vc.view.backgroundColor = UIColor(named: "Background")
-                nav.viewControllers = [vc]
-            }
-        ]
+        let chartsButton = UIButton(type: .system).apply { button in
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
+            button.setTitle("Charts", for: .normal)
+            button.addTarget(self, action: #selector(chartsAction), for: .touchUpInside)
+        }
+        view.addSubview(chartsButton)
+        chartsButton.autolayout.left.equal(to: view, constant: 8)
+        chartsButton.autolayout.top.equal(to: view, constant: 120)
 
         additionalSafeAreaInsets.bottom = 68 + 4
         view.addSubview(customTabBar)
@@ -53,8 +52,9 @@ final class MainViewController: UITabBarController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @objc
+    private func chartsAction() {
+        try? Navigator.navigate(urn: "charts")
     }
 }
 

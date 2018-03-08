@@ -35,26 +35,30 @@ final class StorefrontSelectViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.autolayout.edges.equal(to: view)
 
-        let (storefronts, token) = musicshot.repository.storefronts.all { [weak self] changes in
-            guard let collectionView = self?.collectionView else { return }
-            switch changes {
-            case .initial:
-                collectionView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                let indexPaths: ([Int]) -> [IndexPath] = {
-                    $0.map { IndexPath(item: $0, section: 0) }
+        do {
+            let (storefronts, token) = try musicshot.repository.storefronts.all { [weak self] changes in
+                guard let collectionView = self?.collectionView else { return }
+                switch changes {
+                case .initial:
+                    collectionView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    let indexPaths: ([Int]) -> [IndexPath] = {
+                        $0.map { IndexPath(item: $0, section: 0) }
+                    }
+                    collectionView.performBatchUpdates({
+                        collectionView.insertItems(at: indexPaths(insertions))
+                        collectionView.deleteItems(at: indexPaths(deletions))
+                        collectionView.reloadItems(at: indexPaths(modifications))
+                    }, completion: nil)
+                case .error(let error):
+                    fatalError("\(error)")
                 }
-                collectionView.performBatchUpdates({
-                    collectionView.insertItems(at: indexPaths(insertions))
-                    collectionView.deleteItems(at: indexPaths(deletions))
-                    collectionView.reloadItems(at: indexPaths(modifications))
-                }, completion: nil)
-            case .error(let error):
-                fatalError("\(error)")
             }
+            self.storefronts = storefronts
+            self.token = token
+        } catch {
+            print(error)
         }
-        self.storefronts = storefronts
-        self.token = token
     }
 }
 
@@ -79,8 +83,12 @@ extension StorefrontSelectViewController: UICollectionViewDelegate, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        musicshot.repository.storefronts.select(storefronts[indexPath.row])
-        dismiss(animated: true, completion: nil)
+        do {
+            try musicshot.repository.storefronts.select(storefronts[indexPath.row])
+            dismiss(animated: true, completion: nil)
+        } catch {
+            print(error)
+        }
     }
 }
 

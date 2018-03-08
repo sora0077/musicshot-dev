@@ -16,6 +16,7 @@
 		D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9093ED72045B29600F60136 /* GoogleService-Info.plist */; };
 		D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */; };
 		D94CE9222050144700B8C71C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE9212050144700B8C71C /* Repository.swift */; };
+		D94CE925205181B900B8C71C /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE924205181B900B8C71C /* ChartsViewController.swift */; };
 		D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
 		D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; };
 		D95E04062046F91C00EACFB0 /* FoundationSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -149,6 +150,7 @@
 		D9093ED72045B29600F60136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorefrontSelectViewController.swift; sourceTree = "<group>"; };
 		D94CE9212050144700B8C71C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		D94CE924205181B900B8C71C /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		D95E04012046F8CF00EACFB0 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
 		D95E04022046F8D000EACFB0 /* AutoLayoutSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoLayoutSupport.framework; path = Carthage/Build/iOS/AutoLayoutSupport.framework; sourceTree = "<group>"; };
 		D95E04032046F8D000EACFB0 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
@@ -322,6 +324,14 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		D94CE9232051819100B8C71C /* ChartsView */ = {
+			isa = PBXGroup;
+			children = (
+				D94CE924205181B900B8C71C /* ChartsViewController.swift */,
+			);
+			path = ChartsView;
+			sourceTree = "<group>";
+		};
 		D971E17B204A81C800F8AF4C /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +382,7 @@
 				D9D02A83204C4A4B00DAAAD1 /* LoginView */,
 				D9B62E7C204C314300DDE3B8 /* MainView */,
 				D94CE91D204D973F00B8C71C /* StorefrontSelectView */,
+				D94CE9232051819100B8C71C /* ChartsView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -718,6 +729,7 @@
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
 				D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */,
 				D9B62E7E204C315200DDE3B8 /* MainViewController.swift in Sources */,
+				D94CE925205181B900B8C71C /* ChartsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
