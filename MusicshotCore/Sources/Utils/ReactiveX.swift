@@ -43,6 +43,7 @@ extension Reactive where Base: APIKit.Session {
         })
     }
 }
+
 extension Reactive where Base: AppleMusicKit.Session {
     func send<Req: AppleMusicKit.Request>(_ request: Req) -> Single<Req.Response> {
         return Single.create(subscribe: { event in
@@ -123,5 +124,15 @@ extension ObservableType {
 
     func compact<T>() -> Observable<T> where E == T? {
         return compactMap { $0 }
+    }
+}
+
+extension Single {
+    static func just(_ body: () throws -> E) -> Single<E> {
+        do {
+            return .just(try body())
+        } catch {
+            return .error(error)
+        }
     }
 }

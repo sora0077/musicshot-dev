@@ -17,7 +17,7 @@ final class ChartsViewController: UIViewController {
         super.viewDidLoad()
 
         musicshot.repository.charts.fetch()
-            .subscribe(onSuccess: {  })
+            .subscribe()
             .disposed(by: disposeBag)
     }
 }

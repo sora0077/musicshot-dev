@@ -23,6 +23,7 @@ final class StorefrontSelectViewController: UIViewController {
 
     private var storefronts: List<Entity.Storefront>!
     private var token: NotificationToken!
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,10 @@ final class StorefrontSelectViewController: UIViewController {
         } catch {
             print(error)
         }
+
+        musicshot.repository.storefronts.fetch()
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }
 
