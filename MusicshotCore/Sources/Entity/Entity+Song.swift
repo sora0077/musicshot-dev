@@ -43,6 +43,19 @@ extension Entity {
             self._textColor3 = hex(colors?.textColor3)
             self._textColor4 = hex(colors?.textColor4)
         }
+
+        public func url(for expectedWidth: Int) -> URL {
+            let ratio = CGFloat(height) / CGFloat(width)
+            let expectedWidth = min(width, expectedWidth)
+            let expectedHeight = Int(round(CGFloat(expectedWidth) * ratio))
+            return URL(string: _url
+                .replacingOccurrences(of: "{w}", with: "\(expectedWidth)")
+                .replacingOccurrences(of: "{h}", with: "\(expectedHeight)"))!
+        }
+
+        public func url(for width: CGFloat) -> URL {
+            return url(for: Int(round(width)))
+        }
     }
 
     @objc(EditorialNotes)

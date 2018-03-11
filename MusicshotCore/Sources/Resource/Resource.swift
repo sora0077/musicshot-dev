@@ -21,24 +21,29 @@ public enum Resource {
     public final class Charts: Object {
         @objc(ChartSongs)
         public final class Songs: Object {
+            @objc private dynamic var pk: String = ""
             @objc public private(set) dynamic var name: String = ""
             @objc public private(set) dynamic var chart: String = ""
             @objc public private(set) dynamic var href: String?
-            @objc public private(set) dynamic var isDefault: Bool = false
 
             @objc private(set) dynamic var next: InternalResource.Request?
 
             public let items = List<Entity.Song>()
 
-            @objc override public class func primaryKey() -> String? { return "chart" }
+            @objc override public class func primaryKey() -> String? { return "pk" }
+
+            convenience init(chart: String?) {
+                self.init()
+                pk = chart ?? ""
+            }
 
             convenience init?(_ songs: GetCharts.Page<Entity.Song>?, isDefault: Bool) throws {
                 guard let songs = songs else { return nil }
                 self.init()
+                pk = isDefault ? "" : songs.chart
                 name = songs.name
                 chart = songs.chart
                 href = songs.href
-                self.isDefault = isDefault
                 items.append(objectsIn: songs.data.compactMap { $0.attributes })
                 next = try InternalResource.Request(songs.next)
             }
