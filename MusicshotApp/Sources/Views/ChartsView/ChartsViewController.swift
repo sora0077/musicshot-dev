@@ -47,22 +47,7 @@ final class ChartsViewController: UIViewController {
 
         do {
             let (songs, token) = try repository.all { [weak self] changes in
-                guard let collectionView = self?.collectionView else { return }
-                switch changes {
-                case .initial:
-                    collectionView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
-                    let indexPaths: ([Int]) -> [IndexPath] = {
-                        $0.map { IndexPath(item: $0, section: 0) }
-                    }
-                    collectionView.performBatchUpdates({
-                        collectionView.insertItems(at: indexPaths(insertions))
-                        collectionView.deleteItems(at: indexPaths(deletions))
-                        collectionView.reloadItems(at: indexPaths(modifications))
-                    }, completion: nil)
-                case .error(let error):
-                    fatalError("\(error)")
-                }
+                self?.collectionView.bind(changes, at: 0)
             }
             self.songs = songs
             self.token = token

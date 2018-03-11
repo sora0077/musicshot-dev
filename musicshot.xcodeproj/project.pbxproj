@@ -80,6 +80,7 @@
 		D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */; };
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
 		D9F86695205365D3001C3555 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F86694205365D3001C3555 /* Resource.swift */; };
+		D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */; };
 		FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -193,6 +194,7 @@
 		D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+MusicVideo.swift"; sourceTree = "<group>"; };
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
 		D9F86694205365D3001C3555 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Realm.swift"; sourceTree = "<group>"; };
 		E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -434,6 +436,7 @@
 				D9093EBA20459D8A00F60136 /* AppDelegate.swift */,
 				D9AF1B1E204AF65C00FBA537 /* Routing */,
 				D9B62E7B204C313A00DDE3B8 /* Views */,
+				D9FFAEBB2055A198001BD635 /* Utils */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -444,6 +447,14 @@
 				D9F86694205365D3001C3555 /* Resource.swift */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		D9FFAEBB2055A198001BD635 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
@@ -750,6 +761,7 @@
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
 				D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */,
+				D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */,
 				D9B62E7E204C315200DDE3B8 /* MainViewController.swift in Sources */,
 				D94CE925205181B900B8C71C /* ChartsViewController.swift in Sources */,
 			);
