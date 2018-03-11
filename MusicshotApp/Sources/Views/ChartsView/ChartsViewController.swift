@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 import MusicshotCore
 
 final class ChartsViewController: UIViewController {
@@ -16,7 +17,7 @@ final class ChartsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        musicshot.repository.charts.fetch()
+        musicshot.repository.charts.fetchSongs()
             .subscribe()
             .disposed(by: disposeBag)
     }

@@ -42,6 +42,11 @@ public enum Resource {
                 items.append(objectsIn: songs.data.compactMap { $0.attributes })
                 next = try InternalResource.Request(songs.next)
             }
+
+            func update(_ songs: GetCharts.Page<Entity.Song>) throws {
+                items.append(objectsIn: songs.data.flatMap { $0.attributes })
+                next = try InternalResource.Request(songs.next)
+            }
         }
         @objc(ChartAlbums)
         public final class Albums: Object {
@@ -83,21 +88,22 @@ enum InternalResource {
     @objc(Request)
     final class Request: Object {
         @objc dynamic var path: String = ""
-        @objc dynamic var parameters: Data?
+        @objc dynamic var parameters: String?
 
         convenience init?<Req: PaginatorRequest>(_ request: Req?) throws {
             guard let request = request else { return nil }
             self.init()
             path = request.path
-            parameters = try request.parameters.map {
-                try JSONSerialization.data(withJSONObject: $0, options: [])
-            }
+            parameters = try request.parameters
+                .map { try JSONSerialization.data(withJSONObject: $0, options: []) }
+                .flatMap { String(data: $0, encoding: .utf8) }
         }
 
         func asRequest<Req: PaginatorRequest>() throws -> Req {
-            return Req.init(path: path, parameters: try parameters.map {
-                try JSONSerialization.jsonObject(with: $0, options: [])
-            } as? [String: Any] ?? [:])
+            return Req.init(path: path, parameters: try parameters
+                .flatMap { $0.data(using: .utf8) }
+                .map { try JSONSerialization.jsonObject(with: $0, options: []) }
+                as? [String: Any] ?? [:])
         }
     }
 }

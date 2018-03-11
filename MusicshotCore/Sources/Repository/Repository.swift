@@ -9,6 +9,7 @@
 import Foundation
 @_exported import RealmSwift
 import RxSwift
+import AppleMusicKit
 
 public typealias ListChange<T> = RealmCollectionChange<List<T>> where T: RealmCollectionValue
 public typealias ListPattern<T> = (@escaping (ListChange<T>) -> Void) -> (List<T>, NotificationToken) where T: RealmCollectionValue
@@ -103,8 +104,41 @@ public class Repository {
 //            }
 //            return (holder.list, holder.list.observe(change))
 //        }
+//
+        public func fetchSongs(chart: String? = nil) -> Single<Void> {
+            enum State {
+                case first, last, middle(GetCharts.GetPage<Entity.Song>, ThreadSafeReference<Resource.Charts.Songs>)
+            }
+            return Single<State>
+                .just {
+                    let songs = try Realm().objects(Resource.Charts.Songs.self)
+                        .filter(chart.map { "chart == \($0)" } ?? "isDefault == true")
+                        .first
+                    switch (songs, songs?.next) {
+                    case (nil, _): return .first
+                    case (.some, nil): return .last
+                    case (let songs?, let next?): return .middle(try next.asRequest(), .init(to: songs))
+                    }
+                }
+                .flatMap { [unowned self] state -> Single<Void> in
+                    switch state {
+                    case .first: return self.fetchInitial(chart: chart, types: [.songs])
+                    case .last: return .just(())
+                    case .middle(let next, let songs): return MusicSession.shared.rx.send(next)
+                        .do(onSuccess: { response in
+                            let realm = try Realm()
+                            guard let songs = realm.resolve(songs) else { return }
+                            try realm.write {
+                                realm.add(response.data.compactMap { $0.attributes }, update: true)
+                                try songs.update(response)
+                            }
+                        })
+                        .map { _ in }
+                    }
+                }
+        }
 
-        public func fetch(chart: String? = nil) -> Single<Void> {
+        private func fetchInitial(chart: String? = nil, types: Set<ResourceType>) -> Single<Void> {
             return Single<GetCharts>
                 .just {
                     guard let storefront = try Realm()
@@ -112,7 +146,7 @@ public class Repository {
                         .first?.storefront else {
                             throw Error.storefrontNotReady
                     }
-                    return GetCharts.init(storefront: storefront.id, types: [.songs], chart: chart)
+                    return GetCharts(storefront: storefront.id, types: types, chart: chart)
                 }
                 .flatMap(MusicSession.shared.rx.send)
                 .do(onSuccess: { response in
