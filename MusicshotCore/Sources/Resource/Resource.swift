@@ -9,6 +9,25 @@
 import Foundation
 import RealmSwift
 import AppleMusicKit
+import SwiftDate
+
+protocol LifetimeObject {
+    var createDate: Date { get }
+    var updateDate: Date { get }
+}
+
+extension Realm {
+    func object<O: Object & LifetimeObject, Key>(
+        of type: O.Type, for primaryKey: Key,
+        _ keyPath: KeyPath<O, Date>, within: DateComponents
+    ) -> O? {
+        let obj = object(ofType: type, forPrimaryKey: primaryKey)
+        if let date = obj?[keyPath: keyPath], date < coeffects.dateType.now() - within {
+            return nil
+        }
+        return obj
+    }
+}
 
 public enum Resource {
     public enum Media {
@@ -20,7 +39,7 @@ public enum Resource {
     @objc(Charts)
     public final class Charts: Object {
         @objc(ChartSongs)
-        public final class Songs: Object {
+        public final class Songs: Object, LifetimeObject {
             @objc private dynamic var pk: String = ""
             @objc public private(set) dynamic var name: String = ""
             @objc public private(set) dynamic var chart: String = ""

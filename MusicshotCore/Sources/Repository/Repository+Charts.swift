@@ -27,9 +27,8 @@ extension Repository {
 
             public func all(_ change: @escaping (ListChange<Entity.Song>) -> Void) throws -> (Resource.Charts.Songs, NotificationToken) {
                 let realm = try Realm()
-                if let songs = realm.objects(Resource.Charts.Songs.self)
-                    .filter("pk == %@ AND createDate > %@", chart ?? "", coeffects.dateType.now() - 30.minutes)
-                    .first {
+                if let songs = realm.object(of: Resource.Charts.Songs.self, for: chart ?? "",
+                                            \.createDate, within: 30.minutes) {
                     return (songs, songs.items.observe(change))
                 }
                 try realm.write {
@@ -40,20 +39,18 @@ extension Repository {
 
             public func fetch() -> Single<Void> {
                 enum State {
-                    case first, last, middle(GetCharts.GetPage<Entity.Song>, ThreadSafeReference<Resource.Charts.Songs>)
+                    case first, last, middle(GetCharts.GetPage<Entity.Song>, Resource.Charts.Songs.Ref)
                 }
                 let chart = self.chart
                 return Single<State>
                     .just {
-                        let songs = try Realm().object(ofType: Resource.Charts.Songs.self, forPrimaryKey: chart ?? "")
-                        if let updateDate = songs?.updateDate, updateDate < coeffects.dateType.now() - 60.minutes {
-                            return .first
-                        }
+                        let songs = try Realm().object(of: Resource.Charts.Songs.self, for: chart ?? "",
+                                                       \.updateDate, within: 60.minutes)
                         switch (songs, songs?.next) {
                         case (nil, _): return .first
                         case (let songs?, nil) where songs.items.isEmpty: return .first
+                        case (let songs?, let next?): return .middle(try next.asRequest(), songs.ref)
                         case (_?, nil): return .last
-                        case (let songs?, let next?): return .middle(try next.asRequest(), .init(to: songs))
                         }
                     }
                     .flatMap { state -> Single<Void> in
@@ -71,7 +68,7 @@ extension Repository {
                             })
                             .map { _ in }
                         }
-                }
+                    }
             }
         }
     }

@@ -14,6 +14,12 @@ import AppleMusicKit
 public typealias ListChange<T> = RealmCollectionChange<List<T>> where T: RealmCollectionValue
 public typealias ListPattern<T> = (@escaping (ListChange<T>) -> Void) -> (List<T>, NotificationToken) where T: RealmCollectionValue
 
+extension ThreadConfined {
+    typealias Ref = ThreadSafeReference<Self>
+
+    var ref: Ref { return Ref(to: self) }
+}
+
 public class Repository {
     public enum Error: Swift.Error {
         case storefrontNotReady
