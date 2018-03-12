@@ -52,8 +52,8 @@ public class Repository {
     }
 
     public final class Storefronts {
-        public func selected() -> Entity.Storefront? {
-            return (try? Realm().objects(InternalResource.SelectedStorefront.self).first?.storefront) ?? nil
+        public func selected() throws -> Entity.Storefront? {
+            return try Realm().objects(InternalResource.SelectedStorefront.self).first?.storefront
         }
 
         public func select(_ storefront: Entity.Storefront) throws {

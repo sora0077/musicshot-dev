@@ -41,14 +41,18 @@ final class MainViewController: UIViewController {
             $0.bottom.equal(to: autolayout.safeArea.bottom, constant: additionalSafeAreaInsets.bottom)
         }
 
-        if musicshot.repository.storefronts.selected() == nil {
-            rx.sentMessage(#selector(viewWillAppear))
-                .take(1)
-                .subscribeOn(MainScheduler.instance)
-                .subscribe(onNext: { _ in
-                    try? Navigator.navigate(urn: "storefront/select")
-                })
-                .disposed(by: disposeBag)
+        do {
+            if try musicshot.repository.storefronts.selected() == nil {
+                rx.sentMessage(#selector(viewWillAppear))
+                    .take(1)
+                    .subscribeOn(MainScheduler.instance)
+                    .subscribe(onNext: { _ in
+                        try? Navigator.navigate(urn: "storefront/select")
+                    })
+                    .disposed(by: disposeBag)
+            }
+        } catch {
+            print(error)
         }
     }
 
