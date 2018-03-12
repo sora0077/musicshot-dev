@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import RxSwift
+import SwiftDate
 import AppleMusicKit
 
 extension Repository {
@@ -26,11 +27,13 @@ extension Repository {
 
             public func all(_ change: @escaping (ListChange<Entity.Song>) -> Void) throws -> (Resource.Charts.Songs, NotificationToken) {
                 let realm = try Realm()
-                if let songs = try Realm().object(ofType: Resource.Charts.Songs.self, forPrimaryKey: chart ?? "") {
+                if let songs = realm.objects(Resource.Charts.Songs.self)
+                    .filter("pk == %@ AND createDate > %@", chart ?? "", coeffects.dateType.now() - 30.minutes)
+                    .first {
                     return (songs, songs.items.observe(change))
                 }
                 try realm.write {
-                    realm.add(Resource.Charts.Songs(chart: chart))
+                    realm.add(Resource.Charts.Songs(chart: chart), update: true)
                 }
                 return try all(change)
             }
@@ -43,6 +46,9 @@ extension Repository {
                 return Single<State>
                     .just {
                         let songs = try Realm().object(ofType: Resource.Charts.Songs.self, forPrimaryKey: chart ?? "")
+                        if let updateDate = songs?.updateDate, updateDate < coeffects.dateType.now() - 60.minutes {
+                            return .first
+                        }
                         switch (songs, songs?.next) {
                         case (nil, _): return .first
                         case (let songs?, nil) where songs.items.isEmpty: return .first

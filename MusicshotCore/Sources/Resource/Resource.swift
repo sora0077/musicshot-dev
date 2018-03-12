@@ -28,6 +28,9 @@ public enum Resource {
 
             @objc private(set) dynamic var next: InternalResource.Request?
 
+            @objc private(set) dynamic var createDate = coeffects.dateType.now()
+            @objc private(set) dynamic var updateDate = coeffects.dateType.now()
+
             public let items = List<Entity.Song>()
 
             @objc override public class func primaryKey() -> String? { return "pk" }
@@ -49,8 +52,12 @@ public enum Resource {
             }
 
             func update(_ songs: GetCharts.Page<Entity.Song>) throws {
+                if let old = next {
+                    old.realm?.delete(old)
+                }
                 items.append(objectsIn: songs.data.flatMap { $0.attributes })
                 next = try InternalResource.Request(songs.next)
+                updateDate = coeffects.dateType.now()
             }
         }
         @objc(ChartAlbums)
@@ -58,17 +65,6 @@ public enum Resource {
             @objc public private(set) dynamic var name: String = ""
             @objc public private(set) dynamic var chart: String = ""
         }
-
-//        public let name: String
-//
-//        public let chart: String
-//
-//        public let data: [AppleMusicKit.Resource<A, AppleMusicKit.NoRelationships>]
-//
-//        public let href: String?
-//
-//        public internal(set) var next: AppleMusicKit.GetCharts<Song, MusicVideo, Album, Genre, Storefront>.GetPage<A>?
-
     }
 }
 

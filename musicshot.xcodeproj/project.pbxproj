@@ -38,6 +38,9 @@
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722753204AC51A0096897F /* ReactiveX.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722752204AC51A0096897F /* ReactiveX.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
+		D9AD0E732056C13F00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
+		D9AD0E742056C13F00FBC5AE /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9AD0E752056C14B00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
 		D9AD9909204A57BC00C4160D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD9906204A57B100C4160D /* Alamofire.framework */; };
 		D9AD990A204A57C000C4160D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD9908204A57B100C4160D /* RxSwift.framework */; };
 		D9AD9912204A5DCF00C4160D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD9911204A5DCF00C4160D /* Session.swift */; };
@@ -81,6 +84,7 @@
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
 		D9F86695205365D3001C3555 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F86694205365D3001C3555 /* Resource.swift */; };
 		D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */; };
+		D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBE2056A15E001BD635 /* Coeffects.swift */; };
 		FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +137,7 @@
 				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
 				D9AF1B1D204AF58100FBA537 /* Compass.framework in Embed Frameworks */,
 				D95E04152046FFDF00EACFB0 /* AppleMusicKit.framework in Embed Frameworks */,
+				D9AD0E742056C13F00FBC5AE /* SwiftDate.framework in Embed Frameworks */,
 				D9AD9918204A60D200C4160D /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -167,6 +172,7 @@
 		D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		D9AD0E722056C11600FBC5AE /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		D9AD9906204A57B100C4160D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D9AD9907204A57B100C4160D /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		D9AD9908204A57B100C4160D /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
 		D9F86694205365D3001C3555 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Realm.swift"; sourceTree = "<group>"; };
+		D9FFAEBE2056A15E001BD635 /* Coeffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coeffects.swift; sourceTree = "<group>"; };
 		E83BF0171BBE854A068D5153 /* Pods_Musicshot_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -203,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9AD0E752056C14B00FBC5AE /* SwiftDate.framework in Frameworks */,
 				D9CB00AF204B09C6006DDFC9 /* Realm.framework in Frameworks */,
 				D9CB00AE204B09C3006DDFC9 /* RealmSwift.framework in Frameworks */,
 				FBAC5D44858D7D31D3AB3B07 /* Pods_Musicshot_MusicshotCore.framework in Frameworks */,
@@ -226,6 +234,7 @@
 				D9AD9915204A5FE700C4160D /* DeepLinkKit.framework in Frameworks */,
 				D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */,
 				D9B62E78204BF7C300DDE3B8 /* FontAwesome.framework in Frameworks */,
+				D9AD0E732056C13F00FBC5AE /* SwiftDate.framework in Frameworks */,
 				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
 				D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */,
 				D9AD9917204A60D200C4160D /* Alamofire.framework in Frameworks */,
@@ -316,6 +325,7 @@
 				D94CE9202050142E00B8C71C /* Repository */,
 				D9722751204AC50C0096897F /* Utils */,
 				D9093ECD20459DC600F60136 /* MusicshotCore.swift */,
+				D9FFAEBE2056A15E001BD635 /* Coeffects.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -460,6 +470,7 @@
 		FF6A1FC1D776EB372BFDEDDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9AD0E722056C11600FBC5AE /* SwiftDate.framework */,
 				D918042A20557AF00052852D /* Nuke.framework */,
 				D9B62E77204BF7BA00DDE3B8 /* FontAwesome.framework */,
 				D9B62E4D204BED2600DDE3B8 /* WindowKit.framework */,
@@ -739,6 +750,7 @@
 				D94CE9222050144700B8C71C /* Repository.swift in Sources */,
 				D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */,
 				D9D73C41204BDA88000F1E5A /* Entity+Artist.swift in Sources */,
+				D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */,
 				D9722753204AC51A0096897F /* ReactiveX.swift in Sources */,
 				D9CB00B5204B09E6006DDFC9 /* Entity.swift in Sources */,
 				D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */,

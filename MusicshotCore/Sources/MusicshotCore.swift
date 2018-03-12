@@ -17,13 +17,6 @@ import Keys
 
 let env = MusicshotKeys()
 
-extension Realm {
-    func add(_ object: Object?, update: Bool = true) {
-        guard let object = object else { return }
-        RealmSwift.Realm.add(self)(object, update: update)
-    }
-}
-
 public func musicshotCore(oauthScheme: String) -> Core {
     return Core(oauthScheme: oauthScheme)
 }
