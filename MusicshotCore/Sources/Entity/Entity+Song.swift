@@ -123,7 +123,11 @@ extension Entity {
 
         @objc private dynamic var _releaseDate: String = ""
 
+        public var url: URL { return URL(string: _url)! }
         @objc private dynamic var _url: String = ""
+
+        public var preview: Preview? { return _preview.first }
+        private let _preview = LinkingObjects(fromType: Preview.self, property: "song")
 
         @objc override public class func primaryKey() -> String? { return "id" }
 
@@ -166,6 +170,25 @@ extension Entity {
             self.trackNumber = trackNumber
             self._url = url
             self.workName = workName
+        }
+    }
+
+    @objc(Preview)
+    public final class Preview: Object {
+        @objc private(set) dynamic var id: Song.Identifier = ""
+        @objc private(set) dynamic var _url: String = ""
+        @objc private(set) dynamic var _duration: Int = -1
+        @objc private(set) dynamic var song: Song?
+        @objc public override class func primaryKey() -> String? { return "id" }
+
+        public var url: URL { return URL(string: _url)! }
+        public var duration: Int { return _duration }
+
+        convenience init(song: Song, url: URL, duration: Int) {
+            self.init()
+            self.id = song.id
+            self._url = url.absoluteString
+            self._duration = duration
         }
     }
 }

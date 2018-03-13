@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 import Compass
 import MusicshotCore
 import Compass
@@ -52,6 +53,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         setupWindows()
         setupRouting()
         setupMusicshot()
+        setupAudio()
         return true
     }
 
@@ -146,6 +148,17 @@ extension AppDelegate {
                 }
             })
             .disposed(by: disposeBag)
+    }
+
+    private func setupAudio() {
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(AVAudioSessionCategoryPlayback)
+            try session.setActive(true)
+        } catch {
+            fatalError()
+        }
+        UIApplication.shared.beginReceivingRemoteControlEvents()
     }
 }
 

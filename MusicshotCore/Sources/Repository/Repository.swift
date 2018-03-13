@@ -40,6 +40,7 @@ public class Repository {
             Entity.Artwork.self,
             Entity.PlayParameters.self,
             Entity.EditorialNotes.self,
+            Entity.Preview.self,
             Resource.Charts.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
@@ -95,6 +96,58 @@ public class Repository {
                     }
                 })
                 .map { _ in }
+        }
+    }
+
+    public final class Preview {
+        enum Error: Swift.Error {
+            case unknownState
+        }
+        private let id: Entity.Song.Identifier
+
+        public convenience init(song: Entity.Song) {
+            self.init(id: song.id)
+        }
+
+        init(id: Entity.Song.Identifier) {
+            self.id = id
+        }
+
+        public func fetch() -> Single<(URL, Int)> {
+            enum State {
+                case cache(URL, Int)
+                case download(Int, URL, Entity.Song.Ref)
+            }
+            let id = self.id
+            return Single<State>
+                .just {
+                    let realm = try Realm()
+                    let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: id)
+                    switch (song, song?.preview) {
+                    case (nil, _):
+                        throw Error.unknownState
+                    case (_?, let preview?):
+                        return .cache(preview.url, preview.duration)
+                    case (let song?, nil):
+                        guard let id = Int(id) else { throw Error.unknownState }
+                        return .download(id, song.url, song.ref)
+                    }
+                }
+                .flatMap { state -> Single<(URL, Int)> in
+                    switch state {
+                    case .cache(let args):
+                        return .just(args)
+                    case .download(let iid, let url, let ref):
+                        return NetworkSession.shared.rx.send(GetPreviewURL(id: iid, url: url))
+                            .do(onSuccess: { url, duration in
+                                let realm = try Realm()
+                                guard let song = realm.resolve(ref) else { return }
+                                try realm.write {
+                                    realm.add(Entity.Preview(song: song, url: url, duration: duration), update: true)
+                                }
+                            })
+                    }
+                }
         }
     }
 }

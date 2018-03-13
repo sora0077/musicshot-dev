@@ -82,6 +82,7 @@
 		D9D73C41204BDA88000F1E5A /* Entity+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C40204BDA88000F1E5A /* Entity+Artist.swift */; };
 		D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */; };
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
+		D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */; };
 		D9F86695205365D3001C3555 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F86694205365D3001C3555 /* Resource.swift */; };
 		D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */; };
 		D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBE2056A15E001BD635 /* Coeffects.swift */; };
@@ -199,6 +200,7 @@
 		D9D73C40204BDA88000F1E5A /* Entity+Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Artist.swift"; sourceTree = "<group>"; };
 		D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+MusicVideo.swift"; sourceTree = "<group>"; };
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
+		D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPreviewURL.swift; sourceTree = "<group>"; };
 		D9F86694205365D3001C3555 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Realm.swift"; sourceTree = "<group>"; };
 		D9FFAEBE2056A15E001BD635 /* Coeffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coeffects.swift; sourceTree = "<group>"; };
@@ -318,6 +320,8 @@
 		D9093ECC20459DB400F60136 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9EBEC6620581163002A8C6A /* iTunes */,
+				D9EBEC652058113D002A8C6A /* Player */,
 				D9AD990E204A57E000C4160D /* Network */,
 				D971E17B204A81C800F8AF4C /* OAuth */,
 				D9CB00AB204B0870006DDFC9 /* Entity */,
@@ -449,6 +453,21 @@
 				D9FFAEBB2055A198001BD635 /* Utils */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9EBEC652058113D002A8C6A /* Player */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		D9EBEC6620581163002A8C6A /* iTunes */ = {
+			isa = PBXGroup;
+			children = (
+				D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */,
+			);
+			path = iTunes;
 			sourceTree = "<group>";
 		};
 		D9F86693205364B8001C3555 /* Resource */ = {
@@ -585,6 +604,11 @@
 					D9093EB720459D8A00F60136 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					D9B62E6A204BF70900DDE3B8 = {
 						CreatedOnToolsVersion = 9.2;
@@ -762,6 +786,7 @@
 				D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */,
 				D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */,
 				D9AD9912204A5DCF00C4160D /* Session.swift in Sources */,
+				D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
