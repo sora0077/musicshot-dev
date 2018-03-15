@@ -20,12 +20,26 @@ extension ThreadConfined {
     var ref: Ref { return Ref(to: self) }
 }
 
+extension Single {
+    static func storefront(_ body: (Entity.Storefront) throws -> E) -> Single<E> {
+        return Single.just {
+            guard let storefront = try Realm()
+                .objects(InternalResource.SelectedStorefront.self)
+                .first?.storefront else {
+                    throw Repository.Error.storefrontNotReady
+            }
+            return try body(storefront)
+        }
+    }
+}
+
 public class Repository {
     public enum Error: Swift.Error {
         case storefrontNotReady
     }
     public let storefronts = Storefronts()
     public let charts = Charts()
+    public let search = Search()
 
     init() {
         var config = Realm.Configuration.defaultConfiguration
@@ -44,6 +58,8 @@ public class Repository {
             Resource.Charts.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
+            Resource.Search.Songs.self,
+            Resource.Search.SongsFragment.self,
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,

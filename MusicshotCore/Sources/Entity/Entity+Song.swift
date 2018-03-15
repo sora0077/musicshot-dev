@@ -189,6 +189,7 @@ extension Entity {
             self.id = song.id
             self._url = url.absoluteString
             self._duration = duration
+            self.song = song
         }
     }
 }

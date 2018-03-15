@@ -83,6 +83,7 @@
 		D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */; };
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
 		D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */; };
+		D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6A20595858002A8C6A /* Repository+Search.swift */; };
 		D9F86695205365D3001C3555 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F86694205365D3001C3555 /* Resource.swift */; };
 		D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */; };
 		D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBE2056A15E001BD635 /* Coeffects.swift */; };
@@ -201,6 +202,7 @@
 		D9D73C42204BDF31000F1E5A /* Entity+MusicVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+MusicVideo.swift"; sourceTree = "<group>"; };
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
 		D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPreviewURL.swift; sourceTree = "<group>"; };
+		D9EBEC6A20595858002A8C6A /* Repository+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Search.swift"; sourceTree = "<group>"; };
 		D9F86694205365D3001C3555 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Realm.swift"; sourceTree = "<group>"; };
 		D9FFAEBE2056A15E001BD635 /* Coeffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coeffects.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			children = (
 				D94CE9212050144700B8C71C /* Repository.swift */,
 				D9DDBAD020556BA300D0793A /* Repository+Charts.swift */,
+				D9EBEC6A20595858002A8C6A /* Repository+Search.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				D9B62E7C204C314300DDE3B8 /* MainView */,
 				D94CE91D204D973F00B8C71C /* StorefrontSelectView */,
 				D94CE9232051819100B8C71C /* ChartsView */,
+				D9EBEC692059581F002A8C6A /* SearchView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -468,6 +472,13 @@
 				D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */,
 			);
 			path = iTunes;
+			sourceTree = "<group>";
+		};
+		D9EBEC692059581F002A8C6A /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		D9F86693205364B8001C3555 /* Resource */ = {
@@ -779,6 +790,7 @@
 				D9CB00B5204B09E6006DDFC9 /* Entity.swift in Sources */,
 				D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */,
 				D9D73C3B204BD6C0000F1E5A /* AppleMusicKit.swift in Sources */,
+				D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */,
 				D9D73C3F204BD94E000F1E5A /* Entity+Album.swift in Sources */,
 				D9722755204ACC7E0096897F /* String.swift in Sources */,
 				D9D73C3D204BD74C000F1E5A /* Entity+Genre.swift in Sources */,
