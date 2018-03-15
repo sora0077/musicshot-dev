@@ -59,6 +59,8 @@ struct ChartsRoute: Routable {
 struct SearchRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
         let vc = SearchViewController()
-        currentController.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.barTintColor = UIColor(named: "Primary")
+        currentController.present(nav, animated: true, completion: nil)
     }
 }

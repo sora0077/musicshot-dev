@@ -30,8 +30,7 @@ final class SearchViewController: UIViewController {
     }
 
     private let sections: [Section] = [.item, .more]
-    private let searchController = UISearchController(searchResultsController: nil)
-    private let searchText = Variable("")
+    private let searchBar = UISearchBar()
 
     private let queuePlayer = AVQueuePlayer()
 
@@ -47,22 +46,24 @@ final class SearchViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor(named: "Background")
+        collectionView.keyboardDismissMode = .interactive
         collectionView.register(Cell.self, FetchCell.self)
 
         view.addSubview(collectionView)
         collectionView.autolayout.edges.equal(to: view)
 
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.rx.text.orEmpty.asDriver()
+        searchBar.sizeToFit()
+        searchBar.rx.text.orEmpty.asDriver()
             .distinctUntilChanged()
             .throttle(0.3)
             .flatMapLatest { [unowned self] text in
-                self.repository.fetch(term: text)
+                self.repository.switch(term: text)
                     .asDriver(onErrorJustReturn: ())
             }
             .drive()
             .disposed(by: disposeBag)
+
+        navigationItem.titleView = searchBar
 
         do {
             let (songs, token) = try repository.all { [weak self] changes in
@@ -132,7 +133,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
                 })
                 .disposed(by: disposeBag)
         case .more:
-            repository.fetch(term: navigationItem.searchController?.searchBar.text ?? "")
+            repository.fetch(term: searchBar.text ?? "")
                 .subscribe()
                 .disposed(by: disposeBag)
         }

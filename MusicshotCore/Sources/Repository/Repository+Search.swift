@@ -37,29 +37,20 @@ extension Repository {
                 return try all(change)
             }
 
-            public func fetch(term: String) -> Single<Void> {
-                enum State {
-                    case first, last
-                    case middle(SearchResources.GetPage<Entity.Song>, Resource.Search.Songs.Ref)
-                }
+            public func `switch`(term: String) -> Single<Void> {
                 let uniqueKey = self.uniqueKey
-                return Single<State>
-                    .just {
-                        let realm = try Realm()
-                        let songs = realm.object(of: Resource.Search.Songs.self, for: uniqueKey,
-                                                 \.updateDate, within: 60.minutes)
-                        let fragment = realm.object(of: Resource.Search.SongsFragment.self, for: term,
-                                                    \.updateDate, within: 60.minutes)
-                        try realm.write {
-                            songs?.replace(fragment)
-                        }
-                        switch (songs, fragment?.next) {
-                        case (nil, _): return .first
-                        case (let songs?, nil) where songs.items.isEmpty: return .first
-                        case (let songs?, let next?): return .middle(try next.asRequest(), songs.ref)
-                        case (_?, nil): return .last
+                return _currentState(term: term)
+                    .flatMap { state in
+                        switch state {
+                        case .first: return fetchInitial(uniqueKey: uniqueKey, term: term, types: [.songs])
+                        default: return .just(())
                         }
                     }
+            }
+
+            public func fetch(term: String) -> Single<Void> {
+                let uniqueKey = self.uniqueKey
+                return _currentState(term: term)
                     .flatMap { state -> Single<Void> in
                         switch state {
                         case .first: return fetchInitial(uniqueKey: uniqueKey, term: term, types: [.songs])
@@ -86,6 +77,32 @@ extension Repository {
                             .map { _ in }
                         }
                     }
+            }
+
+            private enum State {
+                case first, last
+                case middle(SearchResources.GetPage<Entity.Song>, Resource.Search.Songs.Ref)
+            }
+            private func _currentState(term: String) -> Single<State> {
+                let uniqueKey = self.uniqueKey
+                return Single<State>
+                    .just {
+                        let realm = try Realm()
+                        let songs = realm.object(of: Resource.Search.Songs.self, for: uniqueKey,
+                                                 \.updateDate, within: 60.minutes)
+                        let fragment = realm.object(of: Resource.Search.SongsFragment.self, for: term,
+                                                    \.updateDate, within: 60.minutes)
+                        try realm.write {
+                            songs?.replace(fragment)
+                        }
+                        if term.isEmpty { return .last }
+                        switch (songs, fragment?.next) {
+                        case (nil, _): return .first
+                        case (let songs?, nil) where songs.items.isEmpty: return .first
+                        case (let songs?, let next?): return .middle(try next.asRequest(), songs.ref)
+                        case (_?, nil): return .last
+                        }
+                }
             }
         }
     }
