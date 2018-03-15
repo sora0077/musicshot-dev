@@ -17,14 +17,14 @@ extension Repository {
         public func songs(with uniqueKey: String) -> Songs {
             return Songs(uniqueKey: uniqueKey)
         }
-        
+
         public final class Songs {
             private let uniqueKey: String
-            
+
             fileprivate init(uniqueKey: String) {
                 self.uniqueKey = uniqueKey
             }
-            
+
             public func all(_ change: @escaping (ListChange<Entity.Song>) -> Void) throws -> (Resource.Search.Songs, NotificationToken) {
                 let realm = try Realm()
                 if let songs = realm.object(of: Resource.Search.Songs.self, for: uniqueKey,
@@ -36,8 +36,7 @@ extension Repository {
                 }
                 return try all(change)
             }
-            
-            
+
             public func fetch(term: String) -> Single<Void> {
                 enum State {
                     case first, last
@@ -77,9 +76,13 @@ extension Repository {
                                         }
                                     }()
                                     try fragment.update(response)
-                                    try songs.update(fragment)
+                                    try songs.update(response, fragment)
                                 }
                             })
+                            .catchError { error in
+                                print(error)
+                                throw error
+                            }
                             .map { _ in }
                         }
                     }
@@ -88,12 +91,11 @@ extension Repository {
     }
 }
 
-
 // MARK: - private
 private func fetchInitial(uniqueKey: String, term: String, types: Set<ResourceType>) -> Single<Void> {
     return Single<SearchResources>
         .storefront { storefront in
-            SearchResources(storefront: storefront.id, term: term, types: types)
+            SearchResources(storefront: storefront.id, term: term, limit: 25, types: types)
         }
         .flatMap(MusicSession.shared.rx.send)
         .do(onSuccess: { response in
@@ -102,7 +104,7 @@ private func fetchInitial(uniqueKey: String, term: String, types: Set<ResourceTy
                 realm.add(response.songs?.data.compactMap { $0.attributes } ?? [], update: true)
                 realm.add(response.albums?.data.compactMap { $0.attributes } ?? [], update: true)
                 realm.add(response.musicVideos?.data.compactMap { $0.attributes } ?? [], update: true)
-                
+
                 if let fragment = try Resource.Search.SongsFragment(term: term, response.songs) {
                     realm.add(fragment, update: true)
                     realm.add(Resource.Search.Songs(uniqueKey: uniqueKey, fragment), update: true)

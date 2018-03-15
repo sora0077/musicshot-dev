@@ -84,6 +84,8 @@
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
 		D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */; };
 		D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6A20595858002A8C6A /* Repository+Search.swift */; };
+		D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */; };
+		D9EBEC6F205A988A002A8C6A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6E205A988A002A8C6A /* SearchViewController.swift */; };
 		D9F86695205365D3001C3555 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F86694205365D3001C3555 /* Resource.swift */; };
 		D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */; };
 		D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFAEBE2056A15E001BD635 /* Coeffects.swift */; };
@@ -203,6 +205,8 @@
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
 		D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPreviewURL.swift; sourceTree = "<group>"; };
 		D9EBEC6A20595858002A8C6A /* Repository+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Search.swift"; sourceTree = "<group>"; };
+		D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Search.swift"; sourceTree = "<group>"; };
+		D9EBEC6E205A988A002A8C6A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D9F86694205365D3001C3555 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		D9FFAEBC2055A1AF001BD635 /* UIKit+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Realm.swift"; sourceTree = "<group>"; };
 		D9FFAEBE2056A15E001BD635 /* Coeffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coeffects.swift; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 		D9EBEC692059581F002A8C6A /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
+				D9EBEC6E205A988A002A8C6A /* SearchViewController.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				D9F86694205365D3001C3555 /* Resource.swift */,
+				D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -798,6 +804,7 @@
 				D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */,
 				D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */,
 				D9AD9912204A5DCF00C4160D /* Session.swift in Sources */,
+				D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */,
 				D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,6 +815,7 @@
 			files = (
 				D9AF1B20204AF68A00FBA537 /* Routers.swift in Sources */,
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
+				D9EBEC6F205A988A002A8C6A /* SearchViewController.swift in Sources */,
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
 				D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */,
 				D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */,

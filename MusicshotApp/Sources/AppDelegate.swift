@@ -100,7 +100,7 @@ extension AppDelegate {
 
         var searchRouter = Router()
         searchRouter.routes = [
-            "search:{term}": SearchRoute()
+            "search": SearchRoute()
         ]
 
         Navigator.routes = Array(loginRouter.routes.keys)

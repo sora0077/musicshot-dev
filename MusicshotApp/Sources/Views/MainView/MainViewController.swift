@@ -33,6 +33,15 @@ final class MainViewController: UIViewController {
         chartsButton.autolayout.left.equal(to: view, constant: 8)
         chartsButton.autolayout.top.equal(to: view, constant: 120)
 
+        let searchButton = UIButton(type: .system).apply { button in
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
+            button.setTitle("Search", for: .normal)
+            button.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
+        }
+        view.addSubview(searchButton)
+        searchButton.autolayout.left.equal(to: view, constant: 8)
+        searchButton.autolayout.top.equal(to: chartsButton.autolayout.bottom, constant: 20)
+
         additionalSafeAreaInsets.bottom = 68 + 4
         view.addSubview(customTabBar)
         customTabBar.autolayout.apply {
@@ -59,6 +68,11 @@ final class MainViewController: UIViewController {
     @objc
     private func chartsAction() {
         try? Navigator.navigate(urn: "charts")
+    }
+
+    @objc
+    private func searchAction() {
+        try? Navigator.navigate(urn: "search")
     }
 }
 

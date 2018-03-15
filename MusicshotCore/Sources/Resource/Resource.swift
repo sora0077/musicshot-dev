@@ -35,86 +35,6 @@ public enum Resource {
         case album(Entity.Album)
         case musicVideo(Entity.MusicVideo)
     }
-    
-    public final class Search {
-        @objc(SearchSongs)
-        public final class Songs: Object, LifetimeObject {
-            @objc private dynamic var pk: String = ""
-            @objc private(set) dynamic var createDate = coeffects.dateType.now()
-            @objc private(set) dynamic var updateDate = coeffects.dateType.now()
-            
-            @objc override public class func primaryKey() -> String? { return "pk" }
-            
-            @objc private(set) dynamic var fragment: SongsFragment?
-            
-            public let items = List<Entity.Song>()
-            
-            convenience init(uniqueKey: String) {
-                self.init()
-                pk = uniqueKey
-            }
-            
-            convenience init(uniqueKey: String, _ newFragment: SongsFragment) {
-                self.init()
-                pk = uniqueKey
-                replace(newFragment)
-            }
-            
-            func replace(_ newFragment: SongsFragment?) {
-                if fragment != newFragment || items.count != newFragment?.items.count {
-                    items.removeAll()
-                    if let newFragment = newFragment {
-                        items.append(objectsIn: newFragment.items)
-                    }
-                }
-                fragment = newFragment
-            }
-            
-            func update(_ newFragment: SongsFragment) throws {
-                items.append(objectsIn: newFragment.items)
-                fragment = newFragment
-            }
-        }
-        
-        @objc(SearchSongsFragment)
-        final class SongsFragment: Object, LifetimeObject {
-            @objc private(set) dynamic var keyword: String = ""
-            @objc private(set) dynamic var createDate = coeffects.dateType.now()
-            @objc private(set) dynamic var updateDate = coeffects.dateType.now()
-            
-            @objc private(set) dynamic var next: InternalResource.Request?
-            
-            @objc override class func primaryKey() -> String? { return "keyword" }
-            
-            fileprivate let items = List<Entity.Song>()
-            
-            convenience init(term: String) {
-                self.init()
-                keyword = term
-            }
-            
-            convenience init?(term: String, _ pages: SearchResources.Page<Entity.Song>?) throws {
-                guard let pages = pages else { return nil }
-                self.init()
-                keyword = term
-                items.append(objectsIn: pages.data.compactMap { $0.attributes })
-                next = try InternalResource.Request(pages.next)
-            }
-            
-            func update(_ page: SearchResources.Page<Entity.Song>) throws {
-                if let old = next {
-                    old.realm?.delete(old)
-                }
-                items.append(objectsIn: page.data.flatMap { $0.attributes })
-                next = try InternalResource.Request(page.next)
-                updateDate = coeffects.dateType.now()
-            }
-            
-            static func == (lhs: SongsFragment, rhs: SongsFragment) -> Bool {
-                return lhs.keyword == rhs.keyword
-            }
-        }
-    }
 
     @objc(Charts)
     public final class Charts: Object {
@@ -195,6 +115,14 @@ enum InternalResource {
             self.init()
             path = request.path
             parameters = try request.parameters
+                .flatMap { $0 as? [AnyHashable: Any] }
+                .map { $0.mapValues { value -> Any in
+                    if let str = value as? String {
+                        return str.removingPercentEncoding ?? str
+                    } else {
+                        return value
+                    }
+                }}
                 .map { try JSONSerialization.data(withJSONObject: $0, options: []) }
                 .flatMap { String(data: $0, encoding: .utf8) }
         }
