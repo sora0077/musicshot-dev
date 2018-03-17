@@ -52,6 +52,7 @@ extension Reactive where Base: AppleMusicKit.Session {
                 case .success(let response):
                     event(.success(response))
                 case .failure(let error):
+                    print(error)
                     event(.error(error))
                 }
             }

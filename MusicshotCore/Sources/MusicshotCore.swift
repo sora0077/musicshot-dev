@@ -35,11 +35,11 @@ public final class Core {
 
         developerToken =  Auth.auth().rx.stateDidChange()
             .do(onNext: { (_, user) in
-//                if let user = user {
-//                    Firestore.firestore().collection("users").document(user.uid).setData([
-//                        "lastAccessAt": FieldValue.serverTimestamp()
-//                    ], options: .merge())
-//                }
+                if let user = user {
+                    Firestore.firestore().collection("users").document(user.uid).setData([
+                        "lastAccessAt": FieldValue.serverTimestamp()
+                    ], options: .merge())
+                }
             })
             .flatMapLatest { (_, user) in
                 user.map {

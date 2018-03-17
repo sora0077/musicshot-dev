@@ -28,6 +28,9 @@ func top(_ viewController: UIViewController) -> UIViewController {
     }
 }
 
+let player = Player()
+let downloader = Downloader()
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     enum WindowLevel: Int, WindowKit.WindowLevel {
@@ -155,6 +158,7 @@ extension AppDelegate {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(AVAudioSessionCategoryPlayback)
             try session.setActive(true)
+            try player.start()
         } catch {
             fatalError()
         }

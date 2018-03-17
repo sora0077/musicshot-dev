@@ -14,6 +14,7 @@
 		D9093ECB20459D9F00F60136 /* libMusicshotCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9093EAB20459D7300F60136 /* libMusicshotCore.a */; };
 		D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9093ECD20459DC600F60136 /* MusicshotCore.swift */; };
 		D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9093ED72045B29600F60136 /* GoogleService-Info.plist */; };
+		D909FCEE205BEADD009F5A59 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D909FCED205BEADD009F5A59 /* Player.swift */; };
 		D918042B20557AF90052852D /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D918042A20557AF00052852D /* Nuke.framework */; };
 		D918042C20557AF90052852D /* Nuke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D918042A20557AF00052852D /* Nuke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */; };
@@ -163,6 +164,7 @@
 		D9093EC620459D8A00F60136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9093ECD20459DC600F60136 /* MusicshotCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicshotCore.swift; sourceTree = "<group>"; };
 		D9093ED72045B29600F60136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D909FCED205BEADD009F5A59 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		D918042A20557AF00052852D /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = Carthage/Build/iOS/Nuke.framework; sourceTree = "<group>"; };
 		D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorefrontSelectViewController.swift; sourceTree = "<group>"; };
 		D94CE9212050144700B8C71C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 		D9EBEC652058113D002A8C6A /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				D909FCED205BEADD009F5A59 /* Player.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D909FCEE205BEADD009F5A59 /* Player.swift in Sources */,
 				D9D73C39204BD51B000F1E5A /* Entity+Song.swift in Sources */,
 				D9F86695205365D3001C3555 /* Resource.swift in Sources */,
 				D9CB00B7204B0A01006DDFC9 /* Entity+Storefront.swift in Sources */,
