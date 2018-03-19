@@ -11,25 +11,74 @@ import AVFoundation
 import RxSwift
 
 public final class Player {
-    private let engine = AVAudioEngine()
-    private let inputA = AVAudioPlayerNode()
-    private let inputB = AVAudioPlayerNode()
+    private let player = AVQueuePlayer()
+    private let queue = FIFOQueue<URL>()
+    private let disposeBag = DisposeBag()
+    private var statusToken: NSKeyValueObservation?
 
     public init() {
-        let mixer = engine.mainMixerNode
-        engine.attach(inputA)
-        engine.connect(inputA, to: engine.mainMixerNode, format: nil)
+        #if (arch(i386) || arch(x86_64)) && os(iOS)
+            player.volume = 0.02
+            print("simulator")
+        #else
+            print("iphone")
+        #endif
+        queue.asObservable()
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .subscribe(onNext: { [weak self] result in
+                print(result)
+                switch result {
+                case .success(let url):
+                    let item = AVPlayerItem(url: url)
+                    self?.player.insert(configureFading(of: item), after: nil)
+                case .failure:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
+        statusToken = player.observe(\.status) { (player, _) in
+            switch player.status {
+            case .readyToPlay:
+                player.play()
+            case .failed, .unknown:
+                player.pause()
+            }
+        }
     }
 
-    public func start() throws {
-        try engine.start()
+    public func insert(_ url: Single<URL>) {
+        if player.status == .readyToPlay {
+            player.play()
+        }
+        queue.append(url)
     }
+}
 
-    public func insert(_ fileURL: URL) throws {
-        let file = try AVAudioFile(forReading: fileURL)
-        inputA.scheduleFile(file, at: nil, completionHandler: nil)
-        inputA.play()
-    }
+private func configureFading(of item: AVPlayerItem) -> AVPlayerItem {
+    guard let track = item.asset.tracks(withMediaType: .audio).first else { return item }
+
+    let inputParams = AVMutableAudioMixInputParameters(track: track)
+
+    let fadeDuration = CMTime(seconds: 5, preferredTimescale: 600)
+    let fadeOutStartTime = item.asset.duration - fadeDuration
+    let fadeInStartTime = kCMTimeZero
+
+    inputParams.setVolumeRamp(fromStartVolume: 0, toEndVolume: 1,
+                              timeRange: CMTimeRange(start: fadeInStartTime, duration: fadeDuration))
+    inputParams.setVolumeRamp(fromStartVolume: 1, toEndVolume: 0,
+                              timeRange: CMTimeRange(start: fadeOutStartTime, duration: fadeDuration))
+
+    //    var callbacks = AudioProcessingTapCallbacks()
+    //    var tap: Unmanaged<MTAudioProcessingTap>?
+    //    MTAudioProcessingTapCreate(kCFAllocatorDefault, &callbacks, kMTAudioProcessingTapCreationFlag_PostEffects, &tap)
+    //    inputParams.audioTapProcessor = tap?.takeUnretainedValue()
+    //    tap?.release()
+
+    let audioMix = AVMutableAudioMix()
+    audioMix.inputParameters = [inputParams]
+    item.audioMix = audioMix
+    return item
 }
 
 private let cacheDirectoryURL: URL = {

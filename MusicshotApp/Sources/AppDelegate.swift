@@ -158,7 +158,6 @@ extension AppDelegate {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(AVAudioSessionCategoryPlayback)
             try session.setActive(true)
-            try player.start()
         } catch {
             fatalError()
         }

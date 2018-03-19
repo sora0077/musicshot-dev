@@ -111,13 +111,7 @@ extension ChartsViewController: UICollectionViewDelegate, UICollectionViewDelega
         switch sections[indexPath.section] {
         case .item:
             let preview = Repository.Preview(song: songs.items[indexPath.item])
-            preview.fetch()
-                .flatMap { url, _ in downloader.download(URLRequest(url: url)) }
-                .subscribe(onSuccess: { [weak self] url in
-                    try? player.insert(url)
-//                    self?.queuePlayer.insert(AVPlayerItem(url: url), after: nil)
-                })
-                .disposed(by: disposeBag)
+            player.insert(preview.fetch().map { url, _ in url })
         case .more:
             repository.fetch()
                 .subscribe()
