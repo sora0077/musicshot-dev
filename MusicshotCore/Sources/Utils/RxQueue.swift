@@ -18,23 +18,28 @@ final class FIFOQueue<E> {
     private let operationQueue = OperationQueue()
     private var keys: ArraySlice<AnyHashable> = []
     private var buffer: [AnyHashable: Result] = [:]
+    private let executor = DispatchQueue(label: "fifo-queue")
 
     init(maxConcurrentOperationCount: Int = 2) {
         operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount
     }
 
     func append(_ item: Single<E>) {
-        let key = UUID()
-        keys.append(key)
-        operationQueue.addOperation(RxOperation(item, completion: { [weak self] result in
-            self?.buffer[key] = result
-            for k in self?.keys ?? [] {
-                guard let value = self?.buffer[k] else { return }
-                _ = self?.keys.popFirst()
-                self?.buffer[k] = nil
-                self?.publisher.onNext(value)
-            }
-        }))
+        executor.async {
+            let key = UUID()
+            self.keys.append(key)
+            self.operationQueue.addOperation(RxOperation(item, completion: { [weak self] result in
+                self?.executor.async {
+                    self?.buffer[key] = result
+                    for k in self?.keys ?? [] {
+                        guard let value = self?.buffer[k] else { return }
+                        _ = self?.keys.popFirst()
+                        self?.buffer[k] = nil
+                        self?.publisher.onNext(value)
+                    }
+                }
+            }))
+        }
     }
 
     func asObservable() -> Observable<Result> {
@@ -47,41 +52,26 @@ private final class RxOperation<E>: Operation {
     typealias Result = FIFOQueue<E>.Result
 
     override var isConcurrent: Bool { return true }
-
-    private var _isExecuting = false
     override var isExecuting: Bool {
-        get { return _isExecuting }
-        set {
-            guard _isExecuting != newValue else { return }
-            willChangeValue(for: \.isExecuting)
-            _isExecuting = newValue
-            didChangeValue(for: \.isExecuting)
-        }
+        return state == .execute ? true : false
     }
-    private var _isFinished = false
     override var isFinished: Bool {
-        get { return _isFinished }
-        set {
-            guard _isFinished != newValue else { return }
-            willChangeValue(for: \.isFinished)
-            _isFinished = newValue
-            didChangeValue(for: \.isFinished)
-        }
+        return state == .finished ? true : false
     }
 
     private enum State {
-        case ready, executing, finished
+        case ready
+        case execute
+        case finished
     }
     private var state: State = .ready {
+        willSet {
+            willChangeValue(for: \.isExecuting)
+            willChangeValue(for: \.isFinished)
+        }
         didSet {
-            switch state {
-            case .ready: break
-            case .executing:
-                isExecuting = true
-            case .finished:
-                isExecuting = false
-                isFinished = true
-            }
+            didChangeValue(for: \.isExecuting)
+            didChangeValue(for: \.isFinished)
         }
     }
     private let task: Single<E>
@@ -99,7 +89,7 @@ private final class RxOperation<E>: Operation {
             return
         }
 
-        state = .executing
+        state = .execute
 
         task.observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .subscribe(
