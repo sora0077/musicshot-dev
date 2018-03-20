@@ -22,6 +22,7 @@ public final class Player {
     public init() {
         queueingCount = player.rx.observe(\.currentItem)
             .map { $0.0.items().count }
+            .debug()
             .do(onNext: { print("queueing:", $0) })
             .share()
 
@@ -43,7 +44,7 @@ public final class Player {
                 if self?.player.status == .readyToPlay {
                     self?.player.play()
                 }
-                self?.player.insert(item, after: nil)
+                self?.player.insert(configureFading(of: item), after: nil)
             })
             .disposed(by: disposeBag)
 
@@ -64,6 +65,7 @@ public final class Player {
             .take(1)
             .asSingle()
             .flatMap { _ in url }
+            .debug()
         )
     }
 }

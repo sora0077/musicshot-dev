@@ -28,7 +28,7 @@ final class FIFOQueue<E> {
     private let executor = DispatchQueue(label: "fifo-queue")
     private let disposeBag = RxSwift.DisposeBag()
 
-    init(maxConcurrentOperationCount: Int = 2) {
+    init(maxConcurrentOperationCount: Int = 3) {
         operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount
     }
 
