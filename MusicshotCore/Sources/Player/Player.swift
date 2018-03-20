@@ -9,49 +9,62 @@
 import Foundation
 import AVFoundation
 import RxSwift
+import RxCocoa
 
 public final class Player {
     private let player = AVQueuePlayer()
-    private let queue = FIFOQueue<URL>()
+    private let waitingQueue = FIFOQueue<URL>()
     private let disposeBag = DisposeBag()
     private var statusToken: NSKeyValueObservation?
+    private var currentItemToken: NSKeyValueObservation?
+    private let queueingCount: Observable<Int>
 
     public init() {
+        queueingCount = player.rx.observe(\.currentItem)
+            .map { $0.0.items().count }
+            .do(onNext: { print("queueing:", $0) })
+            .share()
+
         #if (arch(i386) || arch(x86_64)) && os(iOS)
             player.volume = 0.02
             print("simulator")
         #else
             print("iphone")
         #endif
-        queue.asObservable()
-            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] result in
-                print(result)
-                switch result {
-                case .success(let url):
-                    let item = AVPlayerItem(url: url)
-                    self?.player.insert(configureFading(of: item), after: nil)
-                case .failure:
-                    break
+
+        waitingQueue.asObservable()
+            .map { AVPlayerItem(url: try $0.value()) }
+            .catchError { error in
+                print(error)
+                return .empty()
+            }
+            .subscribe(onNext: { [weak self] item in
+                print("play:", item)
+                if self?.player.status == .readyToPlay {
+                    self?.player.play()
                 }
+                self?.player.insert(item, after: nil)
             })
             .disposed(by: disposeBag)
 
-        statusToken = player.observe(\.status) { (player, _) in
+        player.observe(\.status) { (player, _) in
             switch player.status {
             case .readyToPlay:
                 player.play()
             case .failed, .unknown:
                 player.pause()
             }
-        }
+        }.disposed(by: disposeBag)
     }
 
     public func insert(_ url: Single<URL>) {
-        if player.status == .readyToPlay {
-            player.play()
-        }
-        queue.append(url)
+        waitingQueue.append(queueingCount
+            .startWith(player.items().count)
+            .filter { $0 <= 3 }
+            .take(1)
+            .asSingle()
+            .flatMap { _ in url }
+        )
     }
 }
 

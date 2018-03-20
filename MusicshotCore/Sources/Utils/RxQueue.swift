@@ -13,12 +13,20 @@ final class FIFOQueue<E> {
     enum Result {
         case success(E)
         case failure(Error)
+
+        func value() throws -> E {
+            switch self {
+            case .success(let value): return value
+            case .failure(let error): throw error
+            }
+        }
     }
     private let publisher = PublishSubject<Result>()
     private let operationQueue = OperationQueue()
     private var keys: ArraySlice<AnyHashable> = []
     private var buffer: [AnyHashable: Result] = [:]
     private let executor = DispatchQueue(label: "fifo-queue")
+    private let disposeBag = RxSwift.DisposeBag()
 
     init(maxConcurrentOperationCount: Int = 2) {
         operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount
@@ -28,7 +36,7 @@ final class FIFOQueue<E> {
         executor.async {
             let key = UUID()
             self.keys.append(key)
-            self.operationQueue.addOperation(RxOperation(item, completion: { [weak self] result in
+            let operation = RxOperation(item, disposeBag: self.disposeBag, completion: { [weak self] result in
                 self?.executor.async {
                     self?.buffer[key] = result
                     for k in self?.keys ?? [] {
@@ -38,7 +46,8 @@ final class FIFOQueue<E> {
                         self?.publisher.onNext(value)
                     }
                 }
-            }))
+            })
+            self.operationQueue.addOperation(operation)
         }
     }
 
@@ -75,11 +84,12 @@ private final class RxOperation<E>: Operation {
         }
     }
     private let task: Single<E>
+    private let disposeBag: RxSwift.DisposeBag
     private let completion: (Result) -> Void
-    private let disposeBag = DisposeBag()
 
-    init(_ task: Single<E>, completion: @escaping (Result) -> Void) {
+    init(_ task: Single<E>, disposeBag: RxSwift.DisposeBag, completion: @escaping (Result) -> Void) {
         self.task = task
+        self.disposeBag = disposeBag
         self.completion = completion
     }
 

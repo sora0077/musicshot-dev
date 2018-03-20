@@ -16,6 +16,7 @@
 		D9093ED82045B29600F60136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9093ED72045B29600F60136 /* GoogleService-Info.plist */; };
 		D909FCEE205BEADD009F5A59 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D909FCED205BEADD009F5A59 /* Player.swift */; };
 		D909FCF120600AE6009F5A59 /* RxQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D909FCF020600AE6009F5A59 /* RxQueue.swift */; };
+		D909FD15206134BA009F5A59 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD9907204A57B100C4160D /* RxCocoa.framework */; };
 		D918042B20557AF90052852D /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D918042A20557AF00052852D /* Nuke.framework */; };
 		D918042C20557AF90052852D /* Nuke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D918042A20557AF00052852D /* Nuke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CE91E204D976D00B8C71C /* StorefrontSelectViewController.swift */; };
@@ -40,6 +41,7 @@
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722753204AC51A0096897F /* ReactiveX.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722752204AC51A0096897F /* ReactiveX.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
+		D990A08B2061419E00327342 /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D990A08A2061419E00327342 /* DisposeBag.swift */; };
 		D9AD0E732056C13F00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
 		D9AD0E742056C13F00FBC5AE /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9AD0E752056C14B00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
@@ -180,6 +182,7 @@
 		D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		D990A08A2061419E00327342 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
 		D9AD0E722056C11600FBC5AE /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		D9AD9906204A57B100C4160D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D9AD9907204A57B100C4160D /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 				D9AD9914204A5FE000C4160D /* DeepLinkKit.framework in Frameworks */,
 				D9AD9909204A57BC00C4160D /* Alamofire.framework in Frameworks */,
 				D9AD990A204A57C000C4160D /* RxSwift.framework in Frameworks */,
+				D909FD15206134BA009F5A59 /* RxCocoa.framework in Frameworks */,
 				D95E04102046FFD100EACFB0 /* APIKit.framework in Frameworks */,
 				D95E04112046FFD300EACFB0 /* Result.framework in Frameworks */,
 				D95E04042046F8ED00EACFB0 /* FoundationSupport.framework in Frameworks */,
@@ -385,6 +389,7 @@
 				D9722752204AC51A0096897F /* ReactiveX.swift */,
 				D9722754204ACC7E0096897F /* String.swift */,
 				D909FCF020600AE6009F5A59 /* RxQueue.swift */,
+				D990A08A2061419E00327342 /* DisposeBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -811,6 +816,7 @@
 				D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */,
 				D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */,
 				D9AD9912204A5DCF00C4160D /* Session.swift in Sources */,
+				D990A08B2061419E00327342 /* DisposeBag.swift in Sources */,
 				D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */,
 				D909FCF120600AE6009F5A59 /* RxQueue.swift in Sources */,
 				D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */,

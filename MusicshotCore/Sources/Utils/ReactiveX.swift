@@ -137,3 +137,17 @@ extension Single {
         }
     }
 }
+
+extension Reactive where Base: NSObject {
+    func observe<E>(_ keyPath: KeyPath<Base, E>) -> Observable<(Base, E)> {
+        return Observable.create({ observer in
+            var token = self.base.observe(keyPath, changeHandler: { (base, _) in
+                observer.onNext((base, base[keyPath: keyPath]))
+            }) as NSKeyValueObservation?
+            return Disposables.create {
+                token?.invalidate()
+                token = nil
+            }
+        })
+    }
+}
