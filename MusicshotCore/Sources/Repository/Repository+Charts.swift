@@ -25,7 +25,7 @@ extension Repository {
                 self.chart = chart
             }
 
-            public func all(_ change: @escaping (ListChange<Entity.Song>) -> Void) throws -> (Resource.Charts.Songs, NotificationToken) {
+            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> (Resource.Charts.Songs, NotificationToken) {
                 let realm = try Realm()
                 if let songs = realm.object(of: Resource.Charts.Songs.self, for: chart ?? "",
                                             \.createDate, within: 30.minutes) {
@@ -77,13 +77,8 @@ extension Repository {
 // MARK: - private
 private func fetchInitial(chart: String? = nil, types: Set<ResourceType>) -> Single<Void> {
     return Single<GetCharts>
-        .just {
-            guard let storefront = try Realm()
-                .objects(InternalResource.SelectedStorefront.self)
-                .first?.storefront else {
-                    throw Repository.Error.storefrontNotReady
-            }
-            return GetCharts(storefront: storefront.id, types: types, chart: chart)
+        .storefront { storefront in
+            GetCharts(storefront: storefront.id, types: types, chart: chart)
         }
         .flatMap(MusicSession.shared.rx.send)
         .do(onSuccess: { response in

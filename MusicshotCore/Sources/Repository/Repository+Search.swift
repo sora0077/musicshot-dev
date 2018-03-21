@@ -25,7 +25,7 @@ extension Repository {
                 self.uniqueKey = uniqueKey
             }
 
-            public func all(_ change: @escaping (ListChange<Entity.Song>) -> Void) throws -> (Resource.Search.Songs, NotificationToken) {
+            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> (Resource.Search.Songs, NotificationToken) {
                 let realm = try Realm()
                 if let songs = realm.object(of: Resource.Search.Songs.self, for: uniqueKey,
                                             \.createDate, within: 30.minutes) {

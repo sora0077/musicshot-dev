@@ -44,6 +44,8 @@
 		D95E55A92062630100AB150B /* MusicshotPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14862062589400A35E50 /* MusicshotPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D95E55AF2062631000AB150B /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14982062596900A35E50 /* MusicshotUtility.framework */; };
 		D95E55B02062631000AB150B /* MusicshotUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14982062596900A35E50 /* MusicshotUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E55B42062D40800AB150B /* Resource+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95E55B32062D40800AB150B /* Resource+Charts.swift */; };
+		D95E55B62062D4B500AB150B /* Repository+Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95E55B52062D4B500AB150B /* Repository+Storefront.swift */; };
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
 		D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C5CAF206173F600DE3177 /* Entity+History.swift */; };
@@ -100,6 +102,7 @@
 		D9DC14A12062597E00A35E50 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CB00AD204B09AB006DDFC9 /* RealmSwift.framework */; };
 		D9DC14A22062598500A35E50 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD9908204A57B100C4160D /* RxSwift.framework */; };
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
+		D9EB211F2062D58800D3F129 /* Repository+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB211E2062D58800D3F129 /* Repository+History.swift */; };
 		D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */; };
 		D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6A20595858002A8C6A /* Repository+Search.swift */; };
 		D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */; };
@@ -231,6 +234,8 @@
 		D95E040C2046FFBF00EACFB0 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		D95E040D2046FFBF00EACFB0 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
 		D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleMusicKit.framework; path = Carthage/Build/iOS/AppleMusicKit.framework; sourceTree = "<group>"; };
+		D95E55B32062D40800AB150B /* Resource+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Charts.swift"; sourceTree = "<group>"; };
+		D95E55B52062D4B500AB150B /* Repository+Storefront.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Storefront.swift"; sourceTree = "<group>"; };
 		D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -270,6 +275,7 @@
 		D9DC149A2062596900A35E50 /* MusicshotUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotUtility.h; sourceTree = "<group>"; };
 		D9DC149B2062596900A35E50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
+		D9EB211E2062D58800D3F129 /* Repository+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+History.swift"; sourceTree = "<group>"; };
 		D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPreviewURL.swift; sourceTree = "<group>"; };
 		D9EBEC6A20595858002A8C6A /* Repository+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Search.swift"; sourceTree = "<group>"; };
 		D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Search.swift"; sourceTree = "<group>"; };
@@ -445,8 +451,10 @@
 			isa = PBXGroup;
 			children = (
 				D94CE9212050144700B8C71C /* Repository.swift */,
+				D95E55B52062D4B500AB150B /* Repository+Storefront.swift */,
 				D9DDBAD020556BA300D0793A /* Repository+Charts.swift */,
 				D9EBEC6A20595858002A8C6A /* Repository+Search.swift */,
+				D9EB211E2062D58800D3F129 /* Repository+History.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -623,6 +631,7 @@
 			isa = PBXGroup;
 			children = (
 				D9F86694205365D3001C3555 /* Resource.swift */,
+				D95E55B32062D40800AB150B /* Resource+Charts.swift */,
 				D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */,
 			);
 			path = Resource;
@@ -1000,6 +1009,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D95E55B42062D40800AB150B /* Resource+Charts.swift in Sources */,
 				D909FCEE205BEADD009F5A59 /* Player.swift in Sources */,
 				D9D73C39204BD51B000F1E5A /* Entity+Song.swift in Sources */,
 				D9F86695205365D3001C3555 /* Resource.swift in Sources */,
@@ -1008,6 +1018,7 @@
 				D9093ECE20459DC600F60136 /* MusicshotCore.swift in Sources */,
 				D9D73C41204BDA88000F1E5A /* Entity+Artist.swift in Sources */,
 				D9FFAEBF2056A15E001BD635 /* Coeffects.swift in Sources */,
+				D95E55B62062D4B500AB150B /* Repository+Storefront.swift in Sources */,
 				D9CB00B5204B09E6006DDFC9 /* Entity.swift in Sources */,
 				D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */,
 				D9D73C3B204BD6C0000F1E5A /* AppleMusicKit.swift in Sources */,
@@ -1018,6 +1029,7 @@
 				D915AE3B20625ABC004E4AAE /* ReactiveX.swift in Sources */,
 				D9AF1B22204AFE2B00FBA537 /* OAuth.swift in Sources */,
 				D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */,
+				D9EB211F2062D58800D3F129 /* Repository+History.swift in Sources */,
 				D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */,
 				D9AD9912204A5DCF00C4160D /* Session.swift in Sources */,
 				D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */,

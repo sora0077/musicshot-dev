@@ -17,6 +17,7 @@ import MusicshotPlayer
 import MusicshotUtility
 @_exported import FoundationSupport
 @_exported import RxSwift
+@_exported import RealmSwift
 
 let env = MusicshotKeys()
 

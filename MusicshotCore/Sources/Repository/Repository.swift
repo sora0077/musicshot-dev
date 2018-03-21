@@ -78,7 +78,6 @@ public class Repository {
             Entity.EditorialNotes.self,
             Entity.Preview.self,
             Entity.History.self,
-            Resource.Charts.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
             Resource.Search.Songs.self,
@@ -98,69 +97,13 @@ public class Repository {
         #endif
     }
 
-    public final class Storefronts {
-        public func selected() throws -> Entity.Storefront? {
-            return try Realm().objects(InternalResource.SelectedStorefront.self).first?.storefront
-        }
-
-        public func select(_ storefront: Entity.Storefront) throws {
-            let realm = try Realm()
-            try realm.write {
-                realm.delete(realm.objects(InternalResource.SelectedStorefront.self))
-                let selected = InternalResource.SelectedStorefront()
-                selected.storefront = storefront
-                realm.add(selected)
-            }
-        }
-
-        public func all(_ change: @escaping ListChange<Entity.Storefront>.Event) throws -> (List<Entity.Storefront>, NotificationToken) {
-            let realm = try Realm()
-            if let holder = realm.objects(InternalResource.StorefrontHolder.self).first {
-                return (holder.list, holder.list.observe(change))
-            }
-            try realm.write {
-                realm.add(InternalResource.StorefrontHolder())
-            }
-            return try all(change)
-        }
-
-        public func fetch() -> Single<Void> {
-            return MusicSession.shared.rx.send(GetAllStorefronts(language: "ja-JP"))
-                .do(onSuccess: { response in
-                    let realm = try Realm()
-                    let holder = realm.objects(InternalResource.StorefrontHolder.self).first
-                    try realm.write {
-                        let storefronts = response.data.flatMap { $0.attributes }
-                        realm.add(storefronts, update: true)
-                        holder?.list.append(objectsIn: storefronts)
-                    }
-                })
-                .map { _ in }
-        }
-    }
-
-    public final class History {
-        fileprivate init() {}
-
-        public func all(_ change: @escaping ListChange<Entity.History>.Event) throws -> ListChange<Entity.History>.CollectionAndToken {
-            let realm = try Realm()
-            if let holder = realm.objects(InternalResource.Histories.self).first {
-                return (holder.list, holder.list.observe(change))
-            }
-            try realm.write {
-                realm.add(InternalResource.Histories())
-            }
-            return try all(change)
-        }
-    }
-
-    public final class Preview {
+    final class Preview {
         enum Error: Swift.Error {
             case unknownState
         }
         private let id: Entity.Song.Identifier
 
-        public convenience init(song: Entity.Song) {
+        convenience init(song: Entity.Song) {
             self.init(id: song.id)
         }
 
@@ -168,7 +111,7 @@ public class Repository {
             self.id = id
         }
 
-        public func fetch() -> Single<(URL, Int)> {
+        func fetch() -> Single<(URL, Int)> {
             enum State {
                 case cache(URL, Int)
                 case download(Int, URL, Entity.Song.Ref)
@@ -192,8 +135,8 @@ public class Repository {
                     switch state {
                     case .cache(let args):
                         return .just(args)
-                    case .download(let iid, let url, let ref):
-                        return NetworkSession.shared.rx.send(GetPreviewURL(id: iid, url: url))
+                    case .download(let id, let url, let ref):
+                        return NetworkSession.shared.rx.send(GetPreviewURL(id: id, url: url))
                             .do(onSuccess: { url, duration in
                                 let realm = try Realm()
                                 guard let song = realm.resolve(ref) else { return }

@@ -30,12 +30,9 @@ final class ChartsViewController: UIViewController {
 
     private let sections: [Section] = [.item, .more]
 
-    private let queuePlayer = AVQueuePlayer()
-
     private let repository = musicshot.repository.charts.songs()
     private var songs: Resource.Charts.Songs!
     private var token: NotificationToken!
-    private var statusObservation: NSKeyValueObservation?
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -57,18 +54,6 @@ final class ChartsViewController: UIViewController {
             self.token = token
         } catch {
             print(error)
-        }
-
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
-            queuePlayer.volume = 0.02
-            print("simulator")
-        #else
-            print("iphone")
-        #endif
-        statusObservation = queuePlayer.observe(\.status) { (player, _) in
-            if player.status == .readyToPlay {
-                player.play()
-            }
         }
     }
 }
