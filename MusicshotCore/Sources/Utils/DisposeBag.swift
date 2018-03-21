@@ -8,10 +8,12 @@
 
 import Foundation
 import RxSwift
+import RealmSwift
 
 public final class DisposeBag {
     fileprivate lazy var bag = RxSwift.DisposeBag()
     fileprivate lazy var observations: [NSKeyValueObservation] = []
+    fileprivate lazy var tokens: [NotificationToken] = []
 
     public init() {}
 }
@@ -27,5 +29,11 @@ public extension Disposable {
 public extension NSKeyValueObservation {
     func disposed(by bag: DisposeBag?) {
         bag?.observations.append(self)
+    }
+}
+
+public extension NotificationToken {
+    func disposed(by bag: DisposeBag?) {
+        bag?.tokens.append(self)
     }
 }

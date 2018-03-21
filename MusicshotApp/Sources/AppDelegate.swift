@@ -151,6 +151,19 @@ extension AppDelegate {
                 }
             })
             .disposed(by: disposeBag)
+
+        // test code
+        try! musicshot.repository.history
+            .all { changes in
+                switch changes {
+                case .initial, .error:
+                    break
+                case .update(let list, _, _, _):
+                    print(list.count, list.last)
+                }
+            }
+            .token
+            .disposed(by: disposeBag)
     }
 
     private func setupAudio() {

@@ -110,8 +110,7 @@ extension ChartsViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .item:
-            let preview = Repository.Preview(song: songs.items[indexPath.item])
-            player.insert(preview.fetch().map { url, _ in url })
+            musicshot.player.insert(songs.items[indexPath.item])
         case .more:
             repository.fetch()
                 .subscribe()

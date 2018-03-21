@@ -134,4 +134,9 @@ enum InternalResource {
                 as? [String: Any] ?? [:])
         }
     }
+
+    @objc(Histories)
+    final class Histories: Object {
+        let list = List<Entity.History>()
+    }
 }

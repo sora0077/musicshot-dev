@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import Firebase
 import FirebaseAuth
 import AppleMusicKit
@@ -23,7 +24,10 @@ public func musicshotCore(oauthScheme: String) -> Core {
 
 public final class Core {
     public let oauth: OAuth
+
+    public private(set) lazy var player = setupPlayer()
     public let repository = Repository()
+
     private let disposeBag = DisposeBag()
 
     private let developerToken: Observable<String?>
@@ -57,5 +61,27 @@ public final class Core {
                 }
             })
             .disposed(by: disposeBag)
+    }
+
+    private func setupPlayer() -> APlayer {
+        let player = APlayer()
+
+        class InsertHistory: PlayerMiddleware {
+            func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem) {
+                guard let songId = item.songId else { return }
+                do {
+                    let realm = try Realm()
+                    guard let histories = realm.objects(InternalResource.Histories.self).first else { return }
+                    guard let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: songId) else { return }
+                    try realm.write {
+                        histories.list.append(Entity.History(song))
+                    }
+                } catch {
+                    print(#function, error)
+                }
+            }
+        }
+        player.install(middleware: InsertHistory())
+        return player
     }
 }

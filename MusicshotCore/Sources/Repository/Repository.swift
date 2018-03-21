@@ -14,6 +14,11 @@ import AppleMusicKit
 public typealias ListChange<T> = RealmCollectionChange<List<T>> where T: RealmCollectionValue
 public typealias ListPattern<T> = (@escaping (ListChange<T>) -> Void) -> (List<T>, NotificationToken) where T: RealmCollectionValue
 
+extension RealmCollectionChange {
+    public typealias Event = (RealmCollectionChange<CollectionType>) -> Void
+    public typealias CollectionAndToken = (collection: CollectionType, token: NotificationToken)
+}
+
 extension ThreadConfined {
     typealias Ref = ThreadSafeReference<Self>
 
@@ -37,9 +42,25 @@ public class Repository {
     public enum Error: Swift.Error {
         case storefrontNotReady
     }
+    public enum CollectionChanges {
+        case initial
+        case update(deletions: [Int], insertions: [Int], modifications: [Int])
+
+        init<T>(_ changes: RealmCollectionChange<T>) throws {
+            switch changes {
+            case .initial:
+                self = .initial
+            case .update(_, let deletions, let insertions, let modifications):
+                self = .update(deletions: deletions, insertions: insertions, modifications: modifications)
+            case .error(let error):
+                throw error
+            }
+        }
+    }
     public let storefronts = Storefronts()
     public let charts = Charts()
     public let search = Search()
+    public let history = History()
 
     init() {
         var config = Realm.Configuration.defaultConfiguration
@@ -55,6 +76,7 @@ public class Repository {
             Entity.PlayParameters.self,
             Entity.EditorialNotes.self,
             Entity.Preview.self,
+            Entity.History.self,
             Resource.Charts.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
@@ -63,7 +85,8 @@ public class Repository {
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,
-            InternalResource.Request.self
+            InternalResource.Request.self,
+            InternalResource.Histories.self
         ]
         Realm.Configuration.defaultConfiguration = config
 
@@ -89,7 +112,7 @@ public class Repository {
             }
         }
 
-        public func all(_ change: @escaping (ListChange<Entity.Storefront>) -> Void) throws -> (List<Entity.Storefront>, NotificationToken) {
+        public func all(_ change: @escaping ListChange<Entity.Storefront>.Event) throws -> (List<Entity.Storefront>, NotificationToken) {
             let realm = try Realm()
             if let holder = realm.objects(InternalResource.StorefrontHolder.self).first {
                 return (holder.list, holder.list.observe(change))
@@ -112,6 +135,21 @@ public class Repository {
                     }
                 })
                 .map { _ in }
+        }
+    }
+
+    public final class History {
+        fileprivate init() {}
+
+        public func all(_ change: @escaping ListChange<Entity.History>.Event) throws -> ListChange<Entity.History>.CollectionAndToken {
+            let realm = try Realm()
+            if let holder = realm.objects(InternalResource.Histories.self).first {
+                return (holder.list, holder.list.observe(change))
+            }
+            try realm.write {
+                realm.add(InternalResource.Histories())
+            }
+            return try all(change)
         }
     }
 
