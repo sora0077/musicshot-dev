@@ -27,7 +27,7 @@ public final class Player {
 
     init() {
         struct ImprintSongId: PlayerMiddleware {
-            func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?) {
+            func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?) {
                 item.songId = userInfo as? String
             }
         }

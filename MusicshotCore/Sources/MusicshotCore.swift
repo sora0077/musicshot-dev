@@ -71,7 +71,7 @@ public final class Core {
         let player = Player()
 
         class InsertHistory: PlayerMiddleware {
-            func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem) {
+            func playerDidEndPlayToEndTime(_ item: AVPlayerItem) {
                 guard let songId = item.songId else { return }
                 do {
                     let realm = try Realm()

@@ -13,13 +13,13 @@ import RxCocoa
 import MusicshotUtility
 
 public protocol PlayerMiddleware {
-    func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?)
-    func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem)
+    func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?)
+    func playerDidEndPlayToEndTime(_ item: AVPlayerItem)
 }
 
 extension PlayerMiddleware {
-    public func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?) {}
-    public func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem) {}
+    public func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?) {}
+    public func playerDidEndPlayToEndTime(_ item: AVPlayerItem) {}
 }
 
 public final class Player {
@@ -70,9 +70,8 @@ public final class Player {
             }
             .compactMap { $0.object as? AVPlayerItem }
             .subscribe(onNext: { [weak self] item in
-                guard let `self` = self else { return }
-                self.middlewares.reversed().forEach { middleware in
-                    middleware.player(self, didEndPlayToEndTimeOf: item)
+                self?.middlewares.reversed().forEach { middleware in
+                    middleware.playerDidEndPlayToEndTime(item)
                 }
             })
             .disposed(by: disposeBag)
@@ -99,9 +98,8 @@ public final class Player {
             .map(AVPlayerItem.init(url:))
             .map(configureFading)
             .do(onSuccess: { [weak self] item in
-                guard let `self` = self else { return }
-                self.middlewares.reversed().forEach { middleware in
-                    middleware.player(self, createPlayerItem: item, with: userInfo)
+                self?.middlewares.reversed().forEach { middleware in
+                    middleware.playerCreatePlayerItem(item, with: userInfo)
                 }
             })
             .debug()

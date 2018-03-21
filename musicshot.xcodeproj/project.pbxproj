@@ -40,6 +40,10 @@
 		D95E04152046FFDF00EACFB0 /* AppleMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040C2046FFBF00EACFB0 /* Result.framework */; };
 		D95E04172046FFDF00EACFB0 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D95E040C2046FFBF00EACFB0 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E55A82062630100AB150B /* MusicshotPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14862062589400A35E50 /* MusicshotPlayer.framework */; };
+		D95E55A92062630100AB150B /* MusicshotPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14862062589400A35E50 /* MusicshotPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D95E55AF2062631000AB150B /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14982062596900A35E50 /* MusicshotUtility.framework */; };
+		D95E55B02062631000AB150B /* MusicshotUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14982062596900A35E50 /* MusicshotUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
 		D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C5CAF206173F600DE3177 /* Entity+History.swift */; };
@@ -114,6 +118,20 @@
 			remoteGlobalIDString = D9093EAA20459D7300F60136;
 			remoteInfo = MusicshotCore;
 		};
+		D95E55AA2062630100AB150B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9093E822044608500F60136 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9DC14852062589400A35E50;
+			remoteInfo = MusicshotPlayer;
+		};
+		D95E55B12062631000AB150B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9093E822044608500F60136 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9DC14972062596900A35E50;
+			remoteInfo = MusicshotUtility;
+		};
 		D9B62E75204BF72100DDE3B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D9093E822044608500F60136 /* Project object */;
@@ -173,9 +191,11 @@
 				D9AD9916204A5FE700C4160D /* DeepLinkKit.framework in Embed Frameworks */,
 				D918042C20557AF90052852D /* Nuke.framework in Embed Frameworks */,
 				D9CB00B3204B09D2006DDFC9 /* Realm.framework in Embed Frameworks */,
+				D95E55A92062630100AB150B /* MusicshotPlayer.framework in Embed Frameworks */,
 				D95E04082046F91C00EACFB0 /* AutoLayoutSupport.framework in Embed Frameworks */,
 				D9AF1B1D204AF58100FBA537 /* Compass.framework in Embed Frameworks */,
 				D95E04152046FFDF00EACFB0 /* AppleMusicKit.framework in Embed Frameworks */,
+				D95E55B02062631000AB150B /* MusicshotUtility.framework in Embed Frameworks */,
 				D9AD0E742056C13F00FBC5AE /* SwiftDate.framework in Embed Frameworks */,
 				D9AD9918204A60D200C4160D /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -290,6 +310,8 @@
 				D9AD9915204A5FE700C4160D /* DeepLinkKit.framework in Frameworks */,
 				D9B62E73204BF72100DDE3B8 /* MusicshotUI.framework in Frameworks */,
 				D9B62E78204BF7C300DDE3B8 /* FontAwesome.framework in Frameworks */,
+				D95E55A82062630100AB150B /* MusicshotPlayer.framework in Frameworks */,
+				D95E55AF2062631000AB150B /* MusicshotUtility.framework in Frameworks */,
 				D9AD0E732056C13F00FBC5AE /* SwiftDate.framework in Frameworks */,
 				D95E04052046F91C00EACFB0 /* FoundationSupport.framework in Frameworks */,
 				D95E04162046FFDF00EACFB0 /* Result.framework in Frameworks */,
@@ -708,6 +730,8 @@
 			dependencies = (
 				D9093ED42045B15A00F60136 /* PBXTargetDependency */,
 				D9B62E76204BF72100DDE3B8 /* PBXTargetDependency */,
+				D95E55AB2062630100AB150B /* PBXTargetDependency */,
+				D95E55B22062631000AB150B /* PBXTargetDependency */,
 			);
 			name = MusicshotApp;
 			productName = MusicshotApp;
@@ -1050,6 +1074,16 @@
 			target = D9093EAA20459D7300F60136 /* MusicshotCore */;
 			targetProxy = D9093ED32045B15A00F60136 /* PBXContainerItemProxy */;
 		};
+		D95E55AB2062630100AB150B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9DC14852062589400A35E50 /* MusicshotPlayer */;
+			targetProxy = D95E55AA2062630100AB150B /* PBXContainerItemProxy */;
+		};
+		D95E55B22062631000AB150B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9DC14972062596900A35E50 /* MusicshotUtility */;
+			targetProxy = D95E55B12062631000AB150B /* PBXContainerItemProxy */;
+		};
 		D9B62E76204BF72100DDE3B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D9B62E6A204BF70900DDE3B8 /* MusicshotUI */;
@@ -1246,6 +1280,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 76F48FB3245787A92E654F33 /* Pods-Musicshot-MusicshotApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2TD54U4MA;
@@ -1266,6 +1301,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 812BC6707502A63A2FDA5083 /* Pods-Musicshot-MusicshotApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2TD54U4MA;
@@ -1337,6 +1373,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1363,6 +1400,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1387,6 +1425,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1411,6 +1450,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
