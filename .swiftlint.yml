@@ -1,4 +1,6 @@
 included:
+  - MusicshotPlayer
+  - MusicshotUtility
   - MusicshotCore
   - MusicshotUI
   - MusicshotApp

@@ -13,10 +13,14 @@ import FirebaseAuth
 import AppleMusicKit
 import RealmSwift
 import Keys
+import MusicshotPlayer
+import MusicshotUtility
 @_exported import FoundationSupport
 @_exported import RxSwift
 
 let env = MusicshotKeys()
+
+typealias DisposeBag = MusicshotUtility.DisposeBag
 
 public func musicshotCore(oauthScheme: String) -> Core {
     return Core(oauthScheme: oauthScheme)
@@ -63,8 +67,8 @@ public final class Core {
             .disposed(by: disposeBag)
     }
 
-    private func setupPlayer() -> APlayer {
-        let player = APlayer()
+    private func setupPlayer() -> Player {
+        let player = Player()
 
         class InsertHistory: PlayerMiddleware {
             func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem) {

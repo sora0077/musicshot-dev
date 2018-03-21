@@ -10,107 +10,7 @@ import Foundation
 import AVFoundation
 import RxSwift
 import RxCocoa
-
-public protocol PlayerMiddleware {
-    func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?)
-    func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem)
-}
-
-extension PlayerMiddleware {
-    func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?) {}
-    func player(_ player: Player, didEndPlayToEndTimeOf item: AVPlayerItem) {}
-}
-
-public class Player {
-    private let player = AVQueuePlayer()
-    private let waitingQueue = FIFOQueue<AVPlayerItem>()
-    private let disposeBag = DisposeBag()
-    private var statusToken: NSKeyValueObservation?
-    private var currentItemToken: NSKeyValueObservation?
-    private let queueingCount: Observable<Int>
-
-    private var middlewares: [PlayerMiddleware] = []
-
-    public init() {
-        queueingCount = player.rx.observe(\.currentItem)
-            .map { $0.0.items().count }
-            .debug()
-            .do(onNext: { print("queueing:", $0) })
-
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
-            player.volume = 0.02
-            print("simulator")
-        #else
-            print("iphone")
-        #endif
-
-        let playerItems = waitingQueue.asObservable()
-            .map { try $0.value() }
-            .catchError { error in
-                print(error)
-                return .empty()
-            }
-            .share()
-
-        playerItems
-            .subscribe(onNext: { [weak self] item in
-                print("play:", item)
-                self?.player.insert(item, after: nil)
-                if self?.player.status == .readyToPlay {
-                    self?.player.play()
-                }
-            })
-            .disposed(by: disposeBag)
-
-        playerItems
-            .flatMap { item in
-                NotificationCenter.default.rx
-                    .notification(.AVPlayerItemDidPlayToEndTime, object: item)
-            }
-            .compactMap { $0.object as? AVPlayerItem }
-            .subscribe(onNext: { [weak self] item in
-                guard let `self` = self else { return }
-                self.middlewares.reversed().forEach { middleware in
-                    middleware.player(self, didEndPlayToEndTimeOf: item)
-                }
-            })
-            .disposed(by: disposeBag)
-
-        player.rx.observe(\.status)
-            .subscribe(onNext: { player, _ in
-                switch player.status {
-                case .readyToPlay:
-                    player.play()
-                case .failed, .unknown:
-                    player.pause()
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-
-    public func insert(_ url: Single<URL>, userInfo: Any? = nil) {
-        waitingQueue.append(queueingCount
-            .startWith(player.items().count)
-            .filter { $0 <= 3 }
-            .take(1)
-            .asSingle()
-            .flatMap { _ in url }
-            .map(AVPlayerItem.init(url:))
-            .map(configureFading)
-            .do(onSuccess: { [weak self] item in
-                guard let `self` = self else { return }
-                self.middlewares.reversed().forEach { middleware in
-                    middleware.player(self, createPlayerItem: item, with: userInfo)
-                }
-            })
-            .debug()
-        )
-    }
-
-    public func install(middleware: PlayerMiddleware) {
-        middlewares.append(middleware)
-    }
-}
+import MusicshotPlayer
 
 extension AVPlayerItem {
     private struct Keys {
@@ -122,10 +22,10 @@ extension AVPlayerItem {
     }
 }
 
-public final class APlayer: Player {
-    public override init() {
-        super.init()
+public final class Player {
+    private let player = MusicshotPlayer.Player()
 
+    init() {
         struct ImprintSongId: PlayerMiddleware {
             func player(_ player: Player, createPlayerItem item: AVPlayerItem, with userInfo: Any?) {
                 item.songId = userInfo as? String
@@ -136,7 +36,11 @@ public final class APlayer: Player {
 
     public func insert(_ song: Entity.Song) {
         let preview = Repository.Preview(song: song)
-        insert(preview.fetch().map { url, _ in url }, userInfo: song.id)
+        player.insert(preview.fetch().map { url, _ in url }, userInfo: song.id)
+    }
+
+    public func install(middleware: PlayerMiddleware) {
+        player.install(middleware: middleware)
     }
 }
 

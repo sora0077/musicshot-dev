@@ -10,6 +10,7 @@ import Foundation
 @_exported import RealmSwift
 import RxSwift
 import AppleMusicKit
+import MusicshotUtility
 
 public typealias ListChange<T> = RealmCollectionChange<List<T>> where T: RealmCollectionValue
 public typealias ListPattern<T> = (@escaping (ListChange<T>) -> Void) -> (List<T>, NotificationToken) where T: RealmCollectionValue

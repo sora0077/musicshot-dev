@@ -2,7 +2,7 @@
 //  ReactiveX.swift
 //  MusicshotCore
 //
-//  Created by 林達也 on 2018/03/03.
+//  Created by 林達也 on 2018/03/21.
 //  Copyright © 2018年 林達也. All rights reserved.
 //
 
@@ -15,7 +15,7 @@ import APIKit
 import AppleMusicKit
 
 extension Reactive where Base: DPLDeepLinkRouter {
-    func register(_ route: String) -> Observable<DPLDeepLink?> {
+    public func register(_ route: String) -> Observable<DPLDeepLink?> {
         return Observable.create({ [weak base] observer in
             base?.register(route) { link in
                 observer.onNext(link)
@@ -27,7 +27,7 @@ extension Reactive where Base: DPLDeepLinkRouter {
 
 extension APIKit.Session: ReactiveCompatible {}
 extension Reactive where Base: APIKit.Session {
-    func send<Req: APIKit.Request>(_ request: Req) -> Single<Req.Response> {
+    public func send<Req: APIKit.Request>(_ request: Req) -> Single<Req.Response> {
         return Single.create(subscribe: { event in
             let task = self.base.send(request) { result in
                 switch result {
@@ -45,7 +45,7 @@ extension Reactive where Base: APIKit.Session {
 }
 
 extension Reactive where Base: AppleMusicKit.Session {
-    func send<Req: AppleMusicKit.Request>(_ request: Req) -> Single<Req.Response> {
+    public func send<Req: AppleMusicKit.Request>(_ request: Req) -> Single<Req.Response> {
         return Single.create(subscribe: { event in
             let task = self.base.send(request) { result in
                 switch result {
@@ -64,7 +64,7 @@ extension Reactive where Base: AppleMusicKit.Session {
 }
 
 extension Reactive where Base: Auth {
-    func signIn(with credential: AuthCredential) -> Single<User> {
+    public func signIn(with credential: AuthCredential) -> Single<User> {
         return Single.create { event in
             self.base.signIn(with: credential, completion: { (user, error) in
                 switch (user, error) {
@@ -80,7 +80,7 @@ extension Reactive where Base: Auth {
         }
     }
 
-    func stateDidChange() -> Observable<(Auth, User?)> {
+    public func stateDidChange() -> Observable<(Auth, User?)> {
         return Observable.create { observer in
             let handle = self.base.addStateDidChangeListener { (auth, user) in
                 observer.onNext((auth, user))
@@ -93,7 +93,7 @@ extension Reactive where Base: Auth {
 }
 
 extension Reactive where Base: CollectionReference {
-    func document(_ path: String) -> Observable<DocumentSnapshot?> {
+    public func document(_ path: String) -> Observable<DocumentSnapshot?> {
         return Observable.create { observer in
             let listener = self.base.document(path).addSnapshotListener { (snapshot, error) in
                 switch (snapshot, error) {
@@ -107,47 +107,5 @@ extension Reactive where Base: CollectionReference {
                 listener.remove()
             }
         }
-    }
-}
-
-extension ObservableType {
-    func timeout(_ duration: RxTimeInterval, scheduler: SchedulerType = MainScheduler.instance, _ value: @escaping () throws -> E) -> Observable<E> {
-        return amb(Observable.just(())
-            .delay(duration, scheduler: scheduler)
-            .map(value))
-    }
-
-    func compactMap<T>(_ transform: @escaping (E) throws -> T?) -> Observable<T> {
-        return flatMap {
-            try transform($0).map(Observable.just) ?? .empty()
-        }
-    }
-
-    func compact<T>() -> Observable<T> where E == T? {
-        return compactMap { $0 }
-    }
-}
-
-extension Single {
-    static func just(_ body: () throws -> E) -> Single<E> {
-        do {
-            return .just(try body())
-        } catch {
-            return .error(error)
-        }
-    }
-}
-
-extension Reactive where Base: NSObject {
-    func observe<E>(_ keyPath: KeyPath<Base, E>) -> Observable<(Base, E)> {
-        return Observable.create({ observer in
-            var token = self.base.observe(keyPath, changeHandler: { (base, _) in
-                observer.onNext((base, base[keyPath: keyPath]))
-            }) as NSKeyValueObservation?
-            return Disposables.create {
-                token?.invalidate()
-                token = nil
-            }
-        })
     }
 }

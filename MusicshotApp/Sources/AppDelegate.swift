@@ -13,6 +13,9 @@ import MusicshotCore
 import Compass
 import WindowKit
 import MusicshotUI
+import MusicshotUtility
+
+typealias DisposeBag = MusicshotUtility.DisposeBag
 
 let musicshot = musicshotCore(oauthScheme: "musicshot-dev-oauth")
 
@@ -28,7 +31,6 @@ func top(_ viewController: UIViewController) -> UIViewController {
     }
 }
 
-let player = Player()
 let downloader = Downloader()
 
 @UIApplicationMain

@@ -32,8 +32,6 @@ final class SearchViewController: UIViewController {
     private let sections: [Section] = [.item, .more]
     private let searchBar = UISearchBar()
 
-    private let queuePlayer = AVQueuePlayer()
-
     private let repository = musicshot.repository.search.songs(with: "search")
     private var songs: Resource.Search.Songs!
     private var token: NotificationToken!
@@ -73,18 +71,6 @@ final class SearchViewController: UIViewController {
             self.token = token
         } catch {
             print(error)
-        }
-
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
-            queuePlayer.volume = 0.02
-            print("simulator")
-        #else
-            print("iphone")
-        #endif
-        statusObservation = queuePlayer.observe(\.status) { (player, _) in
-            if player.status == .readyToPlay {
-                player.play()
-            }
         }
     }
 }
@@ -126,12 +112,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .item:
-            let preview = Repository.Preview(song: songs.items[indexPath.item])
-            preview.fetch()
-                .subscribe(onSuccess: { [weak self] url, _ in
-                    self?.queuePlayer.insert(AVPlayerItem(url: url), after: nil)
-                })
-                .disposed(by: disposeBag)
+            musicshot.player.insert(songs.items[indexPath.item])
         case .more:
             repository.fetch(term: searchBar.text ?? "")
                 .subscribe()
