@@ -42,6 +42,15 @@ final class MainViewController: UIViewController {
         searchButton.autolayout.left.equal(to: view, constant: 8)
         searchButton.autolayout.top.equal(to: chartsButton.autolayout.bottom, constant: 20)
 
+        let rankingButton = UIButton(type: .system).apply { button in
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
+            button.setTitle("Ranking Genres", for: .normal)
+            button.addTarget(self, action: #selector(rankingAction), for: .touchUpInside)
+        }
+        view.addSubview(rankingButton)
+        rankingButton.autolayout.left.equal(to: view, constant: 8)
+        rankingButton.autolayout.top.equal(to: searchButton.autolayout.bottom, constant: 20)
+
         additionalSafeAreaInsets.bottom = 68 + 4
         view.addSubview(customTabBar)
         customTabBar.autolayout.apply {
@@ -73,6 +82,11 @@ final class MainViewController: UIViewController {
     @objc
     private func searchAction() {
         try? Navigator.navigate(urn: "search")
+    }
+
+    @objc
+    private func rankingAction() {
+        try? Navigator.navigate(urn: "rankingGenres")
     }
 }
 

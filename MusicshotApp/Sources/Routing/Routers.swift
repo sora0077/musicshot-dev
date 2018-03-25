@@ -64,3 +64,13 @@ struct SearchRoute: Routable {
         currentController.present(nav, animated: true, completion: nil)
     }
 }
+
+struct RankingGenresRoute: Routable {
+    private let disposeBag = DisposeBag()
+
+    func navigate(to location: Location, from currentController: CurrentController) throws {
+        musicshot.repository.ranking.genres.fetch()
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+}

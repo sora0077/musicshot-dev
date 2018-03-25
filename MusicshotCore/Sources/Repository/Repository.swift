@@ -62,6 +62,7 @@ public class Repository {
     public let charts = Charts()
     public let search = Search()
     public let history = History()
+    public let ranking = Ranking()
 
     init() {
         var config = Realm.Configuration.defaultConfiguration
@@ -82,6 +83,9 @@ public class Repository {
             Resource.Charts.Albums.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
+            Resource.Ranking.Genre.self,
+            Resource.Ranking.Genre.ChartUrls.self,
+            Resource.Ranking.Genre.RssUrls.self,
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,
@@ -95,6 +99,27 @@ public class Repository {
                 print("open \(path)")
             }
         #endif
+    }
+
+    public final class Ranking {
+        public let genres = Genres()
+
+        public final class Genres {
+            public func fetch() -> Single<Void> {
+                return Single<ListRankingGenres>
+                    .storefront { storefront in
+                        ListRankingGenres(country: storefront.id)
+                    }
+                    .flatMap(NetworkSession.shared.rx.send)
+                    .do(onSuccess: { response in
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(response)
+                        }
+                    })
+                    .map { _ in }
+            }
+        }
     }
 
     final class Preview {

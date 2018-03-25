@@ -100,7 +100,8 @@ extension AppDelegate {
         var postLoginRouter = Router()
         postLoginRouter.routes = [
             "storefront/select": StorefrontSelectRoute(),
-            "charts": ChartsRoute()
+            "charts": ChartsRoute(),
+            "rankingGenres": RankingGenresRoute()
         ]
 
         var searchRouter = Router()
@@ -161,7 +162,7 @@ extension AppDelegate {
                 case .initial, .error:
                     break
                 case .update(let list, _, _, _):
-                    print(list.count, list.last)
+                    print(list.count, list.last?.song?.name ?? "", list.last?.createDate ?? .distantPast)
                 }
             }
             .token

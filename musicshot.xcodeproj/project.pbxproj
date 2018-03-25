@@ -103,6 +103,7 @@
 		D9DC14A22062598500A35E50 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD9908204A57B100C4160D /* RxSwift.framework */; };
 		D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DDBAD020556BA300D0793A /* Repository+Charts.swift */; };
 		D9EB211F2062D58800D3F129 /* Repository+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB211E2062D58800D3F129 /* Repository+History.swift */; };
+		D9EB2122206804DD00D3F129 /* ListRankingGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB2121206804DD00D3F129 /* ListRankingGenres.swift */; };
 		D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */; };
 		D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6A20595858002A8C6A /* Repository+Search.swift */; };
 		D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */; };
@@ -276,6 +277,7 @@
 		D9DC149B2062596900A35E50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9DDBAD020556BA300D0793A /* Repository+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Charts.swift"; sourceTree = "<group>"; };
 		D9EB211E2062D58800D3F129 /* Repository+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+History.swift"; sourceTree = "<group>"; };
+		D9EB2121206804DD00D3F129 /* ListRankingGenres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRankingGenres.swift; sourceTree = "<group>"; };
 		D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPreviewURL.swift; sourceTree = "<group>"; };
 		D9EBEC6A20595858002A8C6A /* Repository+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Search.swift"; sourceTree = "<group>"; };
 		D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Search.swift"; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				D9EBEC672058117E002A8C6A /* GetPreviewURL.swift */,
+				D9EB2121206804DD00D3F129 /* ListRankingGenres.swift */,
 			);
 			path = iTunes;
 			sourceTree = "<group>";
@@ -1032,6 +1035,7 @@
 				D9EB211F2062D58800D3F129 /* Repository+History.swift in Sources */,
 				D9D73C43204BDF31000F1E5A /* Entity+MusicVideo.swift in Sources */,
 				D9AD9912204A5DCF00C4160D /* Session.swift in Sources */,
+				D9EB2122206804DD00D3F129 /* ListRankingGenres.swift in Sources */,
 				D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */,
 				D9EBEC6D205A9802002A8C6A /* Resource+Search.swift in Sources */,
 				D9EBEC682058117E002A8C6A /* GetPreviewURL.swift in Sources */,
