@@ -79,13 +79,13 @@ public class Repository {
             Entity.EditorialNotes.self,
             Entity.Preview.self,
             Entity.History.self,
+            Entity.Ranking.Genre.self,
+            Entity.Ranking.Genre.ChartUrls.self,
+            Entity.Ranking.Genre.RssUrls.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
-            Resource.Ranking.Genre.self,
-            Resource.Ranking.Genre.ChartUrls.self,
-            Resource.Ranking.Genre.RssUrls.self,
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,
@@ -114,7 +114,7 @@ public class Repository {
                     .do(onSuccess: { response in
                         let realm = try Realm()
                         try realm.write {
-                            realm.add(response)
+                            realm.add(response, update: true)
                         }
                     })
                     .map { _ in }

@@ -36,15 +36,13 @@ struct ListRankingGenres: Request {
         self.country = country
     }
 
-    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Resource.Ranking.Genre {
+    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Entity.Ranking.Genre {
         // swiftlint:disable:next force_cast
-        let decoder = JSONDecoder()
-        decoder.userInfo = [CodingUserInfoKey(rawValue: "topId")!: "34"]
-        return try decoder.decode([String: Resource.Ranking.Genre].self, from: object as! Data).values.first!
+        return try JSONDecoder().decode([String: Entity.Ranking.Genre].self, from: object as! Data).values.first!
     }
 }
 
-extension Resource.Ranking.Genre: Decodable {
+extension Entity.Ranking.Genre: Decodable {
     private enum CodingKeys: String, CodingKey {
         case id, name, url, rssUrls, chartUrls, subgenres
     }
@@ -53,14 +51,14 @@ extension Resource.Ranking.Genre: Decodable {
         try self.init(id: c.decode(String.self, forKey: .id),
                       name: c.decode(String.self, forKey: .name),
                       url: c.decode(URL.self, forKey: .url),
-                      rssUrls: c.decode(Resource.Ranking.Genre.RssUrls.self, forKey: .rssUrls),
-                      chartUrls: c.decode(Resource.Ranking.Genre.ChartUrls.self, forKey: .chartUrls),
-                      subgenres: c.decodeIfPresent([String: Resource.Ranking.Genre].self,
+                      rssUrls: c.decode(Entity.Ranking.Genre.RssUrls.self, forKey: .rssUrls),
+                      chartUrls: c.decode(Entity.Ranking.Genre.ChartUrls.self, forKey: .chartUrls),
+                      subgenres: c.decodeIfPresent([String: Entity.Ranking.Genre].self,
                                                    forKey: .subgenres)?.values.toArray())
     }
 }
 
-extension Resource.Ranking.Genre.RssUrls: Decodable {
+extension Entity.Ranking.Genre.RssUrls: Decodable {
     private enum CodingKeys: String, CodingKey {
         case topAlbums, topSongs
     }
@@ -71,7 +69,7 @@ extension Resource.Ranking.Genre.RssUrls: Decodable {
     }
 }
 
-extension Resource.Ranking.Genre.ChartUrls: Decodable {
+extension Entity.Ranking.Genre.ChartUrls: Decodable {
     private enum CodingKeys: String, CodingKey {
         case albums, songs
     }
