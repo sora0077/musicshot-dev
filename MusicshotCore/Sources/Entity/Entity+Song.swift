@@ -11,7 +11,7 @@ import RealmSwift
 import AppleMusicKit
 
 extension Entity {
-    @objc(Artwork)
+    @objc(EntityArtwork)
     public final class Artwork: Object, AppleMusicKit.Artwork {
         @objc public private(set) dynamic var width: Int = -1
         @objc public private(set) dynamic var height: Int = -1
@@ -58,7 +58,7 @@ extension Entity {
         }
     }
 
-    @objc(EditorialNotes)
+    @objc(EntityEditorialNotes)
     public final class EditorialNotes: Object, AppleMusicKit.EditorialNotes {
         @objc public private(set) dynamic var standard: String?
         @objc public private(set) dynamic var short: String?
@@ -70,7 +70,7 @@ extension Entity {
         }
     }
 
-    @objc(PlayParameters)
+    @objc(EntityPlayParameters)
     public final class PlayParameters: Object, AppleMusicKit.PlayParameters {
         @objc public private(set) dynamic var id: String = ""
         @objc public private(set) dynamic var kind: String = ""
@@ -86,7 +86,7 @@ extension Entity {
 }
 
 extension Entity {
-    @objc(Song)
+    @objc(EntitySong)
     public final class Song: Object, AppleMusicKit.Song {
         public typealias Artwork = Entity.Artwork
         public typealias EditorialNotes = Entity.EditorialNotes
@@ -173,7 +173,7 @@ extension Entity {
         }
     }
 
-    @objc(Preview)
+    @objc(EntityPreview)
     public final class Preview: Object {
         @objc private(set) dynamic var id: Song.Identifier = ""
         @objc private(set) dynamic var _url: String = ""

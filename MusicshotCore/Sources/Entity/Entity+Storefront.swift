@@ -13,7 +13,7 @@ import AppleMusicKit
 extension String: Language {}
 
 extension Entity {
-    @objc(Storefront)
+    @objc(EntityStorefront)
     public final class Storefront: Object, AppleMusicKit.Storefront {
         public typealias Identifier = String
         public typealias Language = String

@@ -11,7 +11,7 @@ import RealmSwift
 
 extension Entity {
     public enum Ranking {
-        @objc(RankingGenre)
+        @objc(EntityRankingGenre)
         public final class Genre: Object {
             @objc public private(set) dynamic var id: String = ""
             @objc public private(set) dynamic var name: String = ""
@@ -26,10 +26,11 @@ extension Entity {
             public let subgenres = List<Genre>()
             public override class func primaryKey() -> String? { return "id" }
 
-            @objc(RankingGenreRssUrls)
+            @objc(EntityRankingGenreRssUrls)
             public final class RssUrls: RealmSwift.Object {
                 @objc private dynamic var _topAlbums: String = ""
                 @objc private dynamic var _topSongs: String = ""
+                public override class func primaryKey() -> String? { return "_topAlbums" }
 
                 public var topAlbums: URL { return URL(string: _topAlbums)! }
                 public var topSongs: URL { return URL(string: _topSongs)! }
@@ -41,10 +42,11 @@ extension Entity {
                 }
             }
 
-            @objc(RankingGenreChartUrls)
+            @objc(EntityRankingGenreChartUrls)
             public final class ChartUrls: RealmSwift.Object {
                 @objc private dynamic var _albums: String = ""
                 @objc private dynamic var _songs: String = ""
+                public override class func primaryKey() -> String? { return "_albums" }
 
                 public var albums: URL { return URL(string: _albums)! }
                 public var songs: URL { return URL(string: _songs)! }

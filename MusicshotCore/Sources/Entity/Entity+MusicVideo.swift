@@ -11,7 +11,7 @@ import RealmSwift
 import AppleMusicKit
 
 extension Entity {
-    @objc(MusicVideo)
+    @objc(EntityMusicVideo)
     public final class MusicVideo: Object, AppleMusicKit.MusicVideo {
         public typealias Artwork = Entity.Artwork
         public typealias EditorialNotes = Entity.EditorialNotes

@@ -11,7 +11,7 @@ import RealmSwift
 import AppleMusicKit
 
 extension Entity {
-    @objc(Genre)
+    @objc(EntityGenre)
     public final class Genre: Object, AppleMusicKit.Genre {
         public typealias Identifier = String
 

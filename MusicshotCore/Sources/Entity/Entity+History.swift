@@ -11,7 +11,7 @@ import RealmSwift
 import AppleMusicKit
 
 extension Entity {
-    @objc(History)
+    @objc(EntityHistory)
     public final class History: Object {
         @objc public private(set) dynamic var song: Entity.Song?
         @objc public private(set) dynamic var createDate = coeffects.dateType.now()
