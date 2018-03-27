@@ -47,6 +47,7 @@
 		D95E55B02062631000AB150B /* MusicshotUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DC14982062596900A35E50 /* MusicshotUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D95E55B42062D40800AB150B /* Resource+Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95E55B32062D40800AB150B /* Resource+Charts.swift */; };
 		D95E55B62062D4B500AB150B /* Repository+Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95E55B52062D4B500AB150B /* Repository+Storefront.swift */; };
+		D9670F93206AA64100F8A253 /* Repository+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9670F92206AA64100F8A253 /* Repository+Preview.swift */; };
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
 		D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C5CAF206173F600DE3177 /* Entity+History.swift */; };
@@ -241,6 +242,7 @@
 		D95E040E2046FFC000EACFB0 /* AppleMusicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleMusicKit.framework; path = Carthage/Build/iOS/AppleMusicKit.framework; sourceTree = "<group>"; };
 		D95E55B32062D40800AB150B /* Resource+Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Charts.swift"; sourceTree = "<group>"; };
 		D95E55B52062D4B500AB150B /* Repository+Storefront.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Storefront.swift"; sourceTree = "<group>"; };
+		D9670F92206AA64100F8A253 /* Repository+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+Preview.swift"; sourceTree = "<group>"; };
 		D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				D9DDBAD020556BA300D0793A /* Repository+Charts.swift */,
 				D9EBEC6A20595858002A8C6A /* Repository+Search.swift */,
 				D9EB211E2062D58800D3F129 /* Repository+History.swift */,
+				D9670F92206AA64100F8A253 /* Repository+Preview.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				D9DDBAD120556BA300D0793A /* Repository+Charts.swift in Sources */,
 				D9D73C3B204BD6C0000F1E5A /* AppleMusicKit.swift in Sources */,
 				D959757D2069302F009A279F /* Entity+Ranking.swift in Sources */,
+				D9670F93206AA64100F8A253 /* Repository+Preview.swift in Sources */,
 				D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */,
 				D98C5A2620693E28005FB1D3 /* Resource+Ranking.swift in Sources */,
 				D9D73C3F204BD94E000F1E5A /* Entity+Album.swift in Sources */,
