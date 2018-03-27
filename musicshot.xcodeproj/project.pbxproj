@@ -50,7 +50,9 @@
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
 		D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C5CAF206173F600DE3177 /* Entity+History.swift */; };
+		D98C5A2620693E28005FB1D3 /* Resource+Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98C5A2520693E28005FB1D3 /* Resource+Ranking.swift */; };
 		D9A0C8AC20625A53006B233D /* ReactiveX.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722752204AC51A0096897F /* ReactiveX.swift */; };
+		D9A20917206937C9000F5999 /* RankingGenresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A20916206937C9000F5999 /* RankingGenresViewController.swift */; };
 		D9AD0E732056C13F00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
 		D9AD0E742056C13F00FBC5AE /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D9AD0E752056C14B00FBC5AE /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AD0E722056C11600FBC5AE /* SwiftDate.framework */; };
@@ -243,7 +245,9 @@
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D97C5CAF206173F600DE3177 /* Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+History.swift"; sourceTree = "<group>"; };
+		D98C5A2520693E28005FB1D3 /* Resource+Ranking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Ranking.swift"; sourceTree = "<group>"; };
 		D990A08A2061419E00327342 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
+		D9A20916206937C9000F5999 /* RankingGenresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingGenresViewController.swift; sourceTree = "<group>"; };
 		D9AD0E722056C11600FBC5AE /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		D9AD9906204A57B100C4160D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D9AD9907204A57B100C4160D /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
@@ -489,6 +493,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		D9A20915206937A6000F5999 /* RankingGenreView */ = {
+			isa = PBXGroup;
+			children = (
+				D9A20916206937C9000F5999 /* RankingGenresViewController.swift */,
+			);
+			path = RankingGenreView;
+			sourceTree = "<group>";
+		};
 		D9AD990E204A57E000C4160D /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,6 +534,7 @@
 				D9B62E7C204C314300DDE3B8 /* MainView */,
 				D94CE91D204D973F00B8C71C /* StorefrontSelectView */,
 				D94CE9232051819100B8C71C /* ChartsView */,
+				D9A20915206937A6000F5999 /* RankingGenreView */,
 				D9EBEC692059581F002A8C6A /* SearchView */,
 			);
 			path = Views;
@@ -639,6 +652,7 @@
 				D9F86694205365D3001C3555 /* Resource.swift */,
 				D95E55B32062D40800AB150B /* Resource+Charts.swift */,
 				D9EBEC6C205A9802002A8C6A /* Resource+Search.swift */,
+				D98C5A2520693E28005FB1D3 /* Resource+Ranking.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1030,6 +1044,7 @@
 				D9D73C3B204BD6C0000F1E5A /* AppleMusicKit.swift in Sources */,
 				D959757D2069302F009A279F /* Entity+Ranking.swift in Sources */,
 				D9EBEC6B20595858002A8C6A /* Repository+Search.swift in Sources */,
+				D98C5A2620693E28005FB1D3 /* Resource+Ranking.swift in Sources */,
 				D9D73C3F204BD94E000F1E5A /* Entity+Album.swift in Sources */,
 				D9722755204ACC7E0096897F /* String.swift in Sources */,
 				D9D73C3D204BD74C000F1E5A /* Entity+Genre.swift in Sources */,
@@ -1053,6 +1068,7 @@
 				D9AF1B20204AF68A00FBA537 /* Routers.swift in Sources */,
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
 				D9EBEC6F205A988A002A8C6A /* SearchViewController.swift in Sources */,
+				D9A20917206937C9000F5999 /* RankingGenresViewController.swift in Sources */,
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
 				D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */,
 				D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */,

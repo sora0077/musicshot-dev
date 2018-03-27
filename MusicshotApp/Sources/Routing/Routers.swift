@@ -66,11 +66,9 @@ struct SearchRoute: Routable {
 }
 
 struct RankingGenresRoute: Routable {
-    private let disposeBag = DisposeBag()
-
     func navigate(to location: Location, from currentController: CurrentController) throws {
-        musicshot.repository.ranking.genres.fetch()
-            .subscribe()
-            .disposed(by: disposeBag)
+        guard let from = currentController as? MainViewController else { return }
+        let vc = RankingGenresViewController()
+        from.present(vc, animated: true, completion: nil)
     }
 }

@@ -14,6 +14,8 @@ import MusicshotUtility
 
 public typealias ListChange<T> = RealmCollectionChange<List<T>> where T: RealmCollectionValue
 public typealias ListPattern<T> = (@escaping (ListChange<T>) -> Void) -> (List<T>, NotificationToken) where T: RealmCollectionValue
+public typealias ResultsChange<T> = RealmCollectionChange<Results<T>> where T: RealmCollectionValue
+public typealias ResultsPattern<T> = (@escaping (ResultsChange<T>) -> Void) -> (Results<T>, NotificationToken) where T: RealmCollectionValue
 
 extension RealmCollectionChange {
     public typealias Event = (RealmCollectionChange<CollectionType>) -> Void
@@ -86,6 +88,8 @@ public class Repository {
             Resource.Charts.Albums.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
+            Resource.Ranking.SelectedGenre.self,
+            Resource.Ranking.Genres.self,
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,
@@ -105,6 +109,18 @@ public class Repository {
         public let genres = Genres()
 
         public final class Genres {
+            public func all(_ change: @escaping ResultsChange<Resource.Ranking.SelectedGenre>.Event) throws -> ResultsChange<Resource.Ranking.SelectedGenre>.CollectionAndToken {
+                let realm = try Realm()
+                if let genres = realm.object(of: Resource.Ranking.Genres.self, \.createDate, within: 30.minutes) {
+                    let items = genres.items()
+                    return (items, items.observe(change))
+                }
+                try realm.write {
+                    realm.add(Resource.Ranking.Genres(), update: true)
+                }
+                return try all(change)
+            }
+
             public func fetch() -> Single<Void> {
                 return Single<ListRankingGenres>
                     .storefront { storefront in
@@ -113,8 +129,18 @@ public class Repository {
                     .flatMap(NetworkSession.shared.rx.send)
                     .do(onSuccess: { response in
                         let realm = try Realm()
+                        let genres = realm.objects(Resource.Ranking.Genres.self).first
                         try realm.write {
                             realm.add(response, update: true)
+
+                            genres?.removeAll()
+                            func addToGenres(_ genre: Entity.Ranking.Genre) {
+                                genres?.append(genre)
+                                for subgenre in genre.subgenres {
+                                    addToGenres(subgenre)
+                                }
+                            }
+                            addToGenres(response)
                         }
                     })
                     .map { _ in }

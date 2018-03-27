@@ -19,10 +19,24 @@ protocol LifetimeObject {
 extension Realm {
     func object<O: Object & LifetimeObject, Key>(
         of type: O.Type, for primaryKey: Key,
-        _ keyPath: KeyPath<O, Date>, within: DateComponents,
+        _ keyPath: KeyPath<O, Date>,
+        within: DateComponents,
         now: Date = coeffects.dateType.now()
     ) -> O? {
         let obj = object(ofType: type, forPrimaryKey: primaryKey)
+        if let date = obj?[keyPath: keyPath], date < now - within {
+            return nil
+        }
+        return obj
+    }
+
+    func object<O: Object & LifetimeObject>(
+        of type: O.Type,
+        _ keyPath: KeyPath<O, Date>,
+        within: DateComponents,
+        now: Date = coeffects.dateType.now()
+    ) -> O? {
+        let obj = objects(type).first
         if let date = obj?[keyPath: keyPath], date < now - within {
             return nil
         }
