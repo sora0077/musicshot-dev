@@ -42,7 +42,7 @@ extension Repository {
                     case (nil, _):
                         throw Error.unknownState
                     case (_?, let preview?):
-                        if let url = preview.localURL, FileManager.default.fileExists(atPath: url.path) {
+                        if let url = preview.localURL, diskCache.exists(url) {
                             return .cache(url, preview.duration)
                         } else {
                             return .cache(preview.remoteURL, preview.duration)
@@ -74,12 +74,11 @@ extension Repository {
                 case notReady, onlyRemote(URL), downloaded
             }
             let id = self.id
-            let dir = diskCache.dir
             return Single<State>
                 .just {
                     let realm = try Realm()
                     let preview = realm.object(ofType: Entity.Preview.self, forPrimaryKey: id)
-                    if let url = preview?.localURL, FileManager.default.fileExists(atPath: url.path) {
+                    if let url = preview?.localURL, diskCache.exists(url) {
                         return .downloaded
                     }
                     if let url = preview?.remoteURL {
@@ -100,10 +99,9 @@ extension Repository {
                                 let realm = try Realm()
                                 guard let preview = realm.object(ofType: Entity.Preview.self, forPrimaryKey: id) else { return }
                                 try realm.write {
-                                    let to = dir.appendingPathComponent(filename)
-                                    try? FileManager.default.removeItem(at: to)
-                                    try FileManager.default.moveItem(at: src, to: to)
-                                    preview.localURL = to
+                                    let dst = diskCache.dir.appendingPathComponent(filename)
+                                    try diskCache.move(from: src, to: dst)
+                                    preview.localURL = dst
                                 }
                             }
                             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
@@ -153,6 +151,15 @@ private final class DiskCacheImpl: NSObject, NSFilePresenter {
             print(error)
             return 0
         }
+    }
+
+    func exists(_ url: URL) -> Bool {
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+
+    func move(from src: URL, to dst: URL) throws {
+        try? FileManager.default.removeItem(at: dst)
+        try FileManager.default.moveItem(at: src, to: dst)
     }
 
     func removeAll() -> Single<Void> {
