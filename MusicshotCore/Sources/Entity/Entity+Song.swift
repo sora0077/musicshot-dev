@@ -175,19 +175,25 @@ extension Entity {
 
     @objc(EntityPreview)
     public final class Preview: Object {
-        @objc private(set) dynamic var id: Song.Identifier = ""
-        @objc private(set) dynamic var _url: String = ""
-        @objc private(set) dynamic var _duration: Int = -1
-        @objc private(set) dynamic var song: Song?
         @objc public override class func primaryKey() -> String? { return "id" }
 
-        public var url: URL { return URL(string: _url)! }
+        @objc private(set) dynamic var id: Song.Identifier = ""
+        @objc private dynamic var _duration: Int = -1
+        @objc private dynamic var _remoteUrl: String = ""
+        @objc private dynamic var _localUrl: String = ""
+        @objc private(set) dynamic var song: Song?
+
         public var duration: Int { return _duration }
+        public var remoteURL: URL { return URL(string: _remoteUrl)! }
+        @nonobjc public internal(set) var localURL: URL? {
+            get { return URL(string: _localUrl) }
+            set { _localUrl = newValue?.absoluteString ?? "" }
+        }
 
         convenience init(song: Song, url: URL, duration: Int) {
             self.init()
             self.id = song.id
-            self._url = url.absoluteString
+            self._remoteUrl = url.absoluteString
             self._duration = duration
             self.song = song
         }

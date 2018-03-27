@@ -86,3 +86,30 @@ private func getPreviewURL(item: [String: Any]) throws -> (URL, Int) {
     }
     return ret
 }
+
+// MARK: - Preview Data
+struct GetPreviewData: Request {
+    typealias Response = Data
+    let baseURL: URL
+    let method = HTTPMethod.get
+    let path = ""
+    var dataParser: DataParser {
+        struct DataParser: APIKit.DataParser {
+            var contentType: String?
+
+            func parse(data: Data) throws -> Any {
+                return data
+            }
+        }
+        return DataParser()
+    }
+
+    init(url: URL) {
+        self.baseURL = url
+    }
+
+    func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Response {
+        // swiftlint:disable:next force_cast
+        return object as! Data
+    }
+}

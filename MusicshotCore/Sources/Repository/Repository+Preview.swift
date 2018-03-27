@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
+import RxSwift
+import RxCocoa
+
+private let diskCache = DiskCacheImpl()
 
 extension Repository {
     final class Preview {
@@ -37,7 +42,11 @@ extension Repository {
                     case (nil, _):
                         throw Error.unknownState
                     case (_?, let preview?):
-                        return .cache(preview.url, preview.duration)
+                        if let url = preview.localURL, FileManager.default.fileExists(atPath: url.path) {
+                            return .cache(url, preview.duration)
+                        } else {
+                            return .cache(preview.remoteURL, preview.duration)
+                        }
                     case (let song?, nil):
                         guard let id = Int(id) else { throw Error.unknownState }
                         return .download(id, song.url, song.ref)
@@ -59,5 +68,116 @@ extension Repository {
                     }
                 }
         }
+
+        func download() -> Single<Void> {
+            enum State {
+                case notReady, onlyRemote(URL), downloaded
+            }
+            let id = self.id
+            let dir = diskCache.dir
+            return Single<State>
+                .just {
+                    let realm = try Realm()
+                    let preview = realm.object(ofType: Entity.Preview.self, forPrimaryKey: id)
+                    if let url = preview?.localURL, FileManager.default.fileExists(atPath: url.path) {
+                        return .downloaded
+                    }
+                    if let url = preview?.remoteURL {
+                        return .onlyRemote(url)
+                    }
+                    return .notReady
+                }
+                .flatMap { state -> Single<Void> in
+                    switch state {
+                    case .notReady, .downloaded:
+                        return .just(())
+                    case .onlyRemote(let url):
+                        return URLSession.shared.rx.download(with: url)
+                            .map { src in
+                                guard let src = src else { return }
+
+                                let filename = url.lastPathComponent
+                                let realm = try Realm()
+                                guard let preview = realm.object(ofType: Entity.Preview.self, forPrimaryKey: id) else { return }
+                                try realm.write {
+                                    let to = dir.appendingPathComponent(filename)
+                                    try? FileManager.default.removeItem(at: to)
+                                    try FileManager.default.moveItem(at: src, to: to)
+                                    preview.localURL = to
+                                }
+                            }
+                            .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
+                    }
+                }
+        }
+    }
+}
+
+// MARK: - private
+private enum Cache {
+    static let directory: URL = {
+        let base = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+        let dir = URL(fileURLWithPath: base).appendingPathComponent("tracks", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
+        return dir
+    }()
+}
+
+private final class DiskCacheImpl: NSObject, NSFilePresenter {
+    private lazy var _diskSizeInBytes = BehaviorRelay<Int>(value: self.diskSizeInBytes)
+
+    let dir: URL
+
+    var presentedItemURL: URL? { return dir }
+    let presentedItemOperationQueue = OperationQueue()
+
+    init(dir: URL = Cache.directory) {
+        self.dir = dir
+        super.init()
+
+        NSFileCoordinator.addFilePresenter(self)
+    }
+
+    func presentedSubitemDidChange(at url: URL) {
+        _diskSizeInBytes.accept(diskSizeInBytes)
+    }
+
+    var diskSizeInBytes: Int {
+        do {
+            let paths = try FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: [.fileSizeKey])
+            let sizes = try paths.compactMap {
+                try $0.resourceValues(forKeys: [.fileSizeKey]).fileSize
+            }
+            return sizes.reduce(0, +)
+        } catch {
+            print(error)
+            return 0
+        }
+    }
+
+    func removeAll() -> Single<Void> {
+        let dir = self.dir
+        return Single.just {
+            try FileManager.default.removeItem(at: dir)
+            try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
+        }.subscribeOn(SerialDispatchQueueScheduler(qos: .background))
+    }
+}
+
+private extension Reactive where Base: URLSession {
+    func download(with url: URL) -> Single<URL?> {
+        return Single.create(subscribe: { event in
+            let task = URLSession.shared.downloadTask(with: url, completionHandler: { (url, _, error) in
+                if let error = error {
+                    event(.error(error))
+                } else {
+                    event(.success(url))
+                }
+            })
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        })
     }
 }

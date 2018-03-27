@@ -14,12 +14,12 @@ import MusicshotUtility
 
 public protocol PlayerMiddleware {
     func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?)
-    func playerDidEndPlayToEndTime(_ item: AVPlayerItem)
+    func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws
 }
 
 extension PlayerMiddleware {
     public func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?) {}
-    public func playerDidEndPlayToEndTime(_ item: AVPlayerItem) {}
+    public func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws {}
 }
 
 public final class Player {
@@ -29,6 +29,8 @@ public final class Player {
     private var statusToken: NSKeyValueObservation?
     private var currentItemToken: NSKeyValueObservation?
     private let queueingCount: Observable<Int>
+    public private(set) lazy var middlewareError = self._middlewareError.asObservable()
+    private let _middlewareError = PublishSubject<Error>()
 
     private var middlewares: [PlayerMiddleware] = []
 
@@ -71,7 +73,11 @@ public final class Player {
             .compactMap { $0.object as? AVPlayerItem }
             .subscribe(onNext: { [weak self] item in
                 self?.middlewares.reversed().forEach { middleware in
-                    middleware.playerDidEndPlayToEndTime(item)
+                    do {
+                        try middleware.playerDidEndPlayToEndTime(item)
+                    } catch {
+                        self?._middlewareError.onNext(error)
+                    }
                 }
             })
             .disposed(by: disposeBag)

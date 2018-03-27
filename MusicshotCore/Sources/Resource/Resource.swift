@@ -103,5 +103,9 @@ enum InternalResource {
     @objc(Histories)
     final class Histories: Object {
         let list = List<Entity.History>()
+
+        func count(for song: Entity.Song) -> Int {
+            return list.filter("song.id = %@", song.id).count
+        }
     }
 }

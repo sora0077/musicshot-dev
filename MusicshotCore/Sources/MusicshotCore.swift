@@ -71,22 +71,32 @@ public final class Core {
     private func setupPlayer() -> Player {
         let player = Player()
 
-        class InsertHistory: PlayerMiddleware {
-            func playerDidEndPlayToEndTime(_ item: AVPlayerItem) {
-                guard let songId = item.songId else { return }
-                do {
+        player.install(middleware: {
+            class InsertHistory: PlayerMiddleware {
+                weak var core: Core?
+
+                init(core: Core) {
+                    self.core = core
+                }
+
+                func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws {
+                    guard let songId = item.songId else { return }
                     let realm = try Realm()
                     guard let histories = realm.objects(InternalResource.Histories.self).first else { return }
                     guard let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: songId) else { return }
                     try realm.write {
                         histories.list.append(Entity.History(song))
                     }
-                } catch {
-                    print(#function, error)
+                    if histories.count(for: song) >= 3 {
+                        let preview = Repository.Preview(song: song)
+                        preview.download()
+                            .subscribe()
+                            .disposed(by: core?.disposeBag)
+                    }
                 }
             }
-        }
-        player.install(middleware: InsertHistory())
+            return InsertHistory(core: self)
+        }())
         return player
     }
 }
