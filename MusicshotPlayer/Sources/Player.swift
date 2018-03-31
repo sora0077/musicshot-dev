@@ -22,6 +22,8 @@ extension PlayerMiddleware {
     public func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws {}
 }
 
+private let maxQueueingCount = 3
+
 public final class Player {
     private let player = AVQueuePlayer()
     private let waitingQueue = FIFOQueue<AVPlayerItem>()
@@ -44,7 +46,7 @@ public final class Player {
             .debug()
             .do(onNext: { print("queueing:", $0) })
 
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
+        #if targetEnvironment(simulator)
             player.volume = 0.02
             print("simulator")
         #else
@@ -62,28 +64,7 @@ public final class Player {
         playerItems
             .subscribe(onNext: { [weak self] item in
                 print("play:", item)
-                self?.player.insert(item, after: nil)
                 insertNotifier.onNext(())
-                if self?.player.status == .readyToPlay {
-                    self?.player.play()
-                }
-            })
-            .disposed(by: disposeBag)
-
-        playerItems
-            .flatMap { item in
-                NotificationCenter.default.rx
-                    .notification(.AVPlayerItemDidPlayToEndTime, object: item)
-            }
-            .compactMap { $0.object as? AVPlayerItem }
-            .subscribe(onNext: { [weak self] item in
-                self?.middlewares.reversed().forEach { middleware in
-                    do {
-                        try middleware.playerDidEndPlayToEndTime(item)
-                    } catch {
-                        self?._middlewareError.onNext(error)
-                    }
-                }
             })
             .disposed(by: disposeBag)
 
@@ -99,6 +80,31 @@ public final class Player {
             .disposed(by: disposeBag)
     }
 
+    private func register(_ item: AVPlayerItem) {
+        NotificationCenter.default.rx
+            .notification(.AVPlayerItemDidPlayToEndTime, object: item)
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+            .compactMap { $0.object as? AVPlayerItem }
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+            .subscribe(onNext: { [weak self] item in
+                self?.middlewares.reversed().forEach { middleware in
+                    do {
+                        try middleware.playerDidEndPlayToEndTime(item)
+                    } catch {
+                        self?._middlewareError.onNext(error)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+
+        player.insert(item, after: nil)
+        if player.status == .readyToPlay {
+            player.play()
+        }
+    }
+
+    //
+    // MARK: -
     public func insert(_ url: Single<URL>, userInfo: Any? = nil) {
         waitingQueue.append(queueingCount
             .startWith(player.items().count)
@@ -108,12 +114,12 @@ public final class Player {
             .flatMap { _ in url }
             .map(AVPlayerItem.init(url:))
             .map(configureFading)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .do(onSuccess: { [weak self] item in
                 self?.middlewares.reversed().forEach { middleware in
                     middleware.playerCreatePlayerItem(item, with: userInfo)
                 }
             })
-            .debug()
         )
     }
 

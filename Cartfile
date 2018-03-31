@@ -1,6 +1,6 @@
 github "sora0077/FoundationSupport" "master"
 github "sora0077/AutoLayoutSupport" "master"
-github "sora0077/AppleMusicKit" "master"
+github "sora0077/AppleMusicKit" "swift4.1"
 github "sora0077/WindowKit" "master"
 
 github "ReactiveX/RxSwift"
