@@ -35,8 +35,12 @@ public final class Player {
     private var middlewares: [PlayerMiddleware] = []
 
     public init() {
-        queueingCount = player.rx.observe(\.currentItem)
-            .map { $0.0.items().count }
+        let insertNotifier = PublishSubject<Void>()
+        queueingCount = Observable.combineLatest(
+                player.rx.observe(\.currentItem),
+                insertNotifier.asObservable()
+            )
+            .map { $0.0.0.items().count }
             .debug()
             .do(onNext: { print("queueing:", $0) })
 
@@ -59,6 +63,7 @@ public final class Player {
             .subscribe(onNext: { [weak self] item in
                 print("play:", item)
                 self?.player.insert(item, after: nil)
+                insertNotifier.onNext(())
                 if self?.player.status == .readyToPlay {
                     self?.player.play()
                 }
