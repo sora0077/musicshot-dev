@@ -79,8 +79,8 @@ public final class Core {
                     self.core = core
                 }
 
-                func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws {
-                    guard let songId = item.songId else { return }
+                func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {
+                    guard let songId = item.userInfo as? String else { return }
                     let realm = try Realm()
                     guard let histories = realm.objects(InternalResource.Histories.self).first else {
                         try realm.write {

@@ -40,7 +40,7 @@ public final class Storefronts {
                 let realm = try Realm()
                 let holder = realm.objects(InternalResource.StorefrontHolder.self).first
                 try realm.write {
-                    let storefronts = response.data.flatMap { $0.attributes }
+                    let storefronts = response.data.compactMap { $0.attributes }
                     realm.add(storefronts, update: true)
                     holder?.list.append(objectsIn: storefronts)
                 }

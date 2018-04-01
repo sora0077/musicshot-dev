@@ -44,7 +44,7 @@ extension Resource {
             }
 
             func update(_ page: SearchResources.Page<Entity.Song>, _ newFragment: SongsFragment) throws {
-                items.append(objectsIn: page.data.flatMap { $0.attributes })
+                items.append(objectsIn: page.data.compactMap { $0.attributes })
                 fragment = newFragment
                 updateDate = coeffects.dateType.now()
             }
@@ -79,7 +79,7 @@ extension Resource {
                 if let old = next {
                     old.realm?.delete(old)
                 }
-                items.append(objectsIn: page.data.flatMap { $0.attributes })
+                items.append(objectsIn: page.data.compactMap { $0.attributes })
                 next = try InternalResource.Request(page.next)
                 updateDate = coeffects.dateType.now()
             }

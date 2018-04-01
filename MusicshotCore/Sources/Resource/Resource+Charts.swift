@@ -47,7 +47,7 @@ extension Resource {
                 if let old = next {
                     old.realm?.delete(old)
                 }
-                items.append(objectsIn: songs.data.flatMap { $0.attributes })
+                items.append(objectsIn: songs.data.compactMap { $0.attributes })
                 next = try InternalResource.Request(songs.next)
                 updateDate = coeffects.dateType.now()
             }

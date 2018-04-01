@@ -13,28 +13,30 @@ import RxCocoa
 import MusicshotUtility
 
 public protocol PlayerMiddleware {
-    func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?)
-    func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws
+    func playerCreatePlayerItem(_ item: PlayerItem)
+    func playerDidEndPlayToEndTime(_ item: PlayerItem) throws
 }
 
 extension PlayerMiddleware {
-    public func playerCreatePlayerItem(_ item: AVPlayerItem, with userInfo: Any?) {}
-    public func playerDidEndPlayToEndTime(_ item: AVPlayerItem) throws {}
+    public func playerCreatePlayerItem(_ item: PlayerItem) {}
+    public func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {}
 }
 
 private let maxQueueingCount = 3
 
-public final class Player {
-    open class Item {
-        private let url: Single<URL>
+open class PlayerItem {
+    open fileprivate(set) var playerItem: AVPlayerItem?
+    open var userInfo: Any?
+    fileprivate let url: Single<URL>
 
-        public init(url: Single<URL>) {
-            self.url = url
-        }
+    public init(url: Single<URL>) {
+        self.url = url
     }
+}
 
+public final class Player {
     private let player = AVQueuePlayer()
-    private let waitingQueue = FIFOQueue<AVPlayerItem>()
+    private let waitingQueue = FIFOQueue<PlayerItem>()
     private let disposeBag = MusicshotUtility.DisposeBag()
     private let queueingCount: Observable<Int>
     public private(set) lazy var errors = self._errors.asObservable()
@@ -48,8 +50,7 @@ public final class Player {
                 player.rx.observe(\.currentItem)
                     .map { $1 }
                     .startWith(nil)
-                    .delay(0.1, scheduler: SerialDispatchQueueScheduler(qos: .default))
-                    .do(onNext: { [weak player] _ in print("hogehoge", player?.items().count ?? 0) }),
+                    .delay(0.1, scheduler: SerialDispatchQueueScheduler(qos: .default)),
                 insertNotifier.asObservable()
                     .startWith(())
             )
@@ -88,12 +89,12 @@ public final class Player {
             .disposed(by: disposeBag)
     }
 
-    private func register(_ item: AVPlayerItem, notifier: PublishSubject<Void>) {
+    private func register(_ item: PlayerItem, notifier: PublishSubject<Void>) {
         NotificationCenter.default.rx
-            .notification(.AVPlayerItemDidPlayToEndTime, object: item)
+            .notification(.AVPlayerItemDidPlayToEndTime, object: item.playerItem)
             .compactMap { $0.object as? AVPlayerItem }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] item in
+            .subscribe(onNext: { [weak self] playerItem in
                 self?.middlewares.reversed().forEach { middleware in
                     do {
                         try middleware.playerDidEndPlayToEndTime(item)
@@ -105,7 +106,7 @@ public final class Player {
             })
             .disposed(by: disposeBag)
 
-        player.insert(item, after: nil)
+        player.insert(item.playerItem!, after: nil)
         notifier.onNext(())
         if player.status == .readyToPlay {
             player.play()
@@ -114,22 +115,24 @@ public final class Player {
 
     //
     // MARK: -
-    public func insert(_ url: Single<URL>, userInfo: Any? = nil) {
+    public func insert(_ item: PlayerItem) {
         waitingQueue.append(queueingCount
             .map { [weak self] _ in { self?.player.items().count ?? 0 } }
             .startWith({ [weak self] in self?.player.items().count ?? 0 })
             .filter { $0() <= maxQueueingCount }
             .take(1)
             .asSingle()
-            .flatMap { _ in url }
+            .flatMap { _ in item.url }
             .map(AVPlayerItem.init(url:))
             .map(configureFading)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .do(onSuccess: { [weak self] item in
+            .do(onSuccess: { [weak self] playerItem in
+                item.playerItem = playerItem
                 self?.middlewares.reversed().forEach { middleware in
-                    middleware.playerCreatePlayerItem(item, with: userInfo)
+                    middleware.playerCreatePlayerItem(item)
                 }
             })
+            .map { _ in item }
         )
     }
 

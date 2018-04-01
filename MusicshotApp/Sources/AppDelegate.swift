@@ -31,8 +31,6 @@ func top(_ viewController: UIViewController) -> UIViewController {
     }
 }
 
-let downloader = Downloader()
-
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     enum WindowLevel: Int, WindowKit.WindowLevel {
