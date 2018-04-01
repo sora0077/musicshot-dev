@@ -102,6 +102,8 @@ enum InternalResource {
 
     @objc(Histories)
     final class Histories: Object {
+        @objc override public class func primaryKey() -> String? { return "pk" }
+        @objc dynamic private var pk = ""
         let list = List<Entity.History>()
 
         func count(for song: Entity.Song) -> Int {

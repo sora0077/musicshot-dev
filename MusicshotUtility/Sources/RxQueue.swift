@@ -36,7 +36,7 @@ final class FIFOQueue<E> {
         executor.async {
             let key = UUID()
             self.keys.append(key)
-            let operation = RxOperation(item, disposeBag: self.disposeBag, completion: { [weak self] result in
+            let operation = RxOperation(item.do(onSubscribe: { print("start", key) }), disposeBag: self.disposeBag, completion: { [weak self] result in
                 self?.executor.async {
                     self?.buffer[key] = result
                     for k in self?.keys ?? [] {
@@ -101,7 +101,7 @@ private final class RxOperation<E>: Operation {
 
         state = .execute
 
-        task.observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+        task.subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .subscribe(
                 onSuccess: { [weak self] value in
                     self?.completion(.success(value))

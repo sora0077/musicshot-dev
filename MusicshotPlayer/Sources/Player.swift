@@ -25,26 +25,38 @@ extension PlayerMiddleware {
 private let maxQueueingCount = 3
 
 public final class Player {
+    open class Item {
+        private let url: Single<URL>
+
+        public init(url: Single<URL>) {
+            self.url = url
+        }
+    }
+
     private let player = AVQueuePlayer()
     private let waitingQueue = FIFOQueue<AVPlayerItem>()
     private let disposeBag = MusicshotUtility.DisposeBag()
-    private var statusToken: NSKeyValueObservation?
-    private var currentItemToken: NSKeyValueObservation?
     private let queueingCount: Observable<Int>
-    public private(set) lazy var middlewareError = self._middlewareError.asObservable()
-    private let _middlewareError = PublishSubject<Error>()
+    public private(set) lazy var errors = self._errors.asObservable()
+    private let _errors = PublishSubject<Error>()
 
     private var middlewares: [PlayerMiddleware] = []
 
     public init() {
         let insertNotifier = PublishSubject<Void>()
         queueingCount = Observable.combineLatest(
-                player.rx.observe(\.currentItem),
+                player.rx.observe(\.currentItem)
+                    .map { $1 }
+                    .startWith(nil)
+                    .delay(0.1, scheduler: SerialDispatchQueueScheduler(qos: .default))
+                    .do(onNext: { [weak player] _ in print("hogehoge", player?.items().count ?? 0) }),
                 insertNotifier.asObservable()
+                    .startWith(())
             )
-            .map { $0.0.0.items().count }
-            .debug()
+            .map { [weak player] _ in player?.items().count ?? 0 }
+            .distinctUntilChanged()
             .do(onNext: { print("queueing:", $0) })
+            .share()
 
         #if targetEnvironment(simulator)
             player.volume = 0.02
@@ -53,18 +65,14 @@ public final class Player {
             print("iphone")
         #endif
 
-        let playerItems = waitingQueue.asObservable()
+        waitingQueue.asObservable()
             .map { try $0.value() }
-            .catchError { error in
-                print(error)
+            .catchError { [weak self] error in
+                self?._errors.onNext(error)
                 return .empty()
             }
-            .share()
-
-        playerItems
             .subscribe(onNext: { [weak self] item in
-                print("play:", item)
-                insertNotifier.onNext(())
+                self?.register(item, notifier: insertNotifier)
             })
             .disposed(by: disposeBag)
 
@@ -80,10 +88,9 @@ public final class Player {
             .disposed(by: disposeBag)
     }
 
-    private func register(_ item: AVPlayerItem) {
+    private func register(_ item: AVPlayerItem, notifier: PublishSubject<Void>) {
         NotificationCenter.default.rx
             .notification(.AVPlayerItemDidPlayToEndTime, object: item)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .compactMap { $0.object as? AVPlayerItem }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .subscribe(onNext: { [weak self] item in
@@ -91,13 +98,15 @@ public final class Player {
                     do {
                         try middleware.playerDidEndPlayToEndTime(item)
                     } catch {
-                        self?._middlewareError.onNext(error)
+                        self?._errors.onNext(error)
                     }
                 }
+                notifier.onNext(())
             })
             .disposed(by: disposeBag)
 
         player.insert(item, after: nil)
+        notifier.onNext(())
         if player.status == .readyToPlay {
             player.play()
         }
@@ -107,8 +116,9 @@ public final class Player {
     // MARK: -
     public func insert(_ url: Single<URL>, userInfo: Any? = nil) {
         waitingQueue.append(queueingCount
-            .startWith(player.items().count)
-            .filter { $0 <= 3 }
+            .map { [weak self] _ in { self?.player.items().count ?? 0 } }
+            .startWith({ [weak self] in self?.player.items().count ?? 0 })
+            .filter { $0() <= maxQueueingCount }
             .take(1)
             .asSingle()
             .flatMap { _ in url }
