@@ -24,13 +24,33 @@ extension PlayerMiddleware {
 
 private let maxQueueingCount = 3
 
-open class PlayerItem {
+private extension AVPlayerItem {
+    private struct Keys {
+        static var item: UInt8 = 0
+    }
+    private final class Box<T: AnyObject> {
+        weak var value: T?
+        init(_ value: T) {
+            self.value = value
+        }
+    }
+    weak var item: PlayerItem? {
+        get { return (objc_getAssociatedObject(self, &Keys.item) as? Box<PlayerItem>)?.value }
+        set { objc_setAssociatedObject(self, &Keys.item, newValue.map(Box.init), .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+}
+
+open class PlayerItem: Equatable {
     open fileprivate(set) var playerItem: AVPlayerItem?
     open var userInfo: Any?
     fileprivate let url: Single<URL>
 
     public init(url: Single<URL>) {
         self.url = url
+    }
+
+    public static func == (lhs: PlayerItem, rhs: PlayerItem) -> Bool {
+        return lhs === rhs
     }
 }
 
@@ -68,10 +88,8 @@ public final class Player {
 
         waitingQueue.asObservable()
             .map { try $0.value() }
-            .catchError { [weak self] error in
-                self?._errors.onNext(error)
-                return .empty()
-            }
+            .do(onError: { [weak self] error in self?._errors.onNext(error) })
+            .catchError { _ in .empty() }
             .subscribe(onNext: { [weak self] item in
                 self?.register(item, notifier: insertNotifier)
             })
@@ -92,9 +110,8 @@ public final class Player {
     private func register(_ item: PlayerItem, notifier: PublishSubject<Void>) {
         NotificationCenter.default.rx
             .notification(.AVPlayerItemDidPlayToEndTime, object: item.playerItem)
-            .compactMap { $0.object as? AVPlayerItem }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] playerItem in
+            .subscribe(onNext: { [weak self] _ in
                 self?.middlewares.reversed().forEach { middleware in
                     do {
                         try middleware.playerDidEndPlayToEndTime(item)
