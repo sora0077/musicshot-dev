@@ -41,12 +41,12 @@ private extension AVPlayerItem {
 }
 
 open class PlayerItem: Equatable {
-    open fileprivate(set) var playerItem: AVPlayerItem?
     open var userInfo: Any?
-    fileprivate let url: Single<URL>
+    fileprivate var url: URL?
+    fileprivate let fetcher: Single<URL>
 
-    public init(url: Single<URL>) {
-        self.url = url
+    public init(fetcher: Single<URL>) {
+        self.fetcher = fetcher
     }
 
     public static func == (lhs: PlayerItem, rhs: PlayerItem) -> Bool {
@@ -63,6 +63,7 @@ public final class Player {
     private let _errors = PublishSubject<Error>()
 
     private var middlewares: [PlayerMiddleware] = []
+    private var fetching: [PlayerItem] = []
 
     public init() {
         let insertNotifier = PublishSubject<Void>()
@@ -108,8 +109,14 @@ public final class Player {
     }
 
     private func register(_ item: PlayerItem, notifier: PublishSubject<Void>) {
+        guard let url = item.url else { return }
+        let playerItem = configureFading(of: AVPlayerItem(url: url))
+        middlewares.reversed().forEach { middleware in
+            middleware.playerCreatePlayerItem(item)
+        }
+
         NotificationCenter.default.rx
-            .notification(.AVPlayerItemDidPlayToEndTime, object: item.playerItem)
+            .notification(.AVPlayerItemDidPlayToEndTime, object: playerItem)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             .subscribe(onNext: { [weak self] _ in
                 self?.middlewares.reversed().forEach { middleware in
@@ -123,7 +130,7 @@ public final class Player {
             })
             .disposed(by: disposeBag)
 
-        player.insert(item.playerItem!, after: nil)
+        player.insert(playerItem, after: nil)
         notifier.onNext(())
         if player.status == .readyToPlay {
             player.play()
@@ -139,15 +146,10 @@ public final class Player {
             .filter { $0() <= maxQueueingCount }
             .take(1)
             .asSingle()
-            .flatMap { _ in item.url }
-            .map(AVPlayerItem.init(url:))
-            .map(configureFading)
+            .flatMap { _ in item.fetcher }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .do(onSuccess: { [weak self] playerItem in
-                item.playerItem = playerItem
-                self?.middlewares.reversed().forEach { middleware in
-                    middleware.playerCreatePlayerItem(item)
-                }
+            .do(onSuccess: { [weak self] url in
+                item.url = url
             })
             .map { _ in item }
         )

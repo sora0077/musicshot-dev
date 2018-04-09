@@ -50,6 +50,7 @@
 		D9670F93206AA64100F8A253 /* Repository+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9670F92206AA64100F8A253 /* Repository+Preview.swift */; };
 		D971E17D204A81DB00F8AF4C /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */; };
 		D9722755204ACC7E0096897F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722754204ACC7E0096897F /* String.swift */; };
+		D97B07E12073F005001C8A82 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B07E02073F005001C8A82 /* SimpleListViewController.swift */; };
 		D97C5CB0206173F600DE3177 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C5CAF206173F600DE3177 /* Entity+History.swift */; };
 		D98C5A2620693E28005FB1D3 /* Resource+Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98C5A2520693E28005FB1D3 /* Resource+Ranking.swift */; };
 		D9A0C8AC20625A53006B233D /* ReactiveX.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722752204AC51A0096897F /* ReactiveX.swift */; };
@@ -246,6 +247,7 @@
 		D971E17C204A81DB00F8AF4C /* OAuth+GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D9722752204AC51A0096897F /* ReactiveX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveX.swift; sourceTree = "<group>"; };
 		D9722754204ACC7E0096897F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		D97B07E02073F005001C8A82 /* SimpleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListViewController.swift; sourceTree = "<group>"; };
 		D97C5CAF206173F600DE3177 /* Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+History.swift"; sourceTree = "<group>"; };
 		D98C5A2520693E28005FB1D3 /* Resource+Ranking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Ranking.swift"; sourceTree = "<group>"; };
 		D990A08A2061419E00327342 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
@@ -496,6 +498,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		D97B07DF2073EFEE001C8A82 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				D97B07E02073F005001C8A82 /* SimpleListViewController.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		D9A20915206937A6000F5999 /* RankingGenreView */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +543,7 @@
 		D9B62E7B204C313A00DDE3B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D97B07DF2073EFEE001C8A82 /* Debug */,
 				D9D02A83204C4A4B00DAAAD1 /* LoginView */,
 				D9B62E7C204C314300DDE3B8 /* MainView */,
 				D94CE91D204D973F00B8C71C /* StorefrontSelectView */,
@@ -1073,6 +1084,7 @@
 				D9093EBB20459D8A00F60136 /* AppDelegate.swift in Sources */,
 				D9EBEC6F205A988A002A8C6A /* SearchViewController.swift in Sources */,
 				D9A20917206937C9000F5999 /* RankingGenresViewController.swift in Sources */,
+				D97B07E12073F005001C8A82 /* SimpleListViewController.swift in Sources */,
 				D9D02A85204C4A9500DAAAD1 /* LoginViewController.swift in Sources */,
 				D94CE91F204D976D00B8C71C /* StorefrontSelectViewController.swift in Sources */,
 				D9FFAEBD2055A1AF001BD635 /* UIKit+Realm.swift in Sources */,

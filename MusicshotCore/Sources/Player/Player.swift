@@ -17,7 +17,7 @@ public final class Player {
 
     public func insert(_ song: Entity.Song) {
         let preview = Repository.Preview(song: song)
-        let item = PlayerItem(url: preview.fetch().map { url, _ in url })
+        let item = PlayerItem(fetcher: preview.fetch().map { url, _ in url })
         item.userInfo = song.id
         player.insert(item)
     }
