@@ -38,10 +38,13 @@ extension Single {
 }
 
 extension Reactive where Base: NSObject {
-    public func observe<E>(_ keyPath: KeyPath<Base, E>) -> Observable<(Base, E)> {
+    public func observe<E>(
+        _ keyPath: KeyPath<Base, E>,
+        options: NSKeyValueObservingOptions = []
+    ) -> Observable<(Base, E, NSKeyValueObservedChange<E>)> {
         return Observable.create({ observer in
-            var token = self.base.observe(keyPath, changeHandler: { (base, _) in
-                observer.onNext((base, base[keyPath: keyPath]))
+            var token = self.base.observe(keyPath, options: options, changeHandler: { (base, change) in
+                observer.onNext((base, base[keyPath: keyPath], change))
             }) as NSKeyValueObservation?
             return Disposables.create {
                 token?.invalidate()

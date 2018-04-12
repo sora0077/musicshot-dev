@@ -22,8 +22,6 @@ extension PlayerMiddleware {
     public func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {}
 }
 
-private let maxQueueingCount = 3
-
 private extension AVPlayerItem {
     private struct Keys {
         static var item: UInt8 = 0
@@ -54,32 +52,63 @@ open class PlayerItem: Equatable {
     }
 }
 
+private struct ItemController: CustomDebugStringConvertible {
+    var debugDescription: String {
+        return """
+        waitings: \(waitings.count),
+        fetchings: \(fetchings.count),
+        queueings: \(queueings.count)
+        """
+    }
+    private let maxProcessingCount = 3
+
+    private var waitings: ArraySlice<PlayerItem> = []
+    private var fetchings: ArraySlice<PlayerItem> = []
+    private var queueings: ArraySlice<AVPlayerItem> = []
+
+    var canProcess: Bool { return (fetchings.count + queueings.count) < maxProcessingCount }
+
+    mutating func append(_ item: PlayerItem) {
+        waitings.append(item)
+    }
+
+    mutating func popFirst() -> PlayerItem? {
+        guard let item = waitings.popFirst() else { return nil }
+        fetchings.append(item)
+        return item
+    }
+
+    mutating func move(_ item: PlayerItem) -> AVPlayerItem? {
+        if let index = fetchings.index(of: item) {
+            fetchings.remove(at: index)
+        }
+        guard let url = item.url else { return nil }
+        let playerItem = configureFading(of: AVPlayerItem(url: url))
+        queueings.append(playerItem)
+        return playerItem
+    }
+
+    mutating func remove(_ item: AVPlayerItem) {
+        guard let index = queueings.index(of: item) else { return }
+        queueings.remove(at: index)
+    }
+}
+
 public final class Player {
     private let player = AVQueuePlayer()
     private let waitingQueue = FIFOQueue<PlayerItem>()
     private let disposeBag = MusicshotUtility.DisposeBag()
-    private let queueingCount: Observable<Int>
     public private(set) lazy var errors = self._errors.asObservable()
     private let _errors = PublishSubject<Error>()
 
     private var middlewares: [PlayerMiddleware] = []
-    private var fetching: [PlayerItem] = []
+    private var items = ItemController() {
+        didSet {
+            print(#function, "---------\n", items, "\n---------")
+        }
+    }
 
     public init() {
-        let insertNotifier = PublishSubject<Void>()
-        queueingCount = Observable.combineLatest(
-                player.rx.observe(\.currentItem)
-                    .map { $1 }
-                    .startWith(nil)
-                    .delay(0.1, scheduler: SerialDispatchQueueScheduler(qos: .default)),
-                insertNotifier.asObservable()
-                    .startWith(())
-            )
-            .map { [weak player] _ in player?.items().count ?? 0 }
-            .distinctUntilChanged()
-            .do(onNext: { print("queueing:", $0) })
-            .share()
-
         #if targetEnvironment(simulator)
             player.volume = 0.02
             print("simulator")
@@ -87,17 +116,26 @@ public final class Player {
             print("iphone")
         #endif
 
+        player.rx.observe(\.currentItem, options: [.old, .new])
+            .subscribe(onNext: { [weak self] _, item, change in
+                if let old = change.oldValue ?? nil {
+                    self?.items.remove(old)
+                }
+                self?.fetchIfNeeded()
+            })
+            .disposed(by: disposeBag)
+
         waitingQueue.asObservable()
             .map { try $0.value() }
             .do(onError: { [weak self] error in self?._errors.onNext(error) })
             .catchError { _ in .empty() }
             .subscribe(onNext: { [weak self] item in
-                self?.register(item, notifier: insertNotifier)
+                self?.register(item)
             })
             .disposed(by: disposeBag)
 
         player.rx.observe(\.status)
-            .subscribe(onNext: { player, _ in
+            .subscribe(onNext: { player, _, _ in
                 switch player.status {
                 case .readyToPlay:
                     player.play()
@@ -108,17 +146,44 @@ public final class Player {
             .disposed(by: disposeBag)
     }
 
-    private func register(_ item: PlayerItem, notifier: PublishSubject<Void>) {
-        guard let url = item.url else { return }
-        let playerItem = configureFading(of: AVPlayerItem(url: url))
+    //
+    // MARK: -
+    public func install(middleware: PlayerMiddleware) {
+        middlewares.append(middleware)
+    }
+
+    public func insert(_ item: PlayerItem) {
+        items.append(item)
+        fetchIfNeeded()
+    }
+
+    //
+    // MARK: -
+    private func fetchIfNeeded() {
+        guard items.canProcess else { return }
+        guard let item = items.popFirst() else { return }
+
+        waitingQueue.append(item.fetcher
+            .do(onSuccess: { url in
+                item.url = url
+            })
+            .map { _ in item }
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+        )
+    }
+
+    private func register(_ item: PlayerItem) {
+        defer { fetchIfNeeded() }
+        guard let playerItem = items.move(item) else { return }
         middlewares.reversed().forEach { middleware in
             middleware.playerCreatePlayerItem(item)
         }
 
         NotificationCenter.default.rx
             .notification(.AVPlayerItemDidPlayToEndTime, object: playerItem)
+            .compactMap { $0.object as? AVPlayerItem }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] playerItem in
                 self?.middlewares.reversed().forEach { middleware in
                     do {
                         try middleware.playerDidEndPlayToEndTime(item)
@@ -126,37 +191,13 @@ public final class Player {
                         self?._errors.onNext(error)
                     }
                 }
-                notifier.onNext(())
             })
             .disposed(by: disposeBag)
 
         player.insert(playerItem, after: nil)
-        notifier.onNext(())
         if player.status == .readyToPlay {
             player.play()
         }
-    }
-
-    //
-    // MARK: -
-    public func insert(_ item: PlayerItem) {
-        waitingQueue.append(queueingCount
-            .map { [weak self] _ in { self?.player.items().count ?? 0 } }
-            .startWith({ [weak self] in self?.player.items().count ?? 0 })
-            .filter { $0() <= maxQueueingCount }
-            .take(1)
-            .asSingle()
-            .flatMap { _ in item.fetcher }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .do(onSuccess: { [weak self] url in
-                item.url = url
-            })
-            .map { _ in item }
-        )
-    }
-
-    public func install(middleware: PlayerMiddleware) {
-        middlewares.append(middleware)
     }
 }
 
