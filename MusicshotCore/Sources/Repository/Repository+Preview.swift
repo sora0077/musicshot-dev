@@ -57,7 +57,8 @@ extension Repository {
                     case .cache(let args):
                         return .just(args)
                     case .download(let id, let url, let ref):
-                        return NetworkSession.shared.rx.send(GetPreviewURL(id: id, url: url))
+                        let request = GetPreviewURL(id: id, url: url)
+                        return NetworkSession.shared.rx.send(request)
                             .do(onSuccess: { url, duration in
                                 let realm = try Realm()
                                 guard let song = realm.resolve(ref) else { return }

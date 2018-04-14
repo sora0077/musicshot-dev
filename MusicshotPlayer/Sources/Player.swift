@@ -60,13 +60,17 @@ private struct ItemController: CustomDebugStringConvertible {
         queueings: \(queueings.count)
         """
     }
-    private let maxProcessingCount = 3
+    private let maxFetchingCount = 3
+    private let maxQueueingCount = 10
 
     private var waitings: ArraySlice<PlayerItem> = []
     private var fetchings: ArraySlice<PlayerItem> = []
     private var queueings: ArraySlice<AVPlayerItem> = []
 
-    var canProcess: Bool { return (fetchings.count + queueings.count) < maxProcessingCount }
+    var canProcess: Bool {
+        return fetchings.count < maxFetchingCount
+            && queueings.count < maxQueueingCount
+    }
 
     mutating func append(_ item: PlayerItem) {
         waitings.append(item)
@@ -79,13 +83,17 @@ private struct ItemController: CustomDebugStringConvertible {
     }
 
     mutating func move(_ item: PlayerItem) -> AVPlayerItem? {
-        if let index = fetchings.index(of: item) {
-            fetchings.remove(at: index)
-        }
+        remove(item)
         guard let url = item.url else { return nil }
         let playerItem = configureFading(of: AVPlayerItem(url: url))
         queueings.append(playerItem)
         return playerItem
+    }
+
+    mutating func remove(_ item: PlayerItem) {
+        if let index = fetchings.index(of: item) {
+            fetchings.remove(at: index)
+        }
     }
 
     mutating func remove(_ item: AVPlayerItem) {
@@ -126,9 +134,14 @@ public final class Player {
             .disposed(by: disposeBag)
 
         waitingQueue.asObservable()
-            .map { try $0.value() }
-            .do(onError: { [weak self] error in self?._errors.onNext(error) })
-            .catchError { _ in .empty() }
+            .flatMap { [weak self] result -> Observable<PlayerItem> in
+                do {
+                    return .just(try result.value())
+                } catch {
+                    self?._errors.onNext(error)
+                    return .empty()
+                }
+            }
             .subscribe(onNext: { [weak self] item in
                 self?.register(item)
             })
@@ -164,9 +177,15 @@ public final class Player {
         guard let item = items.popFirst() else { return }
 
         waitingQueue.append(item.fetcher
-            .do(onSuccess: { url in
-                item.url = url
-            })
+            .do(
+                onSuccess: { url in
+                    item.url = url
+                },
+                onError: { [weak self] error in
+                    self?.items.remove(item)
+                    self?.fetchIfNeeded()
+                }
+            )
             .map { _ in item }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
         )
