@@ -8,12 +8,36 @@
 
 import Foundation
 import AVFoundation
+import MediaPlayer
 import RxSwift
 import RxCocoa
 import MusicshotPlayer
 
 public final class Player {
+    public var currentTimer: Observable<Double> { return player.currentTimer }
     private let player = MusicshotPlayer.Player()
+
+    init() {
+        let center = MPRemoteCommandCenter.shared()
+        center.togglePlayPauseCommand.addTarget { [weak self] event in
+            self?.player.togglePlayPause()
+            return .success
+        }
+        center.playCommand.addTarget { [weak self] event in
+            self?.player.play()
+            return .success
+        }
+        center.pauseCommand.addTarget { [weak self] event in
+            self?.player.pause()
+            return .success
+        }
+        center.nextTrackCommand.addTarget { [weak self] event in
+            if self?.player.nextTrack() ?? false {
+                return .success
+            }
+            return .noSuchContent
+        }
+    }
 
     public func insert(_ song: Entity.Song) {
         let preview = Repository.Preview(song: song)
@@ -26,3 +50,6 @@ public final class Player {
         player.install(middleware: middleware)
     }
 }
+
+//
+// MARK: -

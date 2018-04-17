@@ -8,10 +8,13 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 import Compass
 import MusicshotCore
 import Compass
+import Nuke
 import WindowKit
+import MusicshotPlayer
 import MusicshotUI
 import MusicshotUtility
 
@@ -40,7 +43,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     var window: UIWindow?
-    private(set) lazy var manager = Manager<WindowLevel>(mainWindow: window!)
+    private(set) lazy var manager = WindowKit.Manager<WindowLevel>(mainWindow: window!)
 
     private let disposeBag = DisposeBag()
 
@@ -163,6 +166,71 @@ extension AppDelegate {
             fatalError()
         }
         UIApplication.shared.beginReceivingRemoteControlEvents()
+
+        final class NowPlayingInfo: PlayerMiddleware {
+            private var nowPlayingInfo: [String: Any] = [:] {
+                didSet {
+                    queue.async {
+                        MPNowPlayingInfoCenter.default().nowPlayingInfo =
+                            self.nowPlayingInfo.isEmpty ? nil : self.nowPlayingInfo
+                    }
+                }
+            }
+            private var artworkCancelSource = CancellationTokenSource()
+
+            private let queue = DispatchQueue(label: "nowplayinginfo")
+            private let disposeBag = DisposeBag()
+
+            init() {
+                musicshot.player.currentTimer
+                    .distinctUntilChanged { Int($0) == Int($1) }
+                    .subscribe(onNext: { [weak self] duration in
+                        self?.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = duration
+                    })
+                    .disposed(by: disposeBag)
+            }
+
+            func playerDidChangeCurrentItem(_ item: PlayerItem?) throws {
+                guard let songId = item?.userInfo as? Entity.Song.Identifier else {
+                    nowPlayingInfo = [:]
+                    return
+                }
+
+                guard let song = try musicshot.repository.songs.song(for: songId) else { return }
+
+                nowPlayingInfo += [
+                    "id": song.id,
+                    MPMediaItemPropertyTitle: song.name,
+                    MPMediaItemPropertyArtist: song.artistName,
+                    MPMediaItemPropertyPlaybackDuration: song.preview.map { TimeInterval($0.duration / 1000) }
+                ].compactValues()
+
+                artworkCancelSource.cancel()
+                artworkCancelSource = CancellationTokenSource()
+
+                let size = CGSize(width: 60 * UIScreen.main.scale, height: 60 * UIScreen.main.scale)
+                Nuke.Manager.shared.loadImage(
+                    with: Request(url: song.artwork.url(for: size.width)),
+                    token: artworkCancelSource.token,
+                    completion: { [weak self] result in
+                        guard self?.nowPlayingInfo["id"] as? Entity.Song.Identifier == songId else { return }
+                        var info = self?.nowPlayingInfo ?? [:]
+                        switch result {
+                        case .success(let image):
+                            info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: size) { (size) in
+                                print(#function, size)
+                                return image
+                            }
+
+                        case .failure:
+                            info[MPMediaItemPropertyArtwork] = nil
+                        }
+                        self?.nowPlayingInfo = info
+                    })
+            }
+        }
+
+        musicshot.player.install(middleware: NowPlayingInfo())
     }
 }
 

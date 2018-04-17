@@ -65,6 +65,7 @@ public class Repository {
     public let search = Search()
     public let history = History()
     public let ranking = Ranking()
+    public let songs = Songs()
 
     init() {
         var config = Realm.Configuration.defaultConfiguration
@@ -103,6 +104,13 @@ public class Repository {
                 print("open \(path)")
             }
         #endif
+    }
+
+    public final class Songs {
+        public func song(for id: Entity.Song.Identifier) throws -> Entity.Song? {
+            let realm = try Realm()
+            return realm.object(ofType: Entity.Song.self, forPrimaryKey: id)
+        }
     }
 
     public final class Ranking {

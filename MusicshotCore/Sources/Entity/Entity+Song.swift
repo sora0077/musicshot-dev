@@ -44,13 +44,22 @@ extension Entity {
             self._textColor4 = hex(colors?.textColor4)
         }
 
+        public func generater() -> (_ expectedWidth: Int) -> URL {
+            let width = self.width
+            let height = self.height
+            let url = self._url
+            return { expectedWidth in
+                let ratio = CGFloat(height) / CGFloat(width)
+                let expectedWidth = min(width, expectedWidth)
+                let expectedHeight = Int(round(CGFloat(expectedWidth) * ratio))
+                return URL(string: url
+                    .replacingOccurrences(of: "{w}", with: "\(expectedWidth)")
+                    .replacingOccurrences(of: "{h}", with: "\(expectedHeight)"))!
+            }
+        }
+
         public func url(for expectedWidth: Int) -> URL {
-            let ratio = CGFloat(height) / CGFloat(width)
-            let expectedWidth = min(width, expectedWidth)
-            let expectedHeight = Int(round(CGFloat(expectedWidth) * ratio))
-            return URL(string: _url
-                .replacingOccurrences(of: "{w}", with: "\(expectedWidth)")
-                .replacingOccurrences(of: "{h}", with: "\(expectedHeight)"))!
+            return generater()(expectedWidth)
         }
 
         public func url(for width: CGFloat) -> URL {

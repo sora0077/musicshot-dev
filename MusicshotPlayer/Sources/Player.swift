@@ -13,12 +13,14 @@ import RxCocoa
 import MusicshotUtility
 
 public protocol PlayerMiddleware {
-    func playerCreatePlayerItem(_ item: PlayerItem)
+    func playerDidCreateItem(_ item: PlayerItem)
+    func playerDidChangeCurrentItem(_ item: PlayerItem?) throws
     func playerDidEndPlayToEndTime(_ item: PlayerItem) throws
 }
 
 extension PlayerMiddleware {
-    public func playerCreatePlayerItem(_ item: PlayerItem) {}
+    public func playerDidCreateItem(_ item: PlayerItem) {}
+    public func playerDidChangeCurrentItem(_ item: PlayerItem?) throws {}
     public func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {}
 }
 
@@ -66,6 +68,7 @@ private struct ItemController: CustomDebugStringConvertible {
     private var waitings: ArraySlice<PlayerItem> = []
     private var fetchings: ArraySlice<PlayerItem> = []
     private var queueings: ArraySlice<AVPlayerItem> = []
+//    private var endings: ArraySlice<AVPlayerItem> = []
 
     var canProcess: Bool {
         return fetchings.count < maxFetchingCount
@@ -102,12 +105,21 @@ private struct ItemController: CustomDebugStringConvertible {
     }
 }
 
+//
+// MARK: -
 public final class Player {
+    public var isPlaying: Bool { return player.rate != 0 }
+
     private let player = AVQueuePlayer()
     private let waitingQueue = FIFOQueue<PlayerItem>()
     private let disposeBag = MusicshotUtility.DisposeBag()
+
     public private(set) lazy var errors = self._errors.asObservable()
     private let _errors = PublishSubject<Error>()
+
+    private var timeObserver: Any?
+    public private(set) lazy var currentTimer = self._currentTimer.asObservable()
+    private let _currentTimer = PublishSubject<Double>()
 
     private var middlewares: [PlayerMiddleware] = []
     private var items = ItemController() {
@@ -118,16 +130,29 @@ public final class Player {
 
     public init() {
         #if targetEnvironment(simulator)
-            player.volume = 0.02
+            player.volume = 0.1
             print("simulator")
         #else
             print("iphone")
         #endif
 
+        let interval = CMTime(seconds: 0.5, preferredTimescale: 2)
+        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: .global()) { [weak self] time in
+            self?._currentTimer.onNext(time.seconds)
+        }
+
         player.rx.observe(\.currentItem, options: [.old, .new])
-            .subscribe(onNext: { [weak self] _, item, change in
+            .subscribe(onNext: { [weak self] player, item, change in
                 if let old = change.oldValue ?? nil {
                     self?.items.remove(old)
+                }
+                let currentItem = player.currentItem?.item
+                self?.middlewares.reversed().forEach { middleware in
+                    do {
+                        try middleware.playerDidChangeCurrentItem(currentItem)
+                    } catch {
+                        self?._errors.onNext(error)
+                    }
                 }
                 self?.fetchIfNeeded()
             })
@@ -159,6 +184,10 @@ public final class Player {
             .disposed(by: disposeBag)
     }
 
+    deinit {
+        timeObserver.map(player.removeTimeObserver)
+    }
+
     //
     // MARK: -
     public func install(middleware: PlayerMiddleware) {
@@ -168,6 +197,29 @@ public final class Player {
     public func insert(_ item: PlayerItem) {
         items.append(item)
         fetchIfNeeded()
+    }
+
+    public func play() {
+        player.play()
+    }
+
+    public func pause() {
+        player.pause()
+    }
+
+    public func togglePlayPause() {
+        if isPlaying {
+            pause()
+        } else {
+            play()
+        }
+    }
+
+    @discardableResult
+    public func nextTrack() -> Bool {
+        let noNext = player.currentItem == player.items().last
+        player.advanceToNextItem()
+        return noNext
     }
 
     //
@@ -194,8 +246,9 @@ public final class Player {
     private func register(_ item: PlayerItem) {
         defer { fetchIfNeeded() }
         guard let playerItem = items.move(item) else { return }
+        playerItem.item = item
         middlewares.reversed().forEach { middleware in
-            middleware.playerCreatePlayerItem(item)
+            middleware.playerDidCreateItem(item)
         }
 
         NotificationCenter.default.rx
