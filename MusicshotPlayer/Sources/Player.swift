@@ -127,6 +127,7 @@ public final class Player {
             print(#function, "---------\n", items, "\n---------")
         }
     }
+    private let queue = DispatchQueue(label: "player.queue")
 
     public init() {
         #if targetEnvironment(simulator)
@@ -195,8 +196,10 @@ public final class Player {
     }
 
     public func insert(_ item: PlayerItem) {
-        items.append(item)
-        fetchIfNeeded()
+        queue.async {
+            self.items.append(item)
+            self.fetchIfNeeded()
+        }
     }
 
     public func play() {
@@ -225,50 +228,54 @@ public final class Player {
     //
     // MARK: -
     private func fetchIfNeeded() {
-        guard items.canProcess else { return }
-        guard let item = items.popFirst() else { return }
+        queue.async {
+            guard self.items.canProcess else { return }
+            guard let item = self.items.popFirst() else { return }
 
-        waitingQueue.append(item.fetcher
-            .do(
-                onSuccess: { url in
-                    item.url = url
-                },
-                onError: { [weak self] error in
-                    self?.items.remove(item)
-                    self?.fetchIfNeeded()
-                }
+            self.waitingQueue.append(item.fetcher
+                .do(
+                    onSuccess: { url in
+                        item.url = url
+                    },
+                    onError: { [weak self] error in
+                        self?.items.remove(item)
+                        self?.fetchIfNeeded()
+                    }
+                )
+                .map { _ in item }
+                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
             )
-            .map { _ in item }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-        )
+        }
     }
 
     private func register(_ item: PlayerItem) {
-        defer { fetchIfNeeded() }
-        guard let playerItem = items.move(item) else { return }
-        playerItem.item = item
-        middlewares.reversed().forEach { middleware in
-            middleware.playerDidCreateItem(item)
-        }
+        queue.async {
+            defer { self.fetchIfNeeded() }
+            guard let playerItem = self.items.move(item) else { return }
+            playerItem.item = item
+            self.middlewares.reversed().forEach { middleware in
+                middleware.playerDidCreateItem(item)
+            }
 
-        NotificationCenter.default.rx
-            .notification(.AVPlayerItemDidPlayToEndTime, object: playerItem)
-            .compactMap { $0.object as? AVPlayerItem }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] playerItem in
-                self?.middlewares.reversed().forEach { middleware in
-                    do {
-                        try middleware.playerDidEndPlayToEndTime(item)
-                    } catch {
-                        self?._errors.onNext(error)
+            NotificationCenter.default.rx
+                .notification(.AVPlayerItemDidPlayToEndTime, object: playerItem)
+                .compactMap { $0.object as? AVPlayerItem }
+                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+                .subscribe(onNext: { [weak self] playerItem in
+                    self?.middlewares.reversed().forEach { middleware in
+                        do {
+                            try middleware.playerDidEndPlayToEndTime(item)
+                        } catch {
+                            self?._errors.onNext(error)
+                        }
                     }
-                }
-            })
-            .disposed(by: disposeBag)
+                })
+                .disposed(by: self.disposeBag)
 
-        player.insert(playerItem, after: nil)
-        if player.status == .readyToPlay {
-            player.play()
+            self.player.insert(playerItem, after: nil)
+            if self.player.status == .readyToPlay {
+                self.player.play()
+            }
         }
     }
 }

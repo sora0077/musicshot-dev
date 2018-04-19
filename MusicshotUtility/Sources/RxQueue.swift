@@ -39,10 +39,11 @@ final class FIFOQueue<E> {
             let operation = RxOperation(item.do(onSubscribe: { print("start", key) }), disposeBag: self.disposeBag, completion: { [weak self] result in
                 self?.executor.async {
                     self?.buffer[key] = result
-                    for k in self?.keys ?? [] {
-                        guard let value = self?.buffer[k] else { return }
-                        _ = self?.keys.popFirst()
-                        self?.buffer[k] = nil
+                    let keys = self?.keys ?? []
+                    for k in keys {
+                        guard let value = self?.buffer[k], self?.keys[0] == k else { return }
+                        self?.keys.remove(at: 0)
+                        self?.buffer.removeValue(forKey: k)
                         self?.publisher.onNext(value)
                     }
                 }

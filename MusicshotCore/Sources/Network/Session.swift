@@ -22,6 +22,8 @@ final class NetworkSession: APIKit.Session {
 }
 
 // MARK: -
+extension DataRequest: SessionTask {}
+
 private final class AlamofireAdapter: SessionAdapter {
     private let manager = SessionManager.default
 
@@ -33,7 +35,7 @@ private final class AlamofireAdapter: SessionAdapter {
         #if DEBUG
             print(request.debugDescription)
         #endif
-        return request.task!
+        return request
     }
 
     func getTasks(with handler: @escaping ([SessionTask]) -> Void) {
