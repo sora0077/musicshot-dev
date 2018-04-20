@@ -170,7 +170,7 @@ extension AppDelegate {
         final class NowPlayingInfo: PlayerMiddleware {
             private var nowPlayingInfo: [String: Any] = [:] {
                 didSet {
-                    queue.async {
+                    DispatchQueue.main.async {
                         MPNowPlayingInfoCenter.default().nowPlayingInfo =
                             self.nowPlayingInfo.isEmpty ? nil : self.nowPlayingInfo
                     }

@@ -33,21 +33,19 @@ final class FIFOQueue<E> {
     }
 
     func append(_ item: Single<E>) {
+        let key = UUID()
+        let operation = RxOperation(item, disposeBag: disposeBag, on: executor, completion: { [weak self] result in
+            self?.buffer[key] = result
+            let keys = self?.keys ?? []
+            for k in keys {
+                guard let value = self?.buffer[k], self?.keys[0] == k else { return }
+                self?.keys.remove(at: 0)
+                self?.buffer.removeValue(forKey: k)
+                self?.publisher.onNext(value)
+            }
+        })
         executor.async {
-            let key = UUID()
             self.keys.append(key)
-            let operation = RxOperation(item.do(onSubscribe: { print("start", key) }), disposeBag: self.disposeBag, completion: { [weak self] result in
-                self?.executor.async {
-                    self?.buffer[key] = result
-                    let keys = self?.keys ?? []
-                    for k in keys {
-                        guard let value = self?.buffer[k], self?.keys[0] == k else { return }
-                        self?.keys.remove(at: 0)
-                        self?.buffer.removeValue(forKey: k)
-                        self?.publisher.onNext(value)
-                    }
-                }
-            })
             self.operationQueue.addOperation(operation)
         }
     }
@@ -86,11 +84,13 @@ private final class RxOperation<E>: Operation {
     }
     private let task: Single<E>
     private let disposeBag: RxSwift.DisposeBag
+    private let queue: DispatchQueue
     private let completion: (Result) -> Void
 
-    init(_ task: Single<E>, disposeBag: RxSwift.DisposeBag, completion: @escaping (Result) -> Void) {
+    init(_ task: Single<E>, disposeBag: RxSwift.DisposeBag, on queue: DispatchQueue, completion: @escaping (Result) -> Void) {
         self.task = task
         self.disposeBag = disposeBag
+        self.queue = queue
         self.completion = completion
     }
 
@@ -102,17 +102,19 @@ private final class RxOperation<E>: Operation {
 
         state = .execute
 
-        task.subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(
-                onSuccess: { [weak self] value in
+        task.subscribe(
+            onSuccess: { [weak self] value in
+                self?.queue.async {
                     self?.completion(.success(value))
                     self?.state = .finished
-                },
-                onError: { [weak self] error in
+                }
+            },
+            onError: { [weak self] error in
+                self?.queue.async {
                     self?.completion(.failure(error))
                     self?.state = .finished
                 }
-            )
-            .disposed(by: disposeBag)
+            }
+        ).disposed(by: disposeBag)
     }
 }

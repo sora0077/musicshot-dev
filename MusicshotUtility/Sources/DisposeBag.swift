@@ -11,11 +11,17 @@ import RxSwift
 import RealmSwift
 
 public final class DisposeBag {
-    fileprivate lazy var bag = RxSwift.DisposeBag()
+    fileprivate lazy var bag: RxSwift.DisposeBag? = .init()
     fileprivate lazy var observations: [NSKeyValueObservation] = []
     fileprivate lazy var tokens: [NotificationToken] = []
 
     public init() {}
+
+    deinit {
+        bag = nil
+        observations.removeAll()
+        tokens.removeAll()
+    }
 }
 
 public extension Disposable {

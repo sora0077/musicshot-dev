@@ -34,40 +34,44 @@ extension Repository {
                 case download(Int, URL, Entity.Song.Ref)
             }
             let id = self.id
-            return Single<State>
-                .just {
-                    let realm = try Realm()
-                    let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: id)
-                    switch (song, song?.preview) {
-                    case (nil, _):
-                        throw Error.unknownState
-                    case (_?, let preview?):
-                        if let url = preview.localURL, diskCache.exists(url) {
-                            return .cache(url, preview.duration)
-                        } else {
-                            return .cache(preview.remoteURL, preview.duration)
-                        }
-                    case (let song?, _):
-                        guard let id = Int(id) else { throw Error.unknownState }
-                        return .download(id, song.url, song.ref)
+
+            func getState() throws -> State {
+                let realm = try Realm()
+                let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: id)
+                switch (song, song?.preview) {
+                case (nil, _):
+                    throw Error.unknownState
+                case (_?, let preview?):
+                    if let url = preview.localURL, diskCache.exists(url) {
+                        return .cache(url, preview.duration)
+                    } else {
+                        return .cache(preview.remoteURL, preview.duration)
                     }
+                case (let song?, _):
+                    guard let id = Int(id) else { throw Error.unknownState }
+                    return .download(id, song.url, song.ref)
                 }
-                .flatMap { state -> Single<(URL, Int)> in
-                    switch state {
-                    case .cache(let args):
-                        return .just(args)
-                    case .download(let id, let url, let ref):
-                        let request = GetPreviewURL(id: id, url: url)
-                        return NetworkSession.shared.rx.send(request)
-                            .do(onSuccess: { url, duration in
-                                let realm = try Realm()
-                                guard let song = realm.resolve(ref) else { return }
-                                try realm.write {
-                                    realm.add(Entity.Preview(song: song, url: url, duration: duration), update: true)
-                                }
-                            })
-                    }
+            }
+
+            do {
+                switch try getState() {
+                case .cache(let args):
+                    return .just(args)
+                case .download(let id, let url, let ref):
+                    return NetworkSession.shared.rx.send(GetPreviewURL(id: id, url: url))
+                        .do(onSuccess: { url, duration in
+                            let realm = try Realm()
+                            guard let song = realm.resolve(ref) else { return }
+                            try realm.write {
+                                realm.add(Entity.Preview(song: song, url: url, duration: duration), update: true)
+                            }
+                        })
+                        .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
                 }
+
+            } catch {
+                return .error(error)
+            }
         }
 
         func download() -> Single<Void> {
