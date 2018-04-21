@@ -39,6 +39,10 @@ public final class Core {
 
     fileprivate init(oauthScheme: String) {
         FirebaseApp.configure()
+        let db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
 
         oauth = OAuth(scheme: oauthScheme)
 
