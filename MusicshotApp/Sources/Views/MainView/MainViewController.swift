@@ -51,6 +51,15 @@ final class MainViewController: UIViewController {
         rankingButton.autolayout.left.equal(to: view, constant: 8)
         rankingButton.autolayout.top.equal(to: searchButton.autolayout.bottom, constant: 20)
 
+        let historyButton = UIButton(type: .system).apply { button in
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
+            button.setTitle("History", for: .normal)
+            button.addTarget(self, action: #selector(historyAction), for: .touchUpInside)
+        }
+        view.addSubview(historyButton)
+        historyButton.autolayout.left.equal(to: view, constant: 8)
+        historyButton.autolayout.top.equal(to: rankingButton.autolayout.bottom, constant: 20)
+
         additionalSafeAreaInsets.bottom = 68 + 4
         view.addSubview(customTabBar)
         customTabBar.autolayout.apply {
@@ -87,6 +96,11 @@ final class MainViewController: UIViewController {
     @objc
     private func rankingAction() {
         try? Navigator.navigate(urn: "rankingGenres")
+    }
+
+    @objc
+    private func historyAction() {
+        try? Navigator.navigate(urn: "history")
     }
 }
 

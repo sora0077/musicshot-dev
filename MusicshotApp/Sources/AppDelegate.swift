@@ -102,7 +102,8 @@ extension AppDelegate {
         postLoginRouter.routes = [
             "storefront/select": StorefrontSelectRoute(),
             "charts": ChartsRoute(),
-            "rankingGenres": RankingGenresRoute()
+            "rankingGenres": RankingGenresRoute(),
+            "history": HistoryRoute()
         ]
 
         var searchRouter = Router()

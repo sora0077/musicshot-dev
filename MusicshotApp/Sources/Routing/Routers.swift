@@ -65,6 +65,16 @@ struct SearchRoute: Routable {
     }
 }
 
+struct HistoryRoute: Routable {
+    func navigate(to location: Location, from currentController: CurrentController) throws {
+        guard let from = currentController as? MainViewController else { return }
+        let vc = try HistoryViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.barTintColor = UIColor(named: "Primary")
+        from.present(nav, animated: true, completion: nil)
+    }
+}
+
 struct RankingGenresRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
         guard let from = currentController as? MainViewController else { return }

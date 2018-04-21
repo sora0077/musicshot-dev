@@ -12,10 +12,11 @@ extension Repository {
     public final class History {
         init() {}
 
-        public func all(_ change: @escaping ListChange<Entity.History>.Event) throws -> ListChange<Entity.History>.CollectionAndToken {
+        public func all(ascending: Bool = false, _ change: @escaping ResultsChange<Entity.History>.Event) throws -> ResultsChange<Entity.History>.CollectionAndToken {
             let realm = try Realm()
             if let holder = realm.objects(InternalResource.Histories.self).first {
-                return (holder.list, holder.list.observe(change))
+                let list = holder.list.sorted(byKeyPath: "createDate", ascending: ascending)
+                return (list, list.observe(change))
             }
             try realm.write {
                 realm.add(InternalResource.Histories())

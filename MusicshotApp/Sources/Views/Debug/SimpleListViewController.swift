@@ -28,7 +28,7 @@ class SimpleListViewController: UIViewController {
     private let cellForItemAt: (_ cell: Cell, _ indexPath: IndexPath) -> Void
     private let didSelectItemAt: (_ indexPath: IndexPath) -> Void
 
-    required init(
+    init(
         numberOfSections: @escaping () -> Int,
         numberOfItemsInSection: @escaping (_ section: Int) -> Int,
         cellForItemAt: @escaping (_ cell: Cell, _ indexPath: IndexPath) -> Void,
