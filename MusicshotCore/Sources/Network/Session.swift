@@ -10,13 +10,14 @@ import Foundation
 import APIKit
 import Alamofire
 import AppleMusicKit
+import MusicshotUtility
 
 final class MusicSession: AppleMusicKit.Session {
     open override class var shared: MusicSession { return _shared }
     private static let _shared = MusicSession(adapter: AlamofireAdapter())
 }
 
-final class NetworkSession: APIKit.Session {
+final class NetworkSession: APIKitSession {
     open override class var shared: NetworkSession { return _shared }
     private static let _shared = NetworkSession(adapter: AlamofireAdapter())
 }

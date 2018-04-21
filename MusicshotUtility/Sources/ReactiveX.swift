@@ -8,6 +8,9 @@
 
 import Foundation
 import RxSwift
+import APIKit
+
+open class APIKitSession: APIKit.Session {}
 
 extension ObservableType {
     public func timeout(_ duration: RxTimeInterval, scheduler: SchedulerType = MainScheduler.instance, _ value: @escaping () throws -> E) -> Observable<E> {

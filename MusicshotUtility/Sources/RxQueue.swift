@@ -9,12 +9,12 @@
 import Foundation
 import RxSwift
 
-final class FIFOQueue<E> {
-    enum Result {
+public final class FIFOQueue<E> {
+    public enum Result {
         case success(E)
         case failure(Error)
 
-        func value() throws -> E {
+        public func value() throws -> E {
             switch self {
             case .success(let value): return value
             case .failure(let error): throw error
@@ -28,11 +28,11 @@ final class FIFOQueue<E> {
     private let executor = DispatchQueue(label: "fifo-queue")
     private let disposeBag = RxSwift.DisposeBag()
 
-    init(maxConcurrentOperationCount: Int = 3) {
+    public init(maxConcurrentOperationCount: Int = 3) {
         operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount
     }
 
-    func append(_ item: Single<E>) {
+    public func append(_ item: Single<E>) {
         let key = UUID()
         let operation = RxOperation(item, disposeBag: disposeBag, on: executor, completion: { [weak self] result in
             self?.buffer[key] = result
@@ -50,7 +50,7 @@ final class FIFOQueue<E> {
         }
     }
 
-    func asObservable() -> Observable<Result> {
+    public func asObservable() -> Observable<Result> {
         return publisher.asObservable()
     }
 }
@@ -92,6 +92,7 @@ private final class RxOperation<E>: Operation {
         self.disposeBag = disposeBag
         self.queue = queue
         self.completion = completion
+        super.init()
     }
 
     override func start() {
