@@ -46,7 +46,7 @@ public final class Core {
 
         oauth = OAuth(scheme: oauthScheme)
 
-        developerToken =  Auth.auth().rx.stateDidChange()
+        developerToken = Auth.auth().rx.stateDidChange()
             .do(onNext: { (_, user) in
                 if let user = user {
                     Firestore.firestore().collection("users").document(user.uid).setData([

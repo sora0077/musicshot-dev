@@ -747,7 +747,6 @@
 				D9093EA720459D7300F60136 /* Sources */,
 				D9093EA820459D7300F60136 /* Frameworks */,
 				D9093EA920459D7300F60136 /* CopyFiles */,
-				450543AEFC772E7D4E3D5BDC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -769,7 +768,6 @@
 				D9093EB520459D8A00F60136 /* Frameworks */,
 				D9093EB620459D8A00F60136 /* Resources */,
 				0109A6A850E244BC2F2B7017 /* [CP] Embed Pods Frameworks */,
-				A722294E806B364307BC076F /* [CP] Copy Pods Resources */,
 				D95E040B2046F91D00EACFB0 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -974,21 +972,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Musicshot-MusicshotApp/Pods-Musicshot-MusicshotApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		450543AEFC772E7D4E3D5BDC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Musicshot-MusicshotCore/Pods-Musicshot-MusicshotCore-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		80E70409D2808DCE4174344C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1005,21 +988,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A722294E806B364307BC076F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Musicshot-MusicshotApp/Pods-Musicshot-MusicshotApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CA182B5A447044D17C743876 /* [CP] Check Pods Manifest.lock */ = {
