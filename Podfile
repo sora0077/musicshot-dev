@@ -1,6 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
+
 plugin 'cocoapods-keys', {
   :project => "musicshot",
   :keys => [
@@ -10,19 +11,22 @@ plugin 'cocoapods-keys', {
 
 inhibit_all_warnings!
 
-target 'MusicshotUtility' do
+abstract_target 'Musicshot' do
   use_frameworks!
 
-  target 'MusicshotCore' do
-    pod 'Firebase/Core'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Firestore'
+  target 'MusicshotUtility' do
     pod 'Fabric'
     pod 'Crashlytics'
 
-    target 'MusicshotApp' do
+    target 'MusicshotCore' do
       inherit! :search_paths
+      pod 'Firebase/Core'
+      pod 'Firebase/Auth'
+      pod 'Firebase/Firestore'
 
+      target 'MusicshotApp' do
+        inherit! :search_paths
+      end
     end
   end
 end
