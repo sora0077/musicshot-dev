@@ -17,6 +17,8 @@ abstract_target 'Musicshot' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   target 'MusicshotApp' do
   end
