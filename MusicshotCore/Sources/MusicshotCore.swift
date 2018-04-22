@@ -10,6 +10,8 @@ import Foundation
 import AVFoundation
 import Firebase
 import FirebaseAuth
+import Fabric
+import Crashlytics
 import AppleMusicKit
 import RealmSwift
 import Keys

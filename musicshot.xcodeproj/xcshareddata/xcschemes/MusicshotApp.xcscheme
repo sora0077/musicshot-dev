@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9093EB720459D8A00F60136"
+               BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
                BuildableName = "MusicshotApp.app"
                BlueprintName = "MusicshotApp"
                ReferencedContainer = "container:musicshot.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9093EB720459D8A00F60136"
+            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9093EB720459D8A00F60136"
+            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9093EB720459D8A00F60136"
+            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">

@@ -8,4 +8,6 @@
 
 import Foundation
 
-public enum Entity {}
+public enum Entity {
+    public enum Ranking {}
+}
