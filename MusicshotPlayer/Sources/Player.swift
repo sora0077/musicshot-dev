@@ -13,13 +13,13 @@ import RxCocoa
 import MusicshotUtility
 
 public protocol PlayerMiddleware {
-    func playerDidCreateItem(_ item: PlayerItem)
+    func playerDidCreateItem(_ item: PlayerItem) throws
     func playerDidChangeCurrentItem(_ item: PlayerItem?) throws
     func playerDidEndPlayToEndTime(_ item: PlayerItem) throws
 }
 
 extension PlayerMiddleware {
-    public func playerDidCreateItem(_ item: PlayerItem) {}
+    public func playerDidCreateItem(_ item: PlayerItem) throws {}
     public func playerDidChangeCurrentItem(_ item: PlayerItem?) throws {}
     public func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {}
 }
@@ -254,7 +254,11 @@ public final class Player {
             guard let playerItem = self.items.move(item) else { return }
             playerItem.item = item
             self.middlewares.reversed().forEach { middleware in
-                middleware.playerDidCreateItem(item)
+                do {
+                    try middleware.playerDidCreateItem(item)
+                } catch {
+                    self._errors.onNext(error)
+                }
             }
 
             NotificationCenter.default.rx

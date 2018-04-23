@@ -69,9 +69,10 @@ public final class Core {
             .flatMapLatest { (_, user) in
                 user.map {
                     Firestore.firestore().collection("developerTokens").rx.document($0.uid)
-                        .map { $0?.data()?["token"] as? String }
+                        .map { $0?.data()?["token"] as? NSString }
                 } ?? .just(nil)
             }
+            .map { $0 as String? }
             .do(onError: { error in
                 log.error(error)
             })
@@ -89,39 +90,6 @@ public final class Core {
 
     private func setupPlayer() -> Player {
         let player = Player()
-
-        player.install(middleware: {
-            class InsertHistory: PlayerMiddleware {
-                weak var core: Core?
-
-                init(core: Core) {
-                    self.core = core
-                }
-
-                func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {
-                    guard let songId = item.userInfo as? Entity.Song.Identifier else { return }
-                    let realm = try Realm()
-                    guard let histories = realm.objects(InternalResource.Histories.self).first else {
-                        try realm.write {
-                            realm.add(InternalResource.Histories(), update: true)
-                        }
-                        try playerDidEndPlayToEndTime(item)
-                        return
-                    }
-                    guard let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: songId) else { return }
-                    try realm.write {
-                        histories.list.append(Entity.History(song))
-                    }
-                    if histories.count(for: song) >= 3 {
-                        let preview = Repository.Preview(song: song)
-                        preview.download()
-                            .subscribe()
-                            .disposed(by: core?.disposeBag)
-                    }
-                }
-            }
-            return InsertHistory(core: self)
-        }())
         return player
     }
 }

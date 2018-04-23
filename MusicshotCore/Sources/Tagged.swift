@@ -30,6 +30,10 @@ extension Tagged: Equatable where RawValue: Equatable {
     }
 }
 
+extension Tagged: Hashable where RawValue: Hashable {
+    public var hashValue: Int { return rawValue.hashValue }
+}
+
 extension Tagged: Comparable where RawValue: Comparable {
     public static func < (lhs: Tagged, rhs: Tagged) -> Bool {
         return lhs.rawValue < rhs.rawValue

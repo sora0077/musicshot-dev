@@ -12,6 +12,7 @@ import MediaPlayer
 import RxSwift
 import RxCocoa
 import MusicshotPlayer
+import MusicshotUtility
 
 public final class Player {
     public var currentTimer: Observable<Double> { return player.currentTimer }
@@ -24,6 +25,8 @@ public final class Player {
                 log.error(error)
             })
             .disposed(by: disposeBag)
+
+        install(middleware: InsertHistory())
 
         let center = MPRemoteCommandCenter.shared()
         center.togglePlayPauseCommand.addTarget { [weak self] _ in
@@ -60,3 +63,38 @@ public final class Player {
 
 //
 // MARK: -
+private final class InsertHistory: PlayerMiddleware {
+    private let disposeBag = DisposeBag()
+    private var willPlayingCount: [Entity.Song.Identifier: Int] = [:]
+    private let downloadQueue = FIFOQueue<Void>(maxConcurrentOperationCount: 1)
+
+    func playerDidCreateItem(_ item: PlayerItem) throws {
+        guard let songId = item.userInfo as? Entity.Song.Identifier else { return }
+        willPlayingCount[songId, default: 0] += 1
+
+        if willPlayingCount[songId, default: 0] >= 6 {
+            let realm = try Realm()
+            guard let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: songId) else { return }
+            downloadQueue.append(Repository.Preview(song: song).download())
+        }
+    }
+
+    func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {
+        guard let songId = item.userInfo as? Entity.Song.Identifier else { return }
+        let realm = try Realm()
+        guard let histories = realm.objects(InternalResource.Histories.self).first else {
+            try realm.write {
+                realm.add(InternalResource.Histories(), update: true)
+            }
+            try playerDidEndPlayToEndTime(item)
+            return
+        }
+        guard let song = realm.object(ofType: Entity.Song.self, forPrimaryKey: songId) else { return }
+        try realm.write {
+            histories.list.append(Entity.History(song))
+        }
+        if histories.count(for: song) >= 3 {
+            downloadQueue.append(Repository.Preview(song: song).download())
+        }
+    }
+}
