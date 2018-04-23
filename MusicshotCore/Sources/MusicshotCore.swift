@@ -31,6 +31,14 @@ public func musicshotCore(oauthScheme: String) -> Core {
     return Core(oauthScheme: oauthScheme)
 }
 
+extension Realm {
+    func object<Element, KeyType>(
+        ofType type: Element.Type, forPrimaryKey key: KeyType
+    ) -> Element? where Element: RealmSwift.Object, KeyType: RawRepresentable {
+        return object(ofType: type, forPrimaryKey: key.rawValue)
+    }
+}
+
 public final class Core {
     public let oauth: OAuth
 
@@ -91,7 +99,7 @@ public final class Core {
                 }
 
                 func playerDidEndPlayToEndTime(_ item: PlayerItem) throws {
-                    guard let songId = item.userInfo as? String else { return }
+                    guard let songId = item.userInfo as? Entity.Song.Identifier else { return }
                     let realm = try Realm()
                     guard let histories = realm.objects(InternalResource.Histories.self).first else {
                         try realm.write {

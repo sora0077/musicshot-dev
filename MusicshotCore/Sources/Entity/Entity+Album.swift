@@ -16,9 +16,10 @@ extension Entity {
         public typealias Artwork = Entity.Artwork
         public typealias EditorialNotes = Entity.EditorialNotes
         public typealias PlayParameters = Entity.PlayParameters
-        public typealias Identifier = String
+        public typealias Identifier = Tagged<Album, String>
 
-        @objc public private(set) dynamic var id: Identifier = ""
+        public var id: Identifier { return Identifier(rawValue: _id) }
+        @objc private dynamic var _id: String = ""
         @objc public private(set) dynamic var artistName: String = ""
         @objc public private(set) dynamic var contentRating: String?
         @objc public private(set) dynamic var copyright: String = ""
@@ -42,7 +43,7 @@ extension Entity {
 
         @objc private dynamic var _url: String = ""
 
-        @objc override public class func primaryKey() -> String? { return "id" }
+        @objc override public class func primaryKey() -> String? { return "_id" }
 
         public convenience init(
             id: Identifier,
@@ -61,7 +62,7 @@ extension Entity {
             url: String
         ) throws {
             self.init()
-            self.id = id
+            self._id = id.rawValue
             self.artistName = artistName
             self._artwork = artwork
             self.contentRating = contentRating

@@ -237,7 +237,7 @@ public final class Player {
                     onSuccess: { url in
                         item.url = url
                     },
-                    onError: { [weak self] error in
+                    onError: { [weak self] _ in
                         self?.items.remove(item)
                         self?.fetchIfNeeded()
                     }
@@ -261,7 +261,7 @@ public final class Player {
                 .notification(.AVPlayerItemDidPlayToEndTime, object: playerItem)
                 .compactMap { $0.object as? AVPlayerItem }
                 .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-                .subscribe(onNext: { [weak self] playerItem in
+                .subscribe(onNext: { [weak self] _ in
                     self?.middlewares.reversed().forEach { middleware in
                         do {
                             try middleware.playerDidEndPlayToEndTime(item)

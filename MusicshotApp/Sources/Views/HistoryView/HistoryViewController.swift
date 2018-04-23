@@ -22,7 +22,7 @@ final class HistoryViewController: SimpleListViewController {
             numberOfSections: {
                 return 1
             },
-            numberOfItemsInSection: { section in
+            numberOfItemsInSection: { _ in
                 return histories.count
             },
             cellForItemAt: { cell, indexPath in

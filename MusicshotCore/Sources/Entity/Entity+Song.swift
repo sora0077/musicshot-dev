@@ -101,9 +101,10 @@ extension Entity {
         public typealias EditorialNotes = Entity.EditorialNotes
         public typealias PlayParameters = Entity.PlayParameters
 
-        public typealias Identifier = String
+        public typealias Identifier = Tagged<Song, String>
 
-        @objc public private(set) dynamic var id: Identifier = ""
+        public var id: Identifier { return Identifier(rawValue: _id) }
+        @objc private dynamic var _id: String = ""
         @objc public private(set) dynamic var artistName: String = ""
         @objc public private(set) dynamic var composerName: String?
         @objc public private(set) dynamic var contentRating: String?
@@ -138,7 +139,7 @@ extension Entity {
         public var preview: Preview? { return _preview.first }
         private let _preview = LinkingObjects(fromType: Preview.self, property: "song")
 
-        @objc override public class func primaryKey() -> String? { return "id" }
+        @objc override public class func primaryKey() -> String? { return "_id" }
 
         public convenience init(
             id: Identifier,
@@ -161,7 +162,7 @@ extension Entity {
             workName: String?
         ) throws {
             self.init()
-            self.id = id
+            self._id = id.rawValue
             self.artistName = artistName
             self._artwork = artwork
             self.composerName = composerName
@@ -186,7 +187,7 @@ extension Entity {
     public final class Preview: Object {
         @objc public override class func primaryKey() -> String? { return "id" }
 
-        @objc private(set) dynamic var id: Song.Identifier = ""
+        @objc private(set) dynamic var id: Song.Identifier.RawValue = ""
         @objc private dynamic var _duration: Int = -1
         @objc private dynamic var _remoteUrl: String = ""
         @objc private dynamic var _localUrl: String = ""
@@ -201,7 +202,7 @@ extension Entity {
 
         convenience init(song: Song, url: URL, duration: Int) {
             self.init()
-            self.id = song.id
+            self.id = song.id.rawValue
             self._remoteUrl = url.absoluteString
             self._duration = duration
             self.song = song

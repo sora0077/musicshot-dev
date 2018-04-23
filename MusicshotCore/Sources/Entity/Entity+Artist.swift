@@ -13,10 +13,11 @@ import AppleMusicKit
 extension Entity {
     @objc(EntityArtist)
     public final class Artist: Object, AppleMusicKit.Artist {
+        public typealias Identifier = Tagged<Artist, String>
         public typealias EditorialNotes = Entity.EditorialNotes
-        public typealias Identifier = String
 
-        @objc public private(set) dynamic var id: Identifier = ""
+        public var id: Identifier { return Identifier(rawValue: _id) }
+        @objc private dynamic var _id: String = ""
         @objc public private(set) dynamic var editorialNotes: Entity.EditorialNotes?
         @objc public private(set) dynamic var name: String = ""
 
@@ -25,7 +26,7 @@ extension Entity {
 
         @objc private dynamic var _url: String = ""
 
-        @objc override public class func primaryKey() -> String? { return "id" }
+        @objc override public class func primaryKey() -> String? { return "_id" }
 
         public convenience init(
             id: Identifier,
@@ -35,7 +36,7 @@ extension Entity {
             url: String
         ) throws {
             self.init()
-            self.id = id
+            self._id = id.rawValue
             self._genreNames.append(objectsIn: genreNames)
             self.editorialNotes = editorialNotes
             self.name = name

@@ -47,7 +47,7 @@ final class LoginViewController: UIViewController {
                 onSuccess: { [weak self] in
                     self?.presentingViewController?.dismiss(animated: true, completion: nil)
                 },
-                onError: { [weak vc] error in
+                onError: { [weak vc] _ in
                     vc?.dismiss(animated: true, completion: nil)
                 }
             )

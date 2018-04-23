@@ -13,16 +13,17 @@ import AppleMusicKit
 extension Entity {
     @objc(EntityGenre)
     public final class Genre: Object, AppleMusicKit.Genre {
-        public typealias Identifier = String
+        public typealias Identifier = Tagged<Genre, String>
 
-        @objc public private(set) dynamic var id: Identifier = ""
+        public var id: Identifier { return Identifier(rawValue: _id) }
+        @objc private dynamic var _id: String = ""
         @objc public private(set) dynamic var name: String = ""
 
-        @objc override public class func primaryKey() -> String? { return "id" }
+        @objc override public class func primaryKey() -> String? { return "_id" }
 
         public convenience init(id: Identifier, name: String) throws {
             self.init()
-            self.id = id
+            self._id = id.rawValue
             self.name = name
         }
     }

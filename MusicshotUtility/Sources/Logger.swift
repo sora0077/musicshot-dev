@@ -11,7 +11,7 @@ import Crashlytics
 
 public struct Logger {
     public init() {}
-    
+
     public func error(_ error: Error, _ file: StaticString = #file, _ line: UInt = #line) {
         Crashlytics.sharedInstance().recordError(error, withAdditionalUserInfo: ["file": file, "line": line])
         print(file, line, error)

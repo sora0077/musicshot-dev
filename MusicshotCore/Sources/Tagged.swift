@@ -10,15 +10,14 @@ import Foundation
 
 public struct Tagged<Tag, RawValue>: RawRepresentable {
     public let rawValue: RawValue
-    
+
     public init(rawValue: RawValue) {
         self.rawValue = rawValue
     }
 }
 
 extension Tagged: CustomStringConvertible where RawValue: CustomStringConvertible {
-    public var description: String {
-        return rawValue.description }
+    public var description: String { return rawValue.description }
 }
 
 extension Tagged: CustomDebugStringConvertible where RawValue: CustomDebugStringConvertible {
@@ -57,7 +56,7 @@ extension Tagged: ExpressibleByNilLiteral where RawValue: ExpressibleByNilLitera
 
 extension Tagged: ExpressibleByBooleanLiteral where RawValue: ExpressibleByBooleanLiteral {
     public typealias BooleanLiteralType = RawValue.BooleanLiteralType
-    
+
     public init(booleanLiteral value: BooleanLiteralType) {
         rawValue = RawValue(booleanLiteral: value)
     }
@@ -65,7 +64,7 @@ extension Tagged: ExpressibleByBooleanLiteral where RawValue: ExpressibleByBoole
 
 extension Tagged: ExpressibleByIntegerLiteral where RawValue: ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = RawValue.IntegerLiteralType
-    
+
     public init(integerLiteral value: IntegerLiteralType) {
         rawValue = RawValue(integerLiteral: value)
     }
@@ -73,7 +72,7 @@ extension Tagged: ExpressibleByIntegerLiteral where RawValue: ExpressibleByInteg
 
 extension Tagged: ExpressibleByFloatLiteral where RawValue: ExpressibleByFloatLiteral {
     public typealias FloatLiteralType = RawValue.FloatLiteralType
-    
+
     public init(floatLiteral value: FloatLiteralType) {
         rawValue = RawValue(floatLiteral: value)
     }
@@ -81,7 +80,7 @@ extension Tagged: ExpressibleByFloatLiteral where RawValue: ExpressibleByFloatLi
 
 extension Tagged: ExpressibleByStringLiteral where RawValue: ExpressibleByStringLiteral {
     public typealias StringLiteralType = RawValue.StringLiteralType
-    
+
     public init(stringLiteral value: StringLiteralType) {
         rawValue = RawValue(stringLiteral: value)
     }
@@ -89,7 +88,7 @@ extension Tagged: ExpressibleByStringLiteral where RawValue: ExpressibleByString
 
 extension Tagged: ExpressibleByUnicodeScalarLiteral where RawValue: ExpressibleByUnicodeScalarLiteral {
     public typealias UnicodeScalarLiteralType = RawValue.UnicodeScalarLiteralType
-    
+
     public init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
         rawValue = RawValue(unicodeScalarLiteral: value)
     }
@@ -97,8 +96,15 @@ extension Tagged: ExpressibleByUnicodeScalarLiteral where RawValue: ExpressibleB
 
 extension Tagged: ExpressibleByExtendedGraphemeClusterLiteral where RawValue: ExpressibleByExtendedGraphemeClusterLiteral {
     public typealias ExtendedGraphemeClusterLiteralType = RawValue.ExtendedGraphemeClusterLiteralType
-    
+
     public init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
         rawValue = RawValue(extendedGraphemeClusterLiteral: value)
+    }
+}
+
+//
+extension Int {
+    init?<T, Raw: StringProtocol>(_ value: Tagged<T, Raw>) {
+        self.init(value.rawValue)
     }
 }
