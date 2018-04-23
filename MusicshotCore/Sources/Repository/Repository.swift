@@ -132,7 +132,7 @@ public class Repository {
             public func fetch() -> Single<Void> {
                 return Single<ListRankingGenres>
                     .storefront { storefront in
-                        ListRankingGenres(country: storefront.id)
+                        ListRankingGenres(country: storefront.id.rawValue)
                     }
                     .flatMap(NetworkSession.shared.rx.send)
                     .do(onSuccess: { response in

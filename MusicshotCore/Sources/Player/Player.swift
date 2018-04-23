@@ -16,8 +16,15 @@ import MusicshotPlayer
 public final class Player {
     public var currentTimer: Observable<Double> { return player.currentTimer }
     private let player = MusicshotPlayer.Player()
-
+    private let disposeBag = DisposeBag()
+    
     init() {
+        player.errors
+            .subscribe(onNext: { error in
+                log.error(error)
+            })
+            .disposed(by: disposeBag)
+        
         let center = MPRemoteCommandCenter.shared()
         center.togglePlayPauseCommand.addTarget { [weak self] event in
             self?.player.togglePlayPause()

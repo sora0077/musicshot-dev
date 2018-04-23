@@ -25,6 +25,8 @@ let env = MusicshotKeys()
 
 typealias DisposeBag = MusicshotUtility.DisposeBag
 
+public let log = Logger()
+
 public func musicshotCore(oauthScheme: String) -> Core {
     return Core(oauthScheme: oauthScheme)
 }
@@ -62,6 +64,9 @@ public final class Core {
                         .map { $0?.data()?["token"] as? String }
                 } ?? .just(nil)
             }
+            .do(onError: { error in
+                log.error(error)
+            })
             .share()
 
         developerToken

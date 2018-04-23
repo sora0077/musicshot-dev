@@ -11,6 +11,8 @@
 		3EA6825EE1991DE9BED72FCE /* Pods_Musicshot_MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFEDE891F6DA53FF776ED14 /* Pods_Musicshot_MusicshotUtility.framework */; };
 		8C066693C86DFCAC8106501C /* Pods_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D64BF149B30BC50E20046C /* Pods_MusicshotCore.framework */; };
 		D9103696208CB5EB00760CE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9103695208CB5D700760CE4 /* GoogleService-Info.plist */; };
+		D9103699208CE68600760CE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9103698208CE68600760CE4 /* Logger.swift */; };
+		D97CCFDB208D69C90064776A /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
 		D986C9C5208CAB0B0039A7F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */; };
 		D986C9D6208CAB300039A7F8 /* MusicshotCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9D4208CAB300039A7F8 /* MusicshotCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D986C9E3208CAB410039A7F8 /* MusicshotPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9E1208CAB410039A7F8 /* MusicshotPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -211,6 +213,8 @@
 		BB54AA6D89E407E1CC7A4EA2 /* Pods-Musicshot-MusicshotUtility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Musicshot-MusicshotUtility.release.xcconfig"; path = "Pods/Target Support Files/Pods-Musicshot-MusicshotUtility/Pods-Musicshot-MusicshotUtility.release.xcconfig"; sourceTree = "<group>"; };
 		C0D64BF149B30BC50E20046C /* Pods_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9103695208CB5D700760CE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
 		D986C9BB208CAB0A0039A7F8 /* MusicshotApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicshotApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D986C9C9208CAB0B0039A7F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -600,6 +604,7 @@
 				D986CA69208CAC900039A7F8 /* Repository */,
 				D986CA84208CAC900039A7F8 /* Utils */,
 				D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */,
+				D97CCFDA208D69C80064776A /* Tagged.swift */,
 				D986CA87208CAC900039A7F8 /* Coeffects.swift */,
 			);
 			path = Sources;
@@ -695,6 +700,7 @@
 				D986CAB6208CACA80039A7F8 /* DisposeBag.swift */,
 				D986CAB7208CACA80039A7F8 /* RxQueue.swift */,
 				D986CAB8208CACA80039A7F8 /* ReactiveX.swift */,
+				D9103698208CE68600760CE4 /* Logger.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1080,6 +1086,7 @@
 				D986CA98208CAC900039A7F8 /* Entity+Ranking.swift in Sources */,
 				D986CA9F208CAC900039A7F8 /* Entity+Genre.swift in Sources */,
 				D986CA94208CAC900039A7F8 /* Repository+History.swift in Sources */,
+				D97CCFDB208D69C90064776A /* Tagged.swift in Sources */,
 				D986CA90208CAC900039A7F8 /* Repository+Search.swift in Sources */,
 				D986CAA0208CAC900039A7F8 /* MusicshotCore.swift in Sources */,
 				D986CA91208CAC900039A7F8 /* Repository.swift in Sources */,
@@ -1123,6 +1130,7 @@
 				D986CABB208CACA80039A7F8 /* ReactiveX.swift in Sources */,
 				D986CAB9208CACA80039A7F8 /* DisposeBag.swift in Sources */,
 				D986CABA208CACA80039A7F8 /* RxQueue.swift in Sources */,
+				D9103699208CE68600760CE4 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,7 +1301,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicshotApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sora0077.musicshot-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1313,7 +1324,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicshotApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sora0077.musicshot-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1338,7 +1352,11 @@
 				);
 				INFOPLIST_FILE = MusicshotCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1366,7 +1384,11 @@
 				);
 				INFOPLIST_FILE = MusicshotCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1393,7 +1415,11 @@
 				);
 				INFOPLIST_FILE = MusicshotPlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1420,7 +1446,11 @@
 				);
 				INFOPLIST_FILE = MusicshotPlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1443,7 +1473,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MusicshotUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1466,7 +1500,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MusicshotUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1494,7 +1532,11 @@
 				);
 				INFOPLIST_FILE = MusicshotUtility/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUtility;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1522,7 +1564,11 @@
 				);
 				INFOPLIST_FILE = MusicshotUtility/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotUtility;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

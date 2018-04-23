@@ -15,15 +15,16 @@ extension String: Language {}
 extension Entity {
     @objc(EntityStorefront)
     public final class Storefront: Object, AppleMusicKit.Storefront {
-        public typealias Identifier = String
+        public typealias Identifier = Tagged<Storefront, String>
         public typealias Language = String
 
-        @objc public private(set) dynamic var id: Identifier = ""
+        public var id: Identifier { return Tagged(rawValue: _id) }
+        @objc private dynamic var _id: String = ""
         @objc public private(set) dynamic var defaultLanguageTag: Language = ""
         @objc public private(set) dynamic var name: String = ""
         public let supportedLanguageTags = List<String>()
 
-        @objc override public class func primaryKey() -> String? { return "id" }
+        @objc override public class func primaryKey() -> String? { return "_id" }
 
         public convenience init(
             id: Entity.Storefront.Identifier,
@@ -32,7 +33,7 @@ extension Entity {
             supportedLanguageTags: [Entity.Storefront.Language]
         ) throws {
             self.init()
-            self.id = id
+            self._id = id.rawValue
             self.defaultLanguageTag = defaultLanguageTag
             self.name = name
             self.supportedLanguageTags.append(objectsIn: supportedLanguageTags)
