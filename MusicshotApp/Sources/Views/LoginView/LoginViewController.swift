@@ -11,6 +11,7 @@ import SafariServices
 import FontAwesome
 import RxSwift
 import Compass
+import Constraint
 
 final class LoginViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -28,8 +29,8 @@ final class LoginViewController: UIViewController {
 
         view.backgroundColor = UIColor(named: "Background")
         view.addSubview(githubButton)
-        githubButton.autolayout.apply {
-            $0.center.equal(to: view)
+        constrain(githubButton) { githubButton in
+            githubButton.center.equalTo(githubButton.superview.center)
         }
         githubButton.addTarget(self, action: #selector(githubLoginAction), for: .touchUpInside)
     }

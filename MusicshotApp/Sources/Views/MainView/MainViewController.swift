@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import UIKitSupport
-import AutoLayoutSupport
+import Constraint
 import Compass
 
 final class MainViewController: UIViewController {
@@ -30,8 +30,10 @@ final class MainViewController: UIViewController {
             button.addTarget(self, action: #selector(chartsAction), for: .touchUpInside)
         }
         view.addSubview(chartsButton)
-        chartsButton.autolayout.left.equal(to: view, constant: 8)
-        chartsButton.autolayout.top.equal(to: view, constant: 120)
+        constrain(chartsButton) { chartsButton in
+            chartsButton.left.equalTo(chartsButton.superview.left, constant: 8)
+            chartsButton.top.equalTo(chartsButton.superview.top, constant: 120)
+        }
 
         let searchButton = UIButton(type: .system).apply { button in
             button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
@@ -39,8 +41,10 @@ final class MainViewController: UIViewController {
             button.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
         }
         view.addSubview(searchButton)
-        searchButton.autolayout.left.equal(to: view, constant: 8)
-        searchButton.autolayout.top.equal(to: chartsButton.autolayout.bottom, constant: 20)
+        constrain(searchButton, chartsButton) { searchButton, chartsButton in
+            searchButton.left.equalTo(searchButton.superview.left, constant: 8)
+            searchButton.top.equalTo(chartsButton.bottom, constant: 20)
+        }
 
         let rankingButton = UIButton(type: .system).apply { button in
             button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
@@ -48,8 +52,10 @@ final class MainViewController: UIViewController {
             button.addTarget(self, action: #selector(rankingAction), for: .touchUpInside)
         }
         view.addSubview(rankingButton)
-        rankingButton.autolayout.left.equal(to: view, constant: 8)
-        rankingButton.autolayout.top.equal(to: searchButton.autolayout.bottom, constant: 20)
+        constrain(rankingButton, searchButton) { rankingButton, searchButton in
+            rankingButton.left.equalTo(rankingButton.superview.left, constant: 8)
+            rankingButton.top.equalTo(searchButton.bottom, constant: 20)
+        }
 
         let historyButton = UIButton(type: .system).apply { button in
             button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .ultraLight)
@@ -57,15 +63,17 @@ final class MainViewController: UIViewController {
             button.addTarget(self, action: #selector(historyAction), for: .touchUpInside)
         }
         view.addSubview(historyButton)
-        historyButton.autolayout.left.equal(to: view, constant: 8)
-        historyButton.autolayout.top.equal(to: rankingButton.autolayout.bottom, constant: 20)
+        constrain(historyButton, rankingButton) { historyButton, rankingButton in
+            historyButton.left.equalTo(historyButton.superview.left, constant: 8)
+            historyButton.top.equalTo(rankingButton.bottom, constant: 20)
+        }
 
         additionalSafeAreaInsets.bottom = 68 + 4
         view.addSubview(customTabBar)
-        customTabBar.autolayout.apply {
-            $0.left.equal(to: view.autolayout.left)
-            $0.right.equal(to: view.autolayout.right)
-            $0.bottom.equal(to: autolayout.safeArea.bottom, constant: additionalSafeAreaInsets.bottom)
+        constrain(customTabBar) { customTabBar in
+            customTabBar.left.equalTo(customTabBar.superview.left)
+            customTabBar.right.equalTo(customTabBar.superview.right)
+            customTabBar.bottom.equalTo(customTabBar.superview.safeArea.bottom, constant: 20)
         }
 
         do {
@@ -119,12 +127,10 @@ private final class TabBar: UIView {
         super.init(frame: frame)
 
         addSubview(contentView)
-        contentView.autolayout.apply {
-            $0.top.equal(to: self)
-            $0.left.equal(to: self, constant: 8)
-            $0.right.equal(to: self, constant: -8)
-            $0.bottom.equal(to: self, constant: -8)
-            $0.height.equal(to: 60)
+        constrain(contentView) { contentView in
+            contentView.edge.equalTo(contentView.superview.edge,
+                                     inset: UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8))
+            contentView.height.equalTo(60)
         }
 
         contentView.addMotionEffect(UIMotionEffectGroup().apply { group in

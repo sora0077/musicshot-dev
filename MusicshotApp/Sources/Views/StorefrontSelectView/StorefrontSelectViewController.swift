@@ -9,6 +9,7 @@
 import UIKit
 import MusicshotCore
 import UIKitSupport
+import Constraint
 
 final class StorefrontSelectViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -34,7 +35,9 @@ final class StorefrontSelectViewController: UIViewController {
         collectionView.register(Cell.self)
 
         view.addSubview(collectionView)
-        collectionView.autolayout.edges.equal(to: view)
+        constrain(collectionView) { collectionView in
+            collectionView.edge.equalTo(collectionView.superview.edge)
+        }
 
         do {
             let (storefronts, token) = try musicshot.repository.storefronts.all { [weak self] changes in
@@ -90,8 +93,10 @@ private final class Cell: UICollectionViewCell, Reusable {
         super.init(frame: frame)
         contentView.backgroundColor = .white
         contentView.addSubview(textLabel)
-        textLabel.autolayout.centerY.equal(to: contentView)
-        textLabel.autolayout.left.equal(to: contentView, constant: 8)
+        constrain(textLabel) { textLabel in
+            textLabel.left.equalTo(textLabel.superview.right, constant: 8)
+            textLabel.centerY.equalTo(textLabel.superview.centerY)
+        }
 
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2

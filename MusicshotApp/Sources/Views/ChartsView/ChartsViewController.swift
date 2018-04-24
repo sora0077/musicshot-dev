@@ -11,6 +11,7 @@ import AVFoundation
 import Nuke
 import UIKitSupport
 import MusicshotCore
+import Constraint
 
 private enum Section {
     case item
@@ -44,7 +45,9 @@ final class ChartsViewController: UIViewController {
         collectionView.register(Cell.self, FetchCell.self)
 
         view.addSubview(collectionView)
-        collectionView.autolayout.edges.equal(to: view)
+        constrain(collectionView) { collectionView in
+            collectionView.edge.equalTo(collectionView.superview.edge)
+        }
 
         do {
             let (songs, token) = try repository.all { [weak self] changes in
@@ -121,11 +124,13 @@ private final class Cell: UICollectionViewCell, Reusable {
         contentView.clipsToBounds = true
         contentView.backgroundColor = .white
         contentView.addSubview(imageView, textLabel)
-        imageView.autolayout.left.equal(to: contentView)
-        imageView.autolayout.centerY.equal(to: contentView)
+        constrain(imageView, textLabel) { imageView, textLabel in
+            imageView.left.equalTo(imageView.superview.left)
+            imageView.centerY.equalTo(imageView.superview.centerY)
 
-        textLabel.autolayout.left.equal(to: imageView.autolayout.right, constant: 8)
-        textLabel.autolayout.centerY.equal(to: contentView)
+            textLabel.left.equalTo(imageView.right, constant: 8)
+            textLabel.centerY.equalTo(textLabel.superview.centerY)
+        }
 
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2
@@ -145,7 +150,9 @@ private final class FetchCell: UICollectionViewCell, Reusable {
         super.init(frame: frame)
         contentView.backgroundColor = .white
         contentView.addSubview(textLabel)
-        textLabel.autolayout.center.equal(to: contentView)
+        constrain(textLabel) { textLabel in
+            textLabel.center.equalTo(textLabel.superview.center)
+        }
 
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2

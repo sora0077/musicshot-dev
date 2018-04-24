@@ -13,6 +13,8 @@
 		D9103696208CB5EB00760CE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9103695208CB5D700760CE4 /* GoogleService-Info.plist */; };
 		D9103699208CE68600760CE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9103698208CE68600760CE4 /* Logger.swift */; };
 		D97CCFDB208D69C90064776A /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
+		D97CCFDF208F6AF60064776A /* Constraint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; };
+		D97CCFE0208F6AF60064776A /* Constraint.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986C9C5208CAB0B0039A7F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */; };
 		D986C9D6208CAB300039A7F8 /* MusicshotCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9D4208CAB300039A7F8 /* MusicshotCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D986C9E3208CAB410039A7F8 /* MusicshotPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9E1208CAB410039A7F8 /* MusicshotPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -69,8 +71,6 @@
 		D986CAE0208CAEDA0039A7F8 /* APIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD5208CAEC50039A7F8 /* APIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986CAE1208CAEDA0039A7F8 /* AppleMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */; };
 		D986CAE2208CAEDA0039A7F8 /* AppleMusicKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D986CAE3208CAEDA0039A7F8 /* AutoLayoutSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD7208CAEC60039A7F8 /* AutoLayoutSupport.framework */; };
-		D986CAE4208CAEDA0039A7F8 /* AutoLayoutSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD7208CAEC60039A7F8 /* AutoLayoutSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986CAE5208CAEDA0039A7F8 /* Compass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CACE208CAEC50039A7F8 /* Compass.framework */; };
 		D986CAE6208CAEDA0039A7F8 /* Compass.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986CACE208CAEC50039A7F8 /* Compass.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986CAE7208CAEDA0039A7F8 /* DeepLinkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD1208CAEC50039A7F8 /* DeepLinkKit.framework */; };
@@ -181,6 +181,7 @@
 				D986CAFE208CAEDA0039A7F8 /* WindowKit.framework in Embed Frameworks */,
 				D986CAFA208CAEDA0039A7F8 /* SwiftDate.framework in Embed Frameworks */,
 				D986CB14208CB1540039A7F8 /* MusicshotUtility.framework in Embed Frameworks */,
+				D97CCFE0208F6AF60064776A /* Constraint.framework in Embed Frameworks */,
 				D986CAE2208CAEDA0039A7F8 /* AppleMusicKit.framework in Embed Frameworks */,
 				D986CAF8208CAEDA0039A7F8 /* RxSwift.framework in Embed Frameworks */,
 				D986CAF6208CAEDA0039A7F8 /* RxCocoa.framework in Embed Frameworks */,
@@ -196,7 +197,6 @@
 				D986CAF2208CAEDA0039A7F8 /* RealmSwift.framework in Embed Frameworks */,
 				D986CADE208CAEDA0039A7F8 /* Alamofire.framework in Embed Frameworks */,
 				D986CAE6208CAEDA0039A7F8 /* Compass.framework in Embed Frameworks */,
-				D986CAE4208CAEDA0039A7F8 /* AutoLayoutSupport.framework in Embed Frameworks */,
 				D986CAE8208CAEDA0039A7F8 /* DeepLinkKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -215,6 +215,7 @@
 		D9103695208CB5D700760CE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
+		D97CCFDE208F6ABC0064776A /* Constraint.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Constraint.framework; path = Carthage/Build/iOS/Constraint.framework; sourceTree = "<group>"; };
 		D986C9BB208CAB0A0039A7F8 /* MusicshotApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicshotApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D986C9C9208CAB0B0039A7F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -286,7 +287,6 @@
 		D986CAD4208CAEC50039A7F8 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		D986CAD5208CAEC50039A7F8 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
 		D986CAD6208CAEC60039A7F8 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
-		D986CAD7208CAEC60039A7F8 /* AutoLayoutSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AutoLayoutSupport.framework; path = Carthage/Build/iOS/AutoLayoutSupport.framework; sourceTree = "<group>"; };
 		D986CAD8208CAEC60039A7F8 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		D986CAD9208CAEC60039A7F8 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		D986CADA208CAEC60039A7F8 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
@@ -310,10 +310,10 @@
 				D986CB0D208CB1540039A7F8 /* MusicshotPlayer.framework in Frameworks */,
 				D986CAF9208CAEDA0039A7F8 /* SwiftDate.framework in Frameworks */,
 				D986CADD208CAEDA0039A7F8 /* Alamofire.framework in Frameworks */,
+				D97CCFDF208F6AF60064776A /* Constraint.framework in Frameworks */,
 				D986CAE5208CAEDA0039A7F8 /* Compass.framework in Frameworks */,
 				D986CAFB208CAEDA0039A7F8 /* UIKitSupport.framework in Frameworks */,
 				D986CADF208CAEDA0039A7F8 /* APIKit.framework in Frameworks */,
-				D986CAE3208CAEDA0039A7F8 /* AutoLayoutSupport.framework in Frameworks */,
 				D986CAE9208CAEDA0039A7F8 /* FontAwesome.framework in Frameworks */,
 				D986CAE7208CAEDA0039A7F8 /* DeepLinkKit.framework in Frameworks */,
 				D986CAEB208CAEDA0039A7F8 /* FoundationSupport.framework in Frameworks */,
@@ -376,7 +376,7 @@
 				D986CACD208CAEC40039A7F8 /* Alamofire.framework */,
 				D986CAD5208CAEC50039A7F8 /* APIKit.framework */,
 				D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */,
-				D986CAD7208CAEC60039A7F8 /* AutoLayoutSupport.framework */,
+				D97CCFDE208F6ABC0064776A /* Constraint.framework */,
 				D986CACE208CAEC50039A7F8 /* Compass.framework */,
 				D986CAD1208CAEC50039A7F8 /* DeepLinkKit.framework */,
 				D986CAD6208CAEC60039A7F8 /* FontAwesome.framework */,

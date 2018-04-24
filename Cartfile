@@ -1,5 +1,5 @@
 github "sora0077/FoundationSupport" "master"
-github "sora0077/AutoLayoutSupport" "master"
+github "sora0077/Constraint" "master"
 github "sora0077/AppleMusicKit" "swift4.1"
 github "sora0077/WindowKit" "master"
 
