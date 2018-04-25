@@ -79,6 +79,20 @@ struct RankingGenresRoute: Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
         guard let from = currentController as? MainViewController else { return }
         let vc = RankingGenresViewController()
-        from.present(vc, animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.barTintColor = UIColor(named: "Primary")
+        from.present(nav, animated: true, completion: nil)
+    }
+}
+
+import MusicshotCore
+
+struct RankingGenreRoute: Routable {
+    func navigate(to location: Location, from currentController: CurrentController) throws {
+        guard let genreId = location.arguments["genre"].map(Entity.Genre.Identifier.init(rawValue:)) else { return }
+        guard let main = currentController as? MainViewController else { return }
+        guard let from = main.presentedViewController as? UINavigationController else { return }
+        let vc = try RankingViewController(with: genreId)
+        from.pushViewController(vc, animated: true)
     }
 }

@@ -30,6 +30,15 @@ extension Realm {
         return obj
     }
 
+    func object<O: Object & LifetimeObject, Key: RawRepresentable>(
+        of type: O.Type, for primaryKey: Key,
+        _ keyPath: KeyPath<O, Date>,
+        within: DateComponents,
+        now: Date = coeffects.dateType.now()
+    ) -> O? {
+        return object(of: type, for: primaryKey.rawValue, keyPath, within: within, now: now)
+    }
+
     func object<O: Object & LifetimeObject>(
         of type: O.Type,
         _ keyPath: KeyPath<O, Date>,

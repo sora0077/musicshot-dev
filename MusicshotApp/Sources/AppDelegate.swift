@@ -102,8 +102,9 @@ extension AppDelegate {
         postLoginRouter.routes = [
             "storefront/select": StorefrontSelectRoute(),
             "charts": ChartsRoute(),
-            "rankingGenres": RankingGenresRoute(),
-            "history": HistoryRoute()
+            "history": HistoryRoute(),
+            "ranking/genres": RankingGenresRoute(),
+            "ranking/genres:{genre}": RankingGenreRoute()
         ]
 
         var searchRouter = Router()
@@ -131,12 +132,14 @@ extension AppDelegate {
                 return
             }
 
-            if location.path.contains(in: searchRouter.routes.keys), let from = self?.manager[.search].rootViewController {
+            if location.path.contains(in: searchRouter.routes.keys),
+                let from = self?.manager[.search].rootViewController {
                 searchRouter.navigate(to: location, from: from)
                 return
             }
 
-            if location.path.contains(in: mainRouter.routes.keys), let from = self?.manager[.main].rootViewController {
+            if location.path.contains(in: mainRouter.routes.keys),
+                let from = self?.manager[.main].rootViewController {
                 self?.manager[.main].makeKey()
                 mainRouter.navigate(to: location, from: from)
                 return
@@ -164,7 +167,8 @@ extension AppDelegate {
             try session.setCategory(AVAudioSessionCategoryPlayback)
             try session.setActive(true)
         } catch {
-            fatalError()
+            log.error(error)
+            fatalError("\(error)")
         }
         UIApplication.shared.beginReceivingRemoteControlEvents()
 

@@ -15,6 +15,8 @@
 		D97CCFDB208D69C90064776A /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
 		D97CCFDF208F6AF60064776A /* Constraint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; };
 		D97CCFE0208F6AF60064776A /* Constraint.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D97CCFE22090CC870064776A /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFE12090CC870064776A /* RankingViewController.swift */; };
+		D97CCFE52090D7E70064776A /* ListRankingRss.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFE42090D7E70064776A /* ListRankingRss.swift */; };
 		D986C9C5208CAB0B0039A7F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */; };
 		D986C9D6208CAB300039A7F8 /* MusicshotCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9D4208CAB300039A7F8 /* MusicshotCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D986C9E3208CAB410039A7F8 /* MusicshotPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = D986C9E1208CAB410039A7F8 /* MusicshotPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -216,6 +218,8 @@
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
 		D97CCFDE208F6ABC0064776A /* Constraint.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Constraint.framework; path = Carthage/Build/iOS/Constraint.framework; sourceTree = "<group>"; };
+		D97CCFE12090CC870064776A /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
+		D97CCFE42090D7E70064776A /* ListRankingRss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRankingRss.swift; sourceTree = "<group>"; };
 		D986C9BB208CAB0A0039A7F8 /* MusicshotApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicshotApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D986C9C4208CAB0B0039A7F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D986C9C9208CAB0B0039A7F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -516,13 +520,13 @@
 		D986CA07208CAC1A0039A7F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D986CA08208CAC1A0039A7F8 /* RankingGenreView */,
-				D986CA0A208CAC1A0039A7F8 /* HistoryView */,
-				D986CA0C208CAC1A0039A7F8 /* StorefrontSelectView */,
-				D986CA0E208CAC1A0039A7F8 /* ChartsView */,
-				D986CA10208CAC1A0039A7F8 /* SearchView */,
 				D986CA12208CAC1A0039A7F8 /* MainView */,
 				D986CA14208CAC1A0039A7F8 /* LoginView */,
+				D986CA0E208CAC1A0039A7F8 /* ChartsView */,
+				D986CA10208CAC1A0039A7F8 /* SearchView */,
+				D986CA0A208CAC1A0039A7F8 /* HistoryView */,
+				D986CA08208CAC1A0039A7F8 /* RankingGenreView */,
+				D986CA0C208CAC1A0039A7F8 /* StorefrontSelectView */,
 				D986CA16208CAC1A0039A7F8 /* Debug */,
 			);
 			path = Views;
@@ -532,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				D986CA09208CAC1A0039A7F8 /* RankingGenresViewController.swift */,
+				D97CCFE12090CC870064776A /* RankingViewController.swift */,
 			);
 			path = RankingGenreView;
 			sourceTree = "<group>";
@@ -662,6 +667,7 @@
 			children = (
 				D986CA82208CAC900039A7F8 /* GetPreviewURL.swift */,
 				D986CA83208CAC900039A7F8 /* ListRankingGenres.swift */,
+				D97CCFE42090D7E70064776A /* ListRankingRss.swift */,
 			);
 			path = iTunes;
 			sourceTree = "<group>";
@@ -1067,6 +1073,7 @@
 				D986CA1A208CAC1A0039A7F8 /* AppDelegate.swift in Sources */,
 				D986CA22208CAC1A0039A7F8 /* SimpleListViewController.swift in Sources */,
 				D986CA1C208CAC1A0039A7F8 /* HistoryViewController.swift in Sources */,
+				D97CCFE22090CC870064776A /* RankingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,6 +1094,7 @@
 				D986CA9F208CAC900039A7F8 /* Entity+Genre.swift in Sources */,
 				D986CA94208CAC900039A7F8 /* Repository+History.swift in Sources */,
 				D97CCFDB208D69C90064776A /* Tagged.swift in Sources */,
+				D97CCFE52090D7E70064776A /* ListRankingRss.swift in Sources */,
 				D986CA90208CAC900039A7F8 /* Repository+Search.swift in Sources */,
 				D986CAA0208CAC900039A7F8 /* MusicshotCore.swift in Sources */,
 				D986CA91208CAC900039A7F8 /* Repository.swift in Sources */,

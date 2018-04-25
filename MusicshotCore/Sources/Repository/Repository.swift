@@ -89,8 +89,9 @@ public class Repository {
             Resource.Charts.Albums.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
-            Resource.Ranking.SelectedGenre.self,
+            Resource.Ranking.Genre.self,
             Resource.Ranking.Genres.self,
+            Resource.Ranking.GenreSongs.self,
             InternalResource.StorefrontHolder.self,
             InternalResource.SelectedStorefront.self,
             InternalResource.Media.self,
@@ -116,8 +117,12 @@ public class Repository {
     public final class Ranking {
         public let genres = Genres()
 
+        public func genre(with id: Entity.Genre.Identifier) -> Genre {
+            return Genre(id: id)
+        }
+
         public final class Genres {
-            public func all(_ change: @escaping ResultsChange<Resource.Ranking.SelectedGenre>.Event) throws -> ResultsChange<Resource.Ranking.SelectedGenre>.CollectionAndToken {
+            public func all(_ change: @escaping ResultsChange<Resource.Ranking.Genre>.Event) throws -> ResultsChange<Resource.Ranking.Genre>.CollectionAndToken {
                 let realm = try Realm()
                 if let genres = realm.object(of: Resource.Ranking.Genres.self, \.createDate, within: 30.minutes) {
                     let items = genres.items()
@@ -149,6 +154,64 @@ public class Repository {
                                 }
                             }
                             addToGenres(response)
+                        }
+                    })
+                    .map { _ in }
+            }
+        }
+
+        public final class Genre {
+            public enum Error: Swift.Error {
+                case genreNotFound(Entity.Genre.Identifier)
+            }
+            private let id: Entity.Genre.Identifier
+
+            fileprivate init(id: Entity.Genre.Identifier) {
+                self.id = id
+            }
+
+            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> ListChange<Entity.Song>.CollectionAndToken {
+                let realm = try Realm()
+                if let genre = realm.object(of: Resource.Ranking.GenreSongs.self, for: id, \.createDate, within: 30.minutes) {
+                    let items = genre.items
+                    return (items, items.observe(change))
+                }
+                try realm.write {
+                    realm.add(Resource.Ranking.GenreSongs(id: id), update: true)
+                }
+                return try all(change)
+            }
+
+            public func fetch() -> Single<Void> {
+                typealias Pair = (ListRankingRss, ([Entity.Song.Identifier]) -> GetMultipleSongs)
+
+                let id = self.id
+                return Single<Pair>
+                    .storefront { storefront in
+                        let realm = try Realm()
+                        guard let selected = realm.object(ofType: Resource.Ranking.Genre.self, forPrimaryKey: id) else {
+                            throw Error.genreNotFound(id)
+                        }
+                        let storefrontId = storefront.id
+                        return (
+                            ListRankingRss(url: selected.genre.rssUrls.topSongs), { ids in GetMultipleSongs(storefront: storefrontId, ids: ids) }
+                        )
+                    }
+                    .flatMap { (request, songs) in
+                        NetworkSession.shared.rx.send(request)
+                            .flatMap { ids in
+                                MusicSession.shared.rx.send(songs(ids))
+                            }
+                    }
+                    .do(onSuccess: { response in
+                        let realm = try Realm()
+                        let songs = realm.object(ofType: Resource.Ranking.GenreSongs.self, forPrimaryKey: id)
+                        try realm.write {
+                            let items = response.data.compactMap { $0.attributes }
+                            realm.add(items, update: true)
+
+                            songs?.items.removeAll()
+                            songs?.items.append(objectsIn: items)
                         }
                     })
                     .map { _ in }

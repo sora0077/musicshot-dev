@@ -103,7 +103,7 @@ final class MainViewController: UIViewController {
 
     @objc
     private func rankingAction() {
-        try? Navigator.navigate(urn: "rankingGenres")
+        try? Navigator.navigate(urn: "ranking/genres")
     }
 
     @objc

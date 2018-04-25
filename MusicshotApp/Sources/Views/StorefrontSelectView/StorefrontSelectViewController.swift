@@ -94,7 +94,7 @@ private final class Cell: UICollectionViewCell, Reusable {
         contentView.backgroundColor = .white
         contentView.addSubview(textLabel)
         constrain(textLabel) { textLabel in
-            textLabel.left.equalTo(textLabel.superview.right, constant: 8)
+            textLabel.left.equalTo(textLabel.superview.left, constant: 8)
             textLabel.centerY.equalTo(textLabel.superview.centerY)
         }
 

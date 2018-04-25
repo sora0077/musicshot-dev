@@ -11,8 +11,8 @@ import RealmSwift
 
 extension Resource {
     public final class Ranking {
-        @objc(RankingSelectedGenre)
-        public final class SelectedGenre: Object {
+        @objc(RankingGenre)
+        public final class Genre: Object {
             @objc override public class func primaryKey() -> String? { return "pk" }
 
             @objc private dynamic var pk: String = ""
@@ -28,6 +28,23 @@ extension Resource {
             }
         }
 
+        @objc(RankingGenreSongs)
+        public final class GenreSongs: Object, LifetimeObject {
+            @objc override public class func primaryKey() -> String? { return "_id" }
+
+            @objc private dynamic var _id: String = ""
+
+            @objc private(set) dynamic var createDate = coeffects.dateType.now()
+            @objc private(set) dynamic var updateDate = coeffects.dateType.now()
+
+            public let items = List<Entity.Song>()
+
+            convenience init(id: Entity.Genre.Identifier) {
+                self.init()
+                _id = id.rawValue
+            }
+        }
+
         @objc(RankingGenres)
         public final class Genres: Object, LifetimeObject {
             @objc override public class func primaryKey() -> String? { return "pk" }
@@ -37,10 +54,10 @@ extension Resource {
             @objc private(set) dynamic var createDate = coeffects.dateType.now()
             @objc private(set) dynamic var updateDate = coeffects.dateType.now()
 
-            private let _items = List<SelectedGenre>()
+            private let _items = List<Genre>()
 
             func append(_ genre: Entity.Ranking.Genre) {
-                let genre = SelectedGenre(genre)
+                let genre = Genre(genre)
                 realm?.add(genre, update: true)
                 _items.append(genre)
             }
@@ -49,7 +66,7 @@ extension Resource {
                 _items.removeAll()
             }
 
-            func items() -> Results<SelectedGenre> {
+            func items() -> Results<Genre> {
                 return _items.filter("isSelected = true AND _genre != nil")
             }
         }

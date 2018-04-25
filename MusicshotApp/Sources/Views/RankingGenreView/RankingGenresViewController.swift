@@ -10,6 +10,7 @@ import UIKit
 import MusicshotCore
 import UIKitSupport
 import Constraint
+import Compass
 
 final class RankingGenresViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -22,7 +23,7 @@ final class RankingGenresViewController: UIViewController {
 
     }
 
-    private var genres: Results<Resource.Ranking.SelectedGenre>!
+    private var genres: Results<Resource.Ranking.Genre>!
     private var token: NotificationToken!
     private let disposeBag = DisposeBag()
 
@@ -72,7 +73,9 @@ extension RankingGenresViewController: UICollectionViewDataSource {
 
 extension RankingGenresViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
 
+        try? Navigator.navigate(urn: "ranking/genres:\(genres[indexPath.row].genre.id)")
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
