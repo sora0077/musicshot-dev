@@ -72,7 +72,7 @@ public final class Core {
                         .map { $0?.data()?["token"] as? NSString }
                 } ?? .just(nil)
             }
-            .map { $0 as String? }
+            .map { $0.map(String.init) }
             .do(onError: { error in
                 log.error(error)
             })
