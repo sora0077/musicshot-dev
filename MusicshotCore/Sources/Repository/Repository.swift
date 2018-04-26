@@ -200,18 +200,22 @@ public class Repository {
                     .flatMap { (request, songs) in
                         NetworkSession.shared.rx.send(request)
                             .flatMap { ids in
-                                MusicSession.shared.rx.send(songs(ids))
+                                MusicSession.shared.rx.send(songs(ids)).map { ($0, ids) }
                             }
                     }
-                    .do(onSuccess: { response in
+                    .do(onSuccess: { response, ids in
                         let realm = try Realm()
                         let songs = realm.object(ofType: Resource.Ranking.GenreSongs.self, forPrimaryKey: id)
                         try realm.write {
-                            let items = response.data.compactMap { $0.attributes }
-                            realm.add(items, update: true)
+                            let items = response.data
+                                .compactMap { $0.attributes }
+                                .reduce(into: [Entity.Song.Identifier: Entity.Song]()) { dict, data in
+                                    dict[data.id] = data
+                                }
+                            realm.add(items.values, update: true)
 
                             songs?.items.removeAll()
-                            songs?.items.append(objectsIn: items)
+                            songs?.items.append(objectsIn: ids.compactMap { items[$0] })
                         }
                     })
                     .map { _ in }
