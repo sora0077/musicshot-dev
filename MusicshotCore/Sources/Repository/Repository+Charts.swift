@@ -19,17 +19,17 @@ extension Repository {
         }
 
         public final class Songs {
-            private let chart: String?
+            private let chart: String
 
             fileprivate init(chart: String? = nil) {
-                self.chart = chart
+                self.chart = chart ?? ""
             }
 
-            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> (Resource.Charts.Songs, NotificationToken) {
+            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> ListChange<Entity.Song>.CollectionAndToken {
                 let realm = try Realm()
-                if let songs = realm.object(of: Resource.Charts.Songs.self, for: chart ?? "",
+                if let songs = realm.object(of: Resource.Charts.Songs.self, for: chart,
                                             \.createDate, within: 30.minutes) {
-                    return (songs, songs.items.observe(change))
+                    return (songs.items, songs.items.observe(change))
                 }
                 try realm.write {
                     realm.add(Resource.Charts.Songs(chart: chart), update: true)
@@ -44,7 +44,7 @@ extension Repository {
                 let chart = self.chart
                 return Single<State>
                     .just {
-                        let songs = try Realm().object(of: Resource.Charts.Songs.self, for: chart ?? "",
+                        let songs = try Realm().object(of: Resource.Charts.Songs.self, for: chart,
                                                        \.updateDate, within: 60.minutes)
                         switch (songs, songs?.next) {
                         case (nil, _): return .first

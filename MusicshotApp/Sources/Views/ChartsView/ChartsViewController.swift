@@ -32,7 +32,7 @@ final class ChartsViewController: UIViewController {
     private let sections: [Section] = [.item, .more]
 
     private let repository = musicshot.repository.charts.songs()
-    private var songs: Resource.Charts.Songs!
+    private var songs: List<Entity.Song>!
     private var token: NotificationToken!
     private let disposeBag = DisposeBag()
 
@@ -68,7 +68,7 @@ extension ChartsViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch sections[section] {
-        case .item: return songs.items.count
+        case .item: return songs.count
         case .more: return 1
         }
     }
@@ -76,7 +76,7 @@ extension ChartsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section] {
         case .item:
-            let item = songs.items[indexPath.row]
+            let item = songs[indexPath.row]
             let cell = collectionView.dequeueReusableCell(for: indexPath) as Cell
             cell.textLabel.text = item.name
             cell.imageView.image = nil
@@ -98,7 +98,7 @@ extension ChartsViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .item:
-            musicshot.player.insert(songs.items[indexPath.item])
+            musicshot.player.insert(songs[indexPath.item])
         case .more:
             repository.fetch()
                 .subscribe()
