@@ -118,6 +118,7 @@
 		D986CB12208CB1540039A7F8 /* MusicshotUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9EC208CAB510039A7F8 /* MusicshotUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986CB13208CB1540039A7F8 /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; };
 		D986CB14208CB1540039A7F8 /* MusicshotUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9FA56AE2098B2BB0086010A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA56AD2098B2BB0086010A /* Timeline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +297,7 @@
 		D986CADA208CAEC60039A7F8 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
 		D986CADB208CAEC60039A7F8 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
 		D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleMusicKit.framework; path = Carthage/Build/iOS/AppleMusicKit.framework; sourceTree = "<group>"; };
+		D9FA56AD2098B2BB0086010A /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		E45F86A6A408717E86AD9D90 /* Pods_MusicshotApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicshotApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAFEDE891F6DA53FF776ED14 /* Pods_Musicshot_MusicshotUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -611,6 +613,7 @@
 				D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */,
 				D97CCFDA208D69C80064776A /* Tagged.swift */,
 				D986CA87208CAC900039A7F8 /* Coeffects.swift */,
+				D9FA56AD2098B2BB0086010A /* Timeline.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1102,6 +1105,7 @@
 				D986CA9D208CAC900039A7F8 /* Entity+MusicVideo.swift in Sources */,
 				D986CA99208CAC900039A7F8 /* Entity.swift in Sources */,
 				D986CA93208CAC900039A7F8 /* Repository+Storefront.swift in Sources */,
+				D9FA56AE2098B2BB0086010A /* Timeline.swift in Sources */,
 				D986CAA9208CAC900039A7F8 /* Resource.swift in Sources */,
 				D986CA9B208CAC900039A7F8 /* Entity+Song.swift in Sources */,
 				D986CAA3208CAC900039A7F8 /* GetPreviewURL.swift in Sources */,
