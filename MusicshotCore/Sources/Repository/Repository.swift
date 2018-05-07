@@ -170,16 +170,20 @@ public class Repository {
                 self.id = id
             }
 
-            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> ListChange<Entity.Song>.CollectionAndToken {
+            func list() throws -> List<Entity.Song> {
                 let realm = try Realm()
                 if let genre = realm.object(of: Resource.Ranking.GenreSongs.self, for: id, \.createDate, within: 30.minutes) {
-                    let items = genre.items
-                    return (items, items.observe(change))
+                    return genre.items
                 }
                 try realm.write {
                     realm.add(Resource.Ranking.GenreSongs(id: id), update: true)
                 }
-                return try all(change)
+                return try list()
+            }
+
+            public func all(_ change: @escaping ListChange<Entity.Song>.Event) throws -> ListChange<Entity.Song>.CollectionAndToken {
+                let items = try list()
+                return (items, items.observe(change))
             }
 
             public func fetch() -> Single<Void> {

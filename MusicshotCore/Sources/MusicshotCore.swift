@@ -69,10 +69,9 @@ public final class Core {
             .flatMapLatest { (_, user) in
                 user.map {
                     Firestore.firestore().collection("developerTokens").rx.document($0.uid)
-                        .map { $0?.data()?["token"] as? NSString }
+                        .map { $0?.data()?["token"] as? String }
                 } ?? .just(nil)
             }
-            .map { $0.map(String.init) }
             .do(onError: { error in
                 log.error(error)
             })
@@ -81,9 +80,13 @@ public final class Core {
         developerToken
             .catchError { _ in .empty() }
             .subscribe(onNext: { developerToken in
-                MusicSession.shared.authorization = developerToken.map {
-                    Authorization(developerToken: $0)
-                }
+                MusicSession.shared.authorization = {
+                    if let token = developerToken {
+                        return .init(developerToken: token)
+                    } else {
+                        return nil
+                    }
+                }()
             })
             .disposed(by: disposeBag)
     }

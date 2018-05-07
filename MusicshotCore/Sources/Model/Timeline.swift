@@ -17,29 +17,29 @@ public protocol Timeline {
 
     subscript (idx: Int) -> Element { get }
 
-    func hasNext() -> Observable<Bool>
+    func hasNext() -> Driver<Bool>
 
     func fetch() -> Single<Void>
 }
 
-class __AnyTimeline<E>: Timeline {
+private class __AnyTimeline<E>: Timeline {
     typealias Element = E
 
     var count: Int { fatalError() }
     subscript (idx: Int) -> Element { fatalError() }
 
-    func hasNext() -> Observable<Bool> { fatalError() }
+    func hasNext() -> Driver<Bool> { fatalError() }
     func fetch() -> Single<Void> { fatalError() }
 }
 
-final class _AnyTimeline<T: Timeline>: __AnyTimeline<T.Element> {
+private final class _AnyTimeline<T: Timeline>: __AnyTimeline<T.Element> {
     typealias Element = T.Element
 
     override var count: Int { return timeline.count }
 
     override subscript (idx: Int) -> Element { return timeline[idx] }
 
-    override func hasNext() -> Observable<Bool> { return timeline.hasNext() }
+    override func hasNext() -> Driver<Bool> { return timeline.hasNext() }
 
     override func fetch() -> Single<Void> { return timeline.fetch() }
 
@@ -57,7 +57,7 @@ public final class AnyTimeline<E>: Timeline {
 
     public subscript (idx: Int) -> Element { return timeline[idx] }
 
-    public func hasNext() -> Observable<Bool> { return timeline.hasNext() }
+    public func hasNext() -> Driver<Bool> { return timeline.hasNext() }
 
     public func fetch() -> Single<Void> { return timeline.fetch() }
 

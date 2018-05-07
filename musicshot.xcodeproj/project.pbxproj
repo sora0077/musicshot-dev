@@ -10,6 +10,7 @@
 		3E6C3786983A85000A39A1E0 /* Pods_MusicshotApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45F86A6A408717E86AD9D90 /* Pods_MusicshotApp.framework */; };
 		3EA6825EE1991DE9BED72FCE /* Pods_Musicshot_MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFEDE891F6DA53FF776ED14 /* Pods_Musicshot_MusicshotUtility.framework */; };
 		8C066693C86DFCAC8106501C /* Pods_MusicshotCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D64BF149B30BC50E20046C /* Pods_MusicshotCore.framework */; };
+		D901FE3020A0A86300A1AE6F /* Timeline+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D901FE2F20A0A86300A1AE6F /* Timeline+Realm.swift */; };
 		D9103696208CB5EB00760CE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9103695208CB5D700760CE4 /* GoogleService-Info.plist */; };
 		D9103699208CE68600760CE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9103698208CE68600760CE4 /* Logger.swift */; };
 		D97CCFDB208D69C90064776A /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
@@ -215,6 +216,7 @@
 		982FA390633A859C50A514A9 /* Pods-MusicshotCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicshotCore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicshotCore/Pods-MusicshotCore.debug.xcconfig"; sourceTree = "<group>"; };
 		BB54AA6D89E407E1CC7A4EA2 /* Pods-Musicshot-MusicshotUtility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Musicshot-MusicshotUtility.release.xcconfig"; path = "Pods/Target Support Files/Pods-Musicshot-MusicshotUtility/Pods-Musicshot-MusicshotUtility.release.xcconfig"; sourceTree = "<group>"; };
 		C0D64BF149B30BC50E20046C /* Pods_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D901FE2F20A0A86300A1AE6F /* Timeline+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Timeline+Realm.swift"; sourceTree = "<group>"; };
 		D9103695208CB5D700760CE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
@@ -609,11 +611,11 @@
 				D986CA8D208CAC900039A7F8 /* Player */,
 				D986CA70208CAC900039A7F8 /* OAuth */,
 				D986CA69208CAC900039A7F8 /* Repository */,
+				D9FA56AF2099B7EF0086010A /* Model */,
 				D986CA84208CAC900039A7F8 /* Utils */,
 				D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */,
 				D97CCFDA208D69C80064776A /* Tagged.swift */,
 				D986CA87208CAC900039A7F8 /* Coeffects.swift */,
-				D9FA56AD2098B2BB0086010A /* Timeline.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -720,6 +722,15 @@
 				D986CABE208CAD6E0039A7F8 /* Player.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9FA56AF2099B7EF0086010A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D9FA56AD2098B2BB0086010A /* Timeline.swift */,
+				D901FE2F20A0A86300A1AE6F /* Timeline+Realm.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1084,6 +1095,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D901FE3020A0A86300A1AE6F /* Timeline+Realm.swift in Sources */,
 				D986CAA2208CAC900039A7F8 /* Session.swift in Sources */,
 				D986CA9E208CAC900039A7F8 /* Entity+Storefront.swift in Sources */,
 				D986CAA5208CAC900039A7F8 /* String.swift in Sources */,
