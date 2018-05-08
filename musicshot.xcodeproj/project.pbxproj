@@ -217,6 +217,7 @@
 		BB54AA6D89E407E1CC7A4EA2 /* Pods-Musicshot-MusicshotUtility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Musicshot-MusicshotUtility.release.xcconfig"; path = "Pods/Target Support Files/Pods-Musicshot-MusicshotUtility/Pods-Musicshot-MusicshotUtility.release.xcconfig"; sourceTree = "<group>"; };
 		C0D64BF149B30BC50E20046C /* Pods_MusicshotCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicshotCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D901FE2F20A0A86300A1AE6F /* Timeline+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Timeline+Realm.swift"; sourceTree = "<group>"; };
+		D901FE3220A1CBB400A1AE6F /* Storybook.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Storybook.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D9103695208CB5D700760CE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
@@ -418,6 +419,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D901FE3120A1CAFF00A1AE6F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		D986C999208CAAF70039A7F8 = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +486,8 @@
 		D986C9ED208CAB510039A7F8 /* MusicshotUI */ = {
 			isa = PBXGroup;
 			children = (
+				D901FE3220A1CBB400A1AE6F /* Storybook.playground */,
+				D901FE3120A1CAFF00A1AE6F /* Source */,
 				D986C9EE208CAB510039A7F8 /* MusicshotUI.h */,
 				D986C9EF208CAB510039A7F8 /* Info.plist */,
 			);
