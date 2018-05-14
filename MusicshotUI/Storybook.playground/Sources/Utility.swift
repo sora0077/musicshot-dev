@@ -1,6 +1,5 @@
 import UIKit
 import PlaygroundSupport
-import MusicshotUI
 
 public func build(_ maker: (UIStackView) -> Void) {
     let stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 375, height: 576))

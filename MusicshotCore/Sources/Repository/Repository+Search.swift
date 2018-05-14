@@ -18,6 +18,76 @@ extension Repository {
             return Songs(uniqueKey: uniqueKey)
         }
 
+        public func hints(with uniqueKey: String) -> Hints {
+            return Hints(uniqueKey: uniqueKey)
+        }
+    }
+}
+
+extension Repository.Search {
+    public final class Hints {
+        private let uniqueKey: String
+
+        fileprivate init(uniqueKey: String) {
+            self.uniqueKey = uniqueKey
+        }
+
+        public func list() throws -> List<String> {
+            let realm = try Realm()
+            if let hints = realm.object(of: Resource.Search.Hints.self, for: uniqueKey,
+                                        \.createDate, within: 30.minutes) {
+                return hints.items
+            }
+            try realm.write {
+                realm.add(Resource.Search.Hints(uniqueKey: uniqueKey), update: true)
+            }
+            return try list()
+        }
+
+        public func fetch(term: String) -> Single<Void> {
+            let uniqueKey = self.uniqueKey
+            return Single<Bool>
+                .just {
+                    let realm = try Realm()
+                    let hints = realm.object(of: Resource.Search.Hints.self, for: uniqueKey,
+                                             \.updateDate, within: 60.minutes)
+                    let fragment = realm.object(of: Resource.Search.Hints.Fragment.self, for: term,
+                                                \.updateDate, within: 60.minutes)
+                    if let hints = hints {
+                        try realm.write {
+                            hints.replace(fragment)
+                        }
+                    }
+                    if term.isEmpty { return false }
+                    return hints == nil || fragment == nil
+                }
+                .flatMap { fetch in
+                    fetch
+                        ? Single<GetSearchHints>
+                            .storefront { storefront in
+                                GetSearchHints(storefront: storefront.id, term: term)
+                            }
+                            .flatMap(MusicSession.shared.rx.send)
+                            .do(onSuccess: { response in
+                                let realm = try Realm()
+                                try realm.write {
+                                    let hints = realm.object(ofType: Resource.Search.Hints.self, forPrimaryKey: uniqueKey)
+                                        ?? Resource.Search.Hints(uniqueKey: uniqueKey)
+                                    let fragment = realm.object(ofType: Resource.Search.Hints.Fragment.self, forPrimaryKey: term)
+                                        ?? Resource.Search.Hints.Fragment(term: term)
+                                    hints.update(response, fragment)
+                                    realm.add(fragment, update: true)
+                                    realm.add(hints, update: true)
+                                }
+                            })
+                            .map { _ in }
+                        : .just(())
+                }
+        }
+    }
+}
+
+extension Repository.Search {
         public final class Songs {
             private let uniqueKey: String
 
@@ -105,7 +175,6 @@ extension Repository {
                 }
             }
         }
-    }
 }
 
 // MARK: - private

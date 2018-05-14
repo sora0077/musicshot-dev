@@ -87,6 +87,7 @@ public class Repository {
             Entity.Ranking.Genre.RssUrls.self,
             Resource.Charts.Songs.self,
             Resource.Charts.Albums.self,
+            Resource.Search.Hints.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
             Resource.Ranking.Genre.self,
@@ -122,16 +123,20 @@ public class Repository {
         }
 
         public final class Genres {
-            public func all(_ change: @escaping ResultsChange<Resource.Ranking.Genre>.Event) throws -> ResultsChange<Resource.Ranking.Genre>.CollectionAndToken {
+            public func list() throws -> Results<Resource.Ranking.Genre> {
                 let realm = try Realm()
                 if let genres = realm.object(of: Resource.Ranking.Genres.self, \.createDate, within: 30.minutes) {
-                    let items = genres.items()
-                    return (items, items.observe(change))
+                    return genres.items()
                 }
                 try realm.write {
                     realm.add(Resource.Ranking.Genres(), update: true)
                 }
-                return try all(change)
+                return try list()
+            }
+
+            public func all(_ change: @escaping ResultsChange<Resource.Ranking.Genre>.Event) throws -> ResultsChange<Resource.Ranking.Genre>.CollectionAndToken {
+                let items = try list()
+                return (items, items.observe(change))
             }
 
             public func fetch() -> Single<Void> {

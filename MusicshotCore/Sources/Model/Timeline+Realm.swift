@@ -12,11 +12,11 @@ import RealmSwift
 protocol _RealmTimeline: Timeline {
     associatedtype Collection: RealmCollection where Collection.Element == Element, Collection.Index == Int
 
-    var _items: Collection { get }
+    var items: Collection { get }
 }
 
 extension _RealmTimeline {
-    public var count: Int { return _items.count }
+    public var count: Int { return items.count }
 
-    public subscript (idx: Int) -> Element { return _items[idx] }
+    public subscript (idx: Int) -> Element { return items[idx] }
 }

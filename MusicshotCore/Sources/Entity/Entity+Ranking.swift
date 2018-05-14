@@ -76,12 +76,6 @@ extension Entity.Ranking {
     }
 }
 
-private extension Sequence {
-    func toArray() -> [Element] {
-        return Array(self)
-    }
-}
-
 extension Entity.Ranking.Genre: Decodable {
     private enum CodingKeys: String, CodingKey {
         case id, name, url, rssUrls, chartUrls, subgenres

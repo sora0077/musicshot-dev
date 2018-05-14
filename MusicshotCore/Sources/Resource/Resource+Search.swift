@@ -7,9 +7,78 @@
 //
 
 import Foundation
+import RealmSwift
+
+extension Sequence {
+    func toArray() -> [Element] {
+        return Array(self)
+    }
+}
 
 extension Resource {
     public final class Search {
+        @objc(SearchHints)
+        final class Hints: Object, LifetimeObject {
+            @objc override public class func primaryKey() -> String? { return "pk" }
+
+            @objc private dynamic var pk: String = ""
+            @objc private(set) dynamic var createDate = coeffects.dateType.now()
+            @objc private(set) dynamic var updateDate = coeffects.dateType.now()
+
+            @objc private(set) dynamic var fragment: Fragment?
+            let items = List<String>()
+
+            convenience init(uniqueKey: String) {
+                self.init()
+                pk = uniqueKey
+            }
+
+            func replace(_ newFragment: Fragment?) {
+                if fragment != newFragment || items.toArray() != newFragment?.items.toArray() {
+                    items.removeAll()
+                    if let newFragment = newFragment {
+                        items.append(objectsIn: newFragment.items)
+                    }
+                }
+                fragment = newFragment
+            }
+
+            func update(_ result: GetSearchHints.Response, _ newFragment: Fragment) {
+                if items.toArray() != result.terms {
+                    items.removeAll()
+                    items.append(objectsIn: result.terms)
+                }
+                fragment = newFragment
+                updateDate = coeffects.dateType.now()
+            }
+
+            @objc(SearchHintsFragment)
+            final class Fragment: Object, LifetimeObject {
+                @objc override public class func primaryKey() -> String? { return "term" }
+
+                @objc private dynamic var term: String = ""
+                @objc private(set) dynamic var createDate = coeffects.dateType.now()
+                @objc private(set) dynamic var updateDate = coeffects.dateType.now()
+
+                let items = List<String>()
+
+                convenience init(term: String) {
+                    self.init()
+                    self.term = term
+                }
+
+                convenience init?(term: String, _ result: GetSearchHints.Response) throws {
+                    self.init()
+                    self.term = term
+                    items.append(objectsIn: result.terms)
+                }
+
+                static func == (lhs: Fragment, rhs: Fragment) -> Bool {
+                    return lhs.term == rhs.term
+                }
+            }
+        }
+
         @objc(SearchSongs)
         public final class Songs: Object, LifetimeObject {
             @objc private dynamic var pk: String = ""
