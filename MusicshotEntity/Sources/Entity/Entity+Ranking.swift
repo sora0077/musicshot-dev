@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import MusicshotUtility
 
 extension Entity.Ranking {
     @objc(EntityRankingGenre)
@@ -87,8 +88,7 @@ extension Entity.Ranking.Genre: Decodable {
                       url: c.decode(URL.self, forKey: .url),
                       rssUrls: c.decode(Entity.Ranking.Genre.RssUrls.self, forKey: .rssUrls),
                       chartUrls: c.decode(Entity.Ranking.Genre.ChartUrls.self, forKey: .chartUrls),
-                      subgenres: c.decodeIfPresent([String: Entity.Ranking.Genre].self,
-                                                   forKey: .subgenres)?.values.toArray())
+                      subgenres: c.decodeIfPresent([String: Entity.Ranking.Genre].self, forKey: .subgenres)?.values.toArray())
     }
 }
 

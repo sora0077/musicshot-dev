@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import AppleMusicKit
+import MusicshotUtility
 
 extension Entity {
     @objc(EntityArtist)

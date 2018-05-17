@@ -48,7 +48,7 @@ extension Repository {
                         return .cache(preview.remoteURL, preview.duration)
                     }
                 case (let song?, _):
-                    guard let id = Int(id) else { throw Error.unknownState }
+                    guard let id = Int(id.rawValue) else { throw Error.unknownState }
                     return .download(id, song.url, song.ref)
                 }
             }

@@ -1,6 +1,8 @@
 included:
   - MusicshotPlayer
   - MusicshotUtility
+  - MusicshotEntity
+  - MusicshotRepository
   - MusicshotCore
   - MusicshotUI
   - MusicshotApp

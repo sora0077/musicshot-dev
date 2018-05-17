@@ -14,9 +14,9 @@ extension Entity {
     @objc(EntityHistory)
     public final class History: Object {
         @objc public private(set) dynamic var song: Entity.Song?
-        @objc public private(set) dynamic var createDate = coeffects.dateType.now()
+        @objc public private(set) dynamic var createDate: Date = Date()
 
-        convenience init(_ song: Entity.Song) {
+        public convenience init(_ song: Entity.Song) {
             self.init()
             self.song = song
         }

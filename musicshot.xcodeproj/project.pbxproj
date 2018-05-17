@@ -13,7 +13,10 @@
 		D901FE3020A0A86300A1AE6F /* Timeline+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D901FE2F20A0A86300A1AE6F /* Timeline+Realm.swift */; };
 		D9103696208CB5EB00760CE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9103695208CB5D700760CE4 /* GoogleService-Info.plist */; };
 		D9103699208CE68600760CE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9103698208CE68600760CE4 /* Logger.swift */; };
-		D97CCFDB208D69C90064776A /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
+		D955CD1020ADC53B00A6F193 /* AppleMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */; };
+		D955CD1120ADC55F00A6F193 /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; };
+		D955CD1220ADC57700A6F193 /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFDA208D69C80064776A /* Tagged.swift */; };
+		D955CD1420ADC63600A6F193 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955CD1320ADC63600A6F193 /* Sequence.swift */; };
 		D97CCFDF208F6AF60064776A /* Constraint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; };
 		D97CCFE0208F6AF60064776A /* Constraint.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97CCFDE208F6ABC0064776A /* Constraint.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D97CCFE22090CC870064776A /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97CCFE12090CC870064776A /* RankingViewController.swift */; };
@@ -42,15 +45,6 @@
 		D986CA94208CAC900039A7F8 /* Repository+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA6F208CAC900039A7F8 /* Repository+History.swift */; };
 		D986CA95208CAC900039A7F8 /* OAuth+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA71208CAC900039A7F8 /* OAuth+GitHub.swift */; };
 		D986CA96208CAC900039A7F8 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA72208CAC900039A7F8 /* OAuth.swift */; };
-		D986CA97208CAC900039A7F8 /* Entity+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA74208CAC900039A7F8 /* Entity+Artist.swift */; };
-		D986CA98208CAC900039A7F8 /* Entity+Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA75208CAC900039A7F8 /* Entity+Ranking.swift */; };
-		D986CA99208CAC900039A7F8 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA76208CAC900039A7F8 /* Entity.swift */; };
-		D986CA9A208CAC900039A7F8 /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA77208CAC900039A7F8 /* Entity+History.swift */; };
-		D986CA9B208CAC900039A7F8 /* Entity+Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA78208CAC900039A7F8 /* Entity+Song.swift */; };
-		D986CA9C208CAC900039A7F8 /* Entity+Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA79208CAC900039A7F8 /* Entity+Album.swift */; };
-		D986CA9D208CAC900039A7F8 /* Entity+MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA7A208CAC900039A7F8 /* Entity+MusicVideo.swift */; };
-		D986CA9E208CAC900039A7F8 /* Entity+Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA7B208CAC900039A7F8 /* Entity+Storefront.swift */; };
-		D986CA9F208CAC900039A7F8 /* Entity+Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA7C208CAC900039A7F8 /* Entity+Genre.swift */; };
 		D986CAA0208CAC900039A7F8 /* MusicshotCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */; };
 		D986CAA1208CAC900039A7F8 /* AppleMusicKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA7F208CAC900039A7F8 /* AppleMusicKit.swift */; };
 		D986CAA2208CAC900039A7F8 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986CA80208CAC900039A7F8 /* Session.swift */; };
@@ -119,6 +113,35 @@
 		D986CB12208CB1540039A7F8 /* MusicshotUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9EC208CAB510039A7F8 /* MusicshotUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D986CB13208CB1540039A7F8 /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; };
 		D986CB14208CB1540039A7F8 /* MusicshotUtility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D9A4BC6F20ADC0060099292F /* MusicshotRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = D9A4BC6D20ADC0060099292F /* MusicshotRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9A4BC7420ADC0350099292F /* MusicshotRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4BC6B20ADC0060099292F /* MusicshotRepository.framework */; };
+		D9A4BC7520ADC03F0099292F /* MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */; };
+		D9A4BC7620ADC05A0099292F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CACD208CAEC40039A7F8 /* Alamofire.framework */; };
+		D9A4BC7720ADC05D0099292F /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD5208CAEC50039A7F8 /* APIKit.framework */; };
+		D9A4BC7820ADC0660099292F /* AppleMusicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */; };
+		D9A4BC7920ADC0710099292F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CACF208CAEC50039A7F8 /* Realm.framework */; };
+		D9A4BC7A20ADC0740099292F /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD4208CAEC50039A7F8 /* RealmSwift.framework */; };
+		D9A4BC7B20ADC07A0099292F /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD8208CAEC60039A7F8 /* Result.framework */; };
+		D9A4BC7C20ADC0800099292F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD9208CAEC60039A7F8 /* RxSwift.framework */; };
+		D9A4BC7D20ADC0840099292F /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD0208CAEC50039A7F8 /* RxCocoa.framework */; };
+		D9A4BC7E20ADC0890099292F /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD3208CAEC50039A7F8 /* SwiftDate.framework */; };
+		D9A4BC8720ADC36D0099292F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BC8620ADC36D0099292F /* Repository.swift */; };
+		D9A4BC8C20ADC48C0099292F /* AppleMusicKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BC8A20ADC48C0099292F /* AppleMusicKit.swift */; };
+		D9A4BC8D20ADC48C0099292F /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BC8B20ADC48C0099292F /* Session.swift */; };
+		D9A4BC9720ADC4BA0099292F /* MusicshotEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = D9A4BC9520ADC4BA0099292F /* MusicshotEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9A4BC9B20ADC4CA0099292F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CACF208CAEC50039A7F8 /* Realm.framework */; };
+		D9A4BC9C20ADC4CC0099292F /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D986CAD4208CAEC50039A7F8 /* RealmSwift.framework */; };
+		D9A4BC9D20ADC4E90099292F /* MusicshotEntity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4BC9320ADC4BA0099292F /* MusicshotEntity.framework */; };
+		D9A4BC9E20ADC4EF0099292F /* MusicshotEntity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4BC9320ADC4BA0099292F /* MusicshotEntity.framework */; };
+		D9A4BCAA20ADC50D0099292F /* Entity+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA120ADC50C0099292F /* Entity+Artist.swift */; };
+		D9A4BCAB20ADC50D0099292F /* Entity+Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA220ADC50C0099292F /* Entity+Ranking.swift */; };
+		D9A4BCAC20ADC50D0099292F /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA320ADC50C0099292F /* Entity.swift */; };
+		D9A4BCAD20ADC50D0099292F /* Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA420ADC50C0099292F /* Entity+History.swift */; };
+		D9A4BCAE20ADC50D0099292F /* Entity+Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA520ADC50C0099292F /* Entity+Song.swift */; };
+		D9A4BCAF20ADC50D0099292F /* Entity+Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA620ADC50C0099292F /* Entity+Album.swift */; };
+		D9A4BCB020ADC50D0099292F /* Entity+MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA720ADC50C0099292F /* Entity+MusicVideo.swift */; };
+		D9A4BCB120ADC50D0099292F /* Entity+Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA820ADC50C0099292F /* Entity+Storefront.swift */; };
+		D9A4BCB220ADC50D0099292F /* Entity+Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4BCA920ADC50C0099292F /* Entity+Genre.swift */; };
 		D9FA56AE2098B2BB0086010A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA56AD2098B2BB0086010A /* Timeline.swift */; };
 /* End PBXBuildFile section */
 
@@ -220,6 +243,7 @@
 		D901FE3220A1CBB400A1AE6F /* Storybook.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Storybook.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D9103695208CB5D700760CE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D955CD1320ADC63600A6F193 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		D97CCFDA208D69C80064776A /* Tagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
 		D97CCFDE208F6ABC0064776A /* Constraint.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Constraint.framework; path = Carthage/Build/iOS/Constraint.framework; sourceTree = "<group>"; };
 		D97CCFE12090CC870064776A /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
@@ -258,15 +282,6 @@
 		D986CA6F208CAC900039A7F8 /* Repository+History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Repository+History.swift"; sourceTree = "<group>"; };
 		D986CA71208CAC900039A7F8 /* OAuth+GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OAuth+GitHub.swift"; sourceTree = "<group>"; };
 		D986CA72208CAC900039A7F8 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
-		D986CA74208CAC900039A7F8 /* Entity+Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Artist.swift"; sourceTree = "<group>"; };
-		D986CA75208CAC900039A7F8 /* Entity+Ranking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Ranking.swift"; sourceTree = "<group>"; };
-		D986CA76208CAC900039A7F8 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
-		D986CA77208CAC900039A7F8 /* Entity+History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+History.swift"; sourceTree = "<group>"; };
-		D986CA78208CAC900039A7F8 /* Entity+Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Song.swift"; sourceTree = "<group>"; };
-		D986CA79208CAC900039A7F8 /* Entity+Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Album.swift"; sourceTree = "<group>"; };
-		D986CA7A208CAC900039A7F8 /* Entity+MusicVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+MusicVideo.swift"; sourceTree = "<group>"; };
-		D986CA7B208CAC900039A7F8 /* Entity+Storefront.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Storefront.swift"; sourceTree = "<group>"; };
-		D986CA7C208CAC900039A7F8 /* Entity+Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Genre.swift"; sourceTree = "<group>"; };
 		D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicshotCore.swift; sourceTree = "<group>"; };
 		D986CA7F208CAC900039A7F8 /* AppleMusicKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicKit.swift; sourceTree = "<group>"; };
 		D986CA80208CAC900039A7F8 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -300,6 +315,24 @@
 		D986CADA208CAEC60039A7F8 /* FoundationSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationSupport.framework; path = Carthage/Build/iOS/FoundationSupport.framework; sourceTree = "<group>"; };
 		D986CADB208CAEC60039A7F8 /* UIKitSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKitSupport.framework; path = Carthage/Build/iOS/UIKitSupport.framework; sourceTree = "<group>"; };
 		D986CADC208CAEC60039A7F8 /* AppleMusicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleMusicKit.framework; path = Carthage/Build/iOS/AppleMusicKit.framework; sourceTree = "<group>"; };
+		D9A4BC6B20ADC0060099292F /* MusicshotRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MusicshotRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A4BC6D20ADC0060099292F /* MusicshotRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotRepository.h; sourceTree = "<group>"; };
+		D9A4BC6E20ADC0060099292F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9A4BC8620ADC36D0099292F /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		D9A4BC8A20ADC48C0099292F /* AppleMusicKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicKit.swift; sourceTree = "<group>"; };
+		D9A4BC8B20ADC48C0099292F /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		D9A4BC9320ADC4BA0099292F /* MusicshotEntity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MusicshotEntity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A4BC9520ADC4BA0099292F /* MusicshotEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicshotEntity.h; sourceTree = "<group>"; };
+		D9A4BC9620ADC4BA0099292F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9A4BCA120ADC50C0099292F /* Entity+Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Artist.swift"; sourceTree = "<group>"; };
+		D9A4BCA220ADC50C0099292F /* Entity+Ranking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Ranking.swift"; sourceTree = "<group>"; };
+		D9A4BCA320ADC50C0099292F /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		D9A4BCA420ADC50C0099292F /* Entity+History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+History.swift"; sourceTree = "<group>"; };
+		D9A4BCA520ADC50C0099292F /* Entity+Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Song.swift"; sourceTree = "<group>"; };
+		D9A4BCA620ADC50C0099292F /* Entity+Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Album.swift"; sourceTree = "<group>"; };
+		D9A4BCA720ADC50C0099292F /* Entity+MusicVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+MusicVideo.swift"; sourceTree = "<group>"; };
+		D9A4BCA820ADC50C0099292F /* Entity+Storefront.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Storefront.swift"; sourceTree = "<group>"; };
+		D9A4BCA920ADC50C0099292F /* Entity+Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Genre.swift"; sourceTree = "<group>"; };
 		D9FA56AD2098B2BB0086010A /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		E45F86A6A408717E86AD9D90 /* Pods_MusicshotApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicshotApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAFEDE891F6DA53FF776ED14 /* Pods_Musicshot_MusicshotUtility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Musicshot_MusicshotUtility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,6 +372,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A4BC9E20ADC4EF0099292F /* MusicshotEntity.framework in Frameworks */,
+				D9A4BC7420ADC0350099292F /* MusicshotRepository.framework in Frameworks */,
 				D986CB02208CAF2D0039A7F8 /* Alamofire.framework in Frameworks */,
 				D986CB03208CAF2D0039A7F8 /* APIKit.framework in Frameworks */,
 				D986CB04208CAF2D0039A7F8 /* AppleMusicKit.framework in Frameworks */,
@@ -373,6 +408,35 @@
 			files = (
 				D986CB00208CAEEC0039A7F8 /* RxSwift.framework in Frameworks */,
 				3EA6825EE1991DE9BED72FCE /* Pods_Musicshot_MusicshotUtility.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC6720ADC0060099292F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A4BC9D20ADC4E90099292F /* MusicshotEntity.framework in Frameworks */,
+				D9A4BC7520ADC03F0099292F /* MusicshotUtility.framework in Frameworks */,
+				D9A4BC7C20ADC0800099292F /* RxSwift.framework in Frameworks */,
+				D9A4BC7D20ADC0840099292F /* RxCocoa.framework in Frameworks */,
+				D9A4BC7E20ADC0890099292F /* SwiftDate.framework in Frameworks */,
+				D9A4BC7620ADC05A0099292F /* Alamofire.framework in Frameworks */,
+				D9A4BC7720ADC05D0099292F /* APIKit.framework in Frameworks */,
+				D9A4BC7B20ADC07A0099292F /* Result.framework in Frameworks */,
+				D9A4BC7820ADC0660099292F /* AppleMusicKit.framework in Frameworks */,
+				D9A4BC7A20ADC0740099292F /* RealmSwift.framework in Frameworks */,
+				D9A4BC7920ADC0710099292F /* Realm.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC8F20ADC4BA0099292F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D955CD1120ADC55F00A6F193 /* MusicshotUtility.framework in Frameworks */,
+				D9A4BC9B20ADC4CA0099292F /* Realm.framework in Frameworks */,
+				D9A4BC9C20ADC4CC0099292F /* RealmSwift.framework in Frameworks */,
+				D955CD1020ADC53B00A6F193 /* AppleMusicKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +495,11 @@
 			children = (
 				D986C9BC208CAB0A0039A7F8 /* MusicshotApp */,
 				D986C9D3208CAB300039A7F8 /* MusicshotCore */,
+				D9A4BC6C20ADC0060099292F /* MusicshotRepository */,
+				D9A4BC9420ADC4BA0099292F /* MusicshotEntity */,
+				D986C9FA208CAB600039A7F8 /* MusicshotUtility */,
 				D986C9E0208CAB400039A7F8 /* MusicshotPlayer */,
 				D986C9ED208CAB510039A7F8 /* MusicshotUI */,
-				D986C9FA208CAB600039A7F8 /* MusicshotUtility */,
 				D986C9A3208CAAF70039A7F8 /* Products */,
 				5C3C267DA7E448E9E99A6C96 /* Frameworks */,
 				67AEB906B03535C4D064CB80 /* Pods */,
@@ -448,6 +514,8 @@
 				D986C9DF208CAB400039A7F8 /* MusicshotPlayer.framework */,
 				D986C9EC208CAB510039A7F8 /* MusicshotUI.framework */,
 				D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */,
+				D9A4BC6B20ADC0060099292F /* MusicshotRepository.framework */,
+				D9A4BC9320ADC4BA0099292F /* MusicshotEntity.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -614,7 +682,6 @@
 		D986CA68208CAC900039A7F8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D986CA73208CAC900039A7F8 /* Entity */,
 				D986CA88208CAC900039A7F8 /* Resource */,
 				D986CA7E208CAC900039A7F8 /* Network */,
 				D986CA81208CAC900039A7F8 /* iTunes */,
@@ -624,7 +691,6 @@
 				D9FA56AF2099B7EF0086010A /* Model */,
 				D986CA84208CAC900039A7F8 /* Utils */,
 				D986CA7D208CAC900039A7F8 /* MusicshotCore.swift */,
-				D97CCFDA208D69C80064776A /* Tagged.swift */,
 				D986CA87208CAC900039A7F8 /* Coeffects.swift */,
 			);
 			path = Sources;
@@ -650,22 +716,6 @@
 				D986CA71208CAC900039A7F8 /* OAuth+GitHub.swift */,
 			);
 			path = OAuth;
-			sourceTree = "<group>";
-		};
-		D986CA73208CAC900039A7F8 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				D986CA76208CAC900039A7F8 /* Entity.swift */,
-				D986CA74208CAC900039A7F8 /* Entity+Artist.swift */,
-				D986CA75208CAC900039A7F8 /* Entity+Ranking.swift */,
-				D986CA77208CAC900039A7F8 /* Entity+History.swift */,
-				D986CA78208CAC900039A7F8 /* Entity+Song.swift */,
-				D986CA79208CAC900039A7F8 /* Entity+Album.swift */,
-				D986CA7A208CAC900039A7F8 /* Entity+MusicVideo.swift */,
-				D986CA7B208CAC900039A7F8 /* Entity+Storefront.swift */,
-				D986CA7C208CAC900039A7F8 /* Entity+Genre.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		D986CA7E208CAC900039A7F8 /* Network */ = {
@@ -718,10 +768,12 @@
 		D986CAB5208CACA80039A7F8 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D97CCFDA208D69C80064776A /* Tagged.swift */,
 				D986CAB6208CACA80039A7F8 /* DisposeBag.swift */,
 				D986CAB7208CACA80039A7F8 /* RxQueue.swift */,
 				D986CAB8208CACA80039A7F8 /* ReactiveX.swift */,
 				D9103698208CE68600760CE4 /* Logger.swift */,
+				D955CD1320ADC63600A6F193 /* Sequence.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -732,6 +784,132 @@
 				D986CABE208CAD6E0039A7F8 /* Player.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9A4BC6C20ADC0060099292F /* MusicshotRepository */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BC7320ADC01A0099292F /* Sources */,
+				D9A4BC6D20ADC0060099292F /* MusicshotRepository.h */,
+				D9A4BC6E20ADC0060099292F /* Info.plist */,
+			);
+			path = MusicshotRepository;
+			sourceTree = "<group>";
+		};
+		D9A4BC7320ADC01A0099292F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BC8920ADC48C0099292F /* Network */,
+				D9A4BC8820ADC47A0099292F /* Repository */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9A4BC7F20ADC0DC0099292F /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		D9A4BC8020ADC0E20099292F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D9A4BC8120ADC0E80099292F /* History */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		D9A4BC8220ADC0F20099292F /* Storefront */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Storefront;
+			sourceTree = "<group>";
+		};
+		D9A4BC8320ADC0FA0099292F /* Song */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Song;
+			sourceTree = "<group>";
+		};
+		D9A4BC8420ADC1030099292F /* Album */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		D9A4BC8520ADC1080099292F /* Artist */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Artist;
+			sourceTree = "<group>";
+		};
+		D9A4BC8820ADC47A0099292F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BC8620ADC36D0099292F /* Repository.swift */,
+				D9A4BC8520ADC1080099292F /* Artist */,
+				D9A4BC8420ADC1030099292F /* Album */,
+				D9A4BC8320ADC0FA0099292F /* Song */,
+				D9A4BC8220ADC0F20099292F /* Storefront */,
+				D9A4BC8120ADC0E80099292F /* History */,
+				D9A4BC8020ADC0E20099292F /* Search */,
+				D9A4BC7F20ADC0DC0099292F /* Ranking */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		D9A4BC8920ADC48C0099292F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BC8A20ADC48C0099292F /* AppleMusicKit.swift */,
+				D9A4BC8B20ADC48C0099292F /* Session.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D9A4BC9420ADC4BA0099292F /* MusicshotEntity */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BC9F20ADC4F60099292F /* Sources */,
+				D9A4BC9520ADC4BA0099292F /* MusicshotEntity.h */,
+				D9A4BC9620ADC4BA0099292F /* Info.plist */,
+			);
+			path = MusicshotEntity;
+			sourceTree = "<group>";
+		};
+		D9A4BC9F20ADC4F60099292F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BCA020ADC50C0099292F /* Entity */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9A4BCA020ADC50C0099292F /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D9A4BCA320ADC50C0099292F /* Entity.swift */,
+				D9A4BCA120ADC50C0099292F /* Entity+Artist.swift */,
+				D9A4BCA220ADC50C0099292F /* Entity+Ranking.swift */,
+				D9A4BCA420ADC50C0099292F /* Entity+History.swift */,
+				D9A4BCA520ADC50C0099292F /* Entity+Song.swift */,
+				D9A4BCA620ADC50C0099292F /* Entity+Album.swift */,
+				D9A4BCA720ADC50C0099292F /* Entity+MusicVideo.swift */,
+				D9A4BCA820ADC50C0099292F /* Entity+Storefront.swift */,
+				D9A4BCA920ADC50C0099292F /* Entity+Genre.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		D9FA56AF2099B7EF0086010A /* Model */ = {
@@ -775,6 +953,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				D986C9FD208CAB600039A7F8 /* MusicshotUtility.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC6820ADC0060099292F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A4BC6F20ADC0060099292F /* MusicshotRepository.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC9020ADC4BA0099292F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A4BC9720ADC4BA0099292F /* MusicshotEntity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +1077,42 @@
 			productReference = D986C9F9208CAB600039A7F8 /* MusicshotUtility.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D9A4BC6A20ADC0060099292F /* MusicshotRepository */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9A4BC7220ADC0060099292F /* Build configuration list for PBXNativeTarget "MusicshotRepository" */;
+			buildPhases = (
+				D9A4BC6620ADC0060099292F /* Sources */,
+				D9A4BC6720ADC0060099292F /* Frameworks */,
+				D9A4BC6820ADC0060099292F /* Headers */,
+				D9A4BC6920ADC0060099292F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusicshotRepository;
+			productName = MusicshotRepository;
+			productReference = D9A4BC6B20ADC0060099292F /* MusicshotRepository.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D9A4BC9220ADC4BA0099292F /* MusicshotEntity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9A4BC9820ADC4BA0099292F /* Build configuration list for PBXNativeTarget "MusicshotEntity" */;
+			buildPhases = (
+				D9A4BC8E20ADC4BA0099292F /* Sources */,
+				D9A4BC8F20ADC4BA0099292F /* Frameworks */,
+				D9A4BC9020ADC4BA0099292F /* Headers */,
+				D9A4BC9120ADC4BA0099292F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusicshotEntity;
+			productName = MusicshotEntity;
+			productReference = D9A4BC9320ADC4BA0099292F /* MusicshotEntity.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -908,6 +1138,13 @@
 					D986C9F8208CAB600039A7F8 = {
 						CreatedOnToolsVersion = 9.3;
 					};
+					D9A4BC6A20ADC0060099292F = {
+						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
+					};
+					D9A4BC9220ADC4BA0099292F = {
+						CreatedOnToolsVersion = 9.3;
+					};
 				};
 			};
 			buildConfigurationList = D986C99D208CAAF70039A7F8 /* Build configuration list for PBXProject "musicshot" */;
@@ -925,6 +1162,8 @@
 			targets = (
 				D986C9BA208CAB0A0039A7F8 /* MusicshotApp */,
 				D986C9D1208CAB300039A7F8 /* MusicshotCore */,
+				D9A4BC6A20ADC0060099292F /* MusicshotRepository */,
+				D9A4BC9220ADC4BA0099292F /* MusicshotEntity */,
 				D986C9DE208CAB400039A7F8 /* MusicshotPlayer */,
 				D986C9EB208CAB510039A7F8 /* MusicshotUI */,
 				D986C9F8208CAB600039A7F8 /* MusicshotUtility */,
@@ -964,6 +1203,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D986C9F7208CAB600039A7F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC6920ADC0060099292F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC9120ADC4BA0099292F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1107,7 +1360,6 @@
 			files = (
 				D901FE3020A0A86300A1AE6F /* Timeline+Realm.swift in Sources */,
 				D986CAA2208CAC900039A7F8 /* Session.swift in Sources */,
-				D986CA9E208CAC900039A7F8 /* Entity+Storefront.swift in Sources */,
 				D986CAA5208CAC900039A7F8 /* String.swift in Sources */,
 				D986CAA4208CAC900039A7F8 /* ListRankingGenres.swift in Sources */,
 				D986CA92208CAC900039A7F8 /* Repository+Preview.swift in Sources */,
@@ -1115,28 +1367,19 @@
 				D986CA95208CAC900039A7F8 /* OAuth+GitHub.swift in Sources */,
 				D986CA8F208CAC900039A7F8 /* Repository+Charts.swift in Sources */,
 				D986CAA1208CAC900039A7F8 /* AppleMusicKit.swift in Sources */,
-				D986CA98208CAC900039A7F8 /* Entity+Ranking.swift in Sources */,
-				D986CA9F208CAC900039A7F8 /* Entity+Genre.swift in Sources */,
 				D986CA94208CAC900039A7F8 /* Repository+History.swift in Sources */,
-				D97CCFDB208D69C90064776A /* Tagged.swift in Sources */,
 				D97CCFE52090D7E70064776A /* ListRankingRss.swift in Sources */,
 				D986CA90208CAC900039A7F8 /* Repository+Search.swift in Sources */,
 				D986CAA0208CAC900039A7F8 /* MusicshotCore.swift in Sources */,
 				D986CA91208CAC900039A7F8 /* Repository.swift in Sources */,
 				D986CAA8208CAC900039A7F8 /* Resource+Ranking.swift in Sources */,
-				D986CA9D208CAC900039A7F8 /* Entity+MusicVideo.swift in Sources */,
-				D986CA99208CAC900039A7F8 /* Entity.swift in Sources */,
 				D986CA93208CAC900039A7F8 /* Repository+Storefront.swift in Sources */,
 				D9FA56AE2098B2BB0086010A /* Timeline.swift in Sources */,
 				D986CAA9208CAC900039A7F8 /* Resource.swift in Sources */,
-				D986CA9B208CAC900039A7F8 /* Entity+Song.swift in Sources */,
 				D986CAA3208CAC900039A7F8 /* GetPreviewURL.swift in Sources */,
-				D986CA9A208CAC900039A7F8 /* Entity+History.swift in Sources */,
 				D986CA96208CAC900039A7F8 /* OAuth.swift in Sources */,
 				D986CAA7208CAC900039A7F8 /* Coeffects.swift in Sources */,
 				D986CAA6208CAC900039A7F8 /* ReactiveX.swift in Sources */,
-				D986CA9C208CAC900039A7F8 /* Entity+Album.swift in Sources */,
-				D986CA97208CAC900039A7F8 /* Entity+Artist.swift in Sources */,
 				D986CAAC208CAC900039A7F8 /* Player.swift in Sources */,
 				D986CAAB208CAC900039A7F8 /* Resource+Charts.swift in Sources */,
 			);
@@ -1161,10 +1404,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D955CD1220ADC57700A6F193 /* Tagged.swift in Sources */,
 				D986CABB208CACA80039A7F8 /* ReactiveX.swift in Sources */,
+				D955CD1420ADC63600A6F193 /* Sequence.swift in Sources */,
 				D986CAB9208CACA80039A7F8 /* DisposeBag.swift in Sources */,
 				D986CABA208CACA80039A7F8 /* RxQueue.swift in Sources */,
 				D9103699208CE68600760CE4 /* Logger.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC6620ADC0060099292F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A4BC8720ADC36D0099292F /* Repository.swift in Sources */,
+				D9A4BC8C20ADC48C0099292F /* AppleMusicKit.swift in Sources */,
+				D9A4BC8D20ADC48C0099292F /* Session.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9A4BC8E20ADC4BA0099292F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A4BCB120ADC50D0099292F /* Entity+Storefront.swift in Sources */,
+				D9A4BCAF20ADC50D0099292F /* Entity+Album.swift in Sources */,
+				D9A4BCAA20ADC50D0099292F /* Entity+Artist.swift in Sources */,
+				D9A4BCAD20ADC50D0099292F /* Entity+History.swift in Sources */,
+				D9A4BCAB20ADC50D0099292F /* Entity+Ranking.swift in Sources */,
+				D9A4BCB220ADC50D0099292F /* Entity+Genre.swift in Sources */,
+				D9A4BCAC20ADC50D0099292F /* Entity.swift in Sources */,
+				D9A4BCB020ADC50D0099292F /* Entity+MusicVideo.swift in Sources */,
+				D9A4BCAE20ADC50D0099292F /* Entity+Song.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1616,6 +1887,133 @@
 			};
 			name = Release;
 		};
+		D9A4BC7020ADC0060099292F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MusicshotRepository/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotRepository;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D9A4BC7120ADC0060099292F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MusicshotRepository/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotRepository;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D9A4BC9920ADC4BA0099292F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MusicshotEntity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotEntity;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D9A4BC9A20ADC4BA0099292F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MusicshotEntity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.sora0077.MusicshotEntity;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1669,6 +2067,24 @@
 			buildConfigurations = (
 				D986C9FF208CAB600039A7F8 /* Debug */,
 				D986CA00208CAB600039A7F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9A4BC7220ADC0060099292F /* Build configuration list for PBXNativeTarget "MusicshotRepository" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A4BC7020ADC0060099292F /* Debug */,
+				D9A4BC7120ADC0060099292F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9A4BC9820ADC4BA0099292F /* Build configuration list for PBXNativeTarget "MusicshotEntity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A4BC9920ADC4BA0099292F /* Debug */,
+				D9A4BC9A20ADC4BA0099292F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

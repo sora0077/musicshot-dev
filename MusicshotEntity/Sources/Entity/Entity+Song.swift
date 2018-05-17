@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import AppleMusicKit
+import MusicshotUtility
 
 extension Entity {
     @objc(EntityArtwork)
@@ -195,12 +196,12 @@ extension Entity {
 
         public var duration: Int { return _duration }
         public var remoteURL: URL { return URL(string: _remoteUrl)! }
-        @nonobjc public internal(set) var localURL: URL? {
+        @nonobjc public var localURL: URL? {
             get { return URL(string: _localUrl) }
             set { _localUrl = newValue?.absoluteString ?? "" }
         }
 
-        convenience init(song: Song, url: URL, duration: Int) {
+        public convenience init(song: Song, url: URL, duration: Int) {
             self.init()
             self.id = song.id.rawValue
             self._remoteUrl = url.absoluteString
