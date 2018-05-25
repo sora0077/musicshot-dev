@@ -4,9 +4,9 @@ struct ValueType {
     class RealmType {
         var type: ValueType
         var toValue: String
-        var toRealm: String? = nil
+        var toRealm: String?
         var optional: Bool
-        
+
         init(_ type: ValueType, toValue: String, toRealm: String? = nil, optional: Bool = false) {
             (self.type, self.toValue, self.toRealm, self.optional)
                 = (type, toValue, toRealm, optional)
@@ -17,7 +17,7 @@ struct ValueType {
     var primitive: Bool
     var extraInfo: [String: String]
     var realmType: RealmType?
-    
+
     init(name: String, value: String = "", primitive: Bool = false, extra info: [String: String] = [:], back: RealmType? = nil) {
         self.name = name
         self.value = value
@@ -39,12 +39,12 @@ extension ValueType {
     static let String   = ValueType(name: "String", value: "\"\"")
     static let Date     = ValueType(name: "Date", value: ".distantPast")
     static let Data     = ValueType(name: "Data", value: "Data()")
-    
+
     static func Object(name: String) -> ValueType {
         return ValueType(name: "Object", extra: ["identifier": name],
                          back: RealmType(ValueType(name: name + "!"), toValue: "nop"))
     }
-    
+
     static func Array(name: String) -> ValueType {
         return ValueType(name: "Array", extra: ["identifier": name],
                          back: RealmType(ValueType(name: name), toValue: "Array"))
@@ -54,7 +54,7 @@ extension ValueType {
 extension ValueType {
     static let URL = ValueType(name: "URL", back: RealmType(.String, toValue: "{ URL(string: $0) }", optional: true))
     static let UIColor = ValueType(name: "UIColor", back: RealmType(.Int, toValue: "{ UIColor(hex: $0) }"))
-    
+
     static let Identifier = ValueType(name: "Identifier", back: RealmType(.String, toValue: "{ Identifier(rawValue: $0) }"))
 }
 
@@ -63,10 +63,10 @@ struct Prop {
     var type: ValueType
     var optional: Bool = false
     var readonly: Bool = true
-    var primarykey: Bool? = nil
-    var `default`: Any? = nil
-    var description: String? = nil
-    
+    var primarykey: Bool?
+    var `default`: Any?
+    var description: String?
+
     init(name: String,
          type: ValueType,
          optional: Bool = false,
@@ -85,7 +85,7 @@ struct Schema {
     var protocols: [String]
     var code: String?
     var props: [Prop]
-    
+
     init(namespace: String? = nil, name: String, protocols: [String] = [], code: String? = nil, props: [Prop]) {
         (self.namespace, self.name, self.protocols, self.code, self.props)
             = (namespace, name, protocols, code, props)
@@ -94,7 +94,7 @@ struct Schema {
 
 func write(schema: Schema) -> String {
     var output = ""
-    
+
     func print(_ value: String, terminator: String = "\n") {
         Swift.print(value, terminator: terminator, to: &output)
     }
@@ -109,11 +109,11 @@ func write(schema: Schema) -> String {
         }
         print("")
     }
-    
+
     if let pk = schema.props.first(where: { $0.primarykey == true }) {
         print("\(indent())    public override class func primaryKey() -> String? { return \"_\(pk.name)\" }\n")
     }
-    
+
     for prop in schema.props {
         let actual = prop.type.realmType?.type ?? prop.type
         let `default` = "\(prop.default ?? prop.type.realmType?.type.value ?? prop.type.value)"
@@ -136,17 +136,17 @@ func write(schema: Schema) -> String {
             }
         }
     }
-    
+
     print("")
-    
+
     for prop in schema.props {
         let actual = prop.type.realmType?.type ?? prop.type
         let realmList = prop.type.name == "Array"
         let realmOptional = prop.optional && actual.primitive
         let readonly = prop.readonly ? "" : " internal(set)"
-        
+
         let isObject = prop.type.name == "Object"
-        
+
         let getter: String
         let value = realmOptional ? "_\(prop.name).value" : "_\(prop.name)"
         if let realmType = prop.type.realmType {
@@ -163,7 +163,7 @@ func write(schema: Schema) -> String {
             getter = "\(value)"
         }
         let swiftlint = getter.hasSuffix("!") ? "  // swiftlint:disable:this force_unwrapping" : ""
-        
+
         if let desc = prop.description {
             print("\(indent())    /// \(desc)")
         }
@@ -193,13 +193,11 @@ func write(schema: Schema) -> String {
             print("\(indent())    }")
         }
     }
-    
+
     print("\(indent())}\n")
-    
+
     return output
 }
-
-
 
 let schemas = [
     Schema(
@@ -218,7 +216,7 @@ let schemas = [
             Prop(name: "url",
                  type: .URL,
                  primarykey: true,
-                 description: "The URL for sharing an activity in the iTunes Store."),
+                 description: "The URL for sharing an activity in the iTunes Store.")
         ]),
     Schema(
         name: "Album",
@@ -277,7 +275,7 @@ let schemas = [
                  description: "The number of tracks."),
             Prop(name: "url",
                  type: .URL,
-                 description: "The URL for sharing an album in the iTunes Store."),
+                 description: "The URL for sharing an album in the iTunes Store.")
             ]),
     Schema(
         name: "Artwork",
