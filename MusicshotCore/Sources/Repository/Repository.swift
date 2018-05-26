@@ -90,6 +90,8 @@ public class Repository {
             Resource.Search.Hints.self,
             Resource.Search.Songs.self,
             Resource.Search.SongsFragment.self,
+            Resource.Search.Hints.self,
+            Resource.Search.Hints.Fragment.self,
             Resource.Ranking.Genre.self,
             Resource.Ranking.Genres.self,
             Resource.Ranking.GenreSongs.self,
