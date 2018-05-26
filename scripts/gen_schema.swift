@@ -51,13 +51,6 @@ extension ValueType {
     }
 }
 
-extension ValueType {
-    static let URL = ValueType(name: "URL", back: RealmType(.String, toValue: "{ URL(string: $0) }", optional: true))
-    static let UIColor = ValueType(name: "UIColor", back: RealmType(.Int, toValue: "{ UIColor(hex: $0) }"))
-
-    static let Identifier = ValueType(name: "Identifier", back: RealmType(.String, toValue: "{ Identifier(rawValue: $0) }"))
-}
-
 struct Prop {
     var name: String
     var type: ValueType
@@ -199,15 +192,26 @@ func write(schema: Schema) -> String {
     return output
 }
 
+extension ValueType {
+    static let URL = ValueType(name: "URL", back: RealmType(.String, toValue: "{ URL(string: $0) }", optional: true))
+    static let UIColor = ValueType(name: "UIColor", back: RealmType(.Int, toValue: "{ UIColor(hex: $0) }"))
+
+    static let Identifier = ValueType(name: "Identifier", back: RealmType(.String, toValue: "{ Identifier(rawValue: $0) }"))
+
+    static let Artwork = Object(name: "Artwork")
+    static let EditorialNotes = Object(name: "EditorialNotes")
+    static let PlayParameters = Object(name: "PlayParameters")
+}
+
 let schemas = [
     Schema(
         name: "Activity",
         props: [
             Prop(name: "artwork",
-                 type: .Object(name: "Artwork"),
+                 type: .Artwork,
                  description: "The activity artwork."),
             Prop(name: "editorialNotes",
-                 type: .Object(name: "EditorialNotes"),
+                 type: .EditorialNotes,
                  optional: true,
                  description: "(Optional) The notes about the activity that appear in the iTunes Store."),
             Prop(name: "name",
@@ -234,7 +238,7 @@ let schemas = [
                  type: .String,
                  description: "The artist’s name."),
             Prop(name: "artwork",
-                 type: .Object(name: "Artwork"),
+                 type: .Artwork,
                  description: "The album artwork."),
             Prop(name: "contentRating",
                  type: .String,
@@ -245,7 +249,7 @@ let schemas = [
                  optional: true,
                  description: "(Optional) The copyright text."),
             Prop(name: "editorialNotes",
-                 type: .Object(name: "EditorialNotes"),
+                 type: .EditorialNotes,
                  optional: true,
                  description: "(Optional) The notes about the album that appear in the iTunes Store."),
             Prop(name: "genreNames",
@@ -267,7 +271,7 @@ let schemas = [
                  type: .Date,
                  description: "The release date of the album in YYYY-MM-DD format."),
             Prop(name: "playParams",
-                 type: .Object(name: "PlayParameters"),
+                 type: .PlayParameters,
                  optional: true,
                  description: "(Optional) The parameters to use to playback the tracks of the album."),
             Prop(name: "trackCount",
@@ -278,42 +282,471 @@ let schemas = [
                  description: "The URL for sharing an album in the iTunes Store.")
             ]),
     Schema(
+        name: "AppleCurator",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                description: "The curator artwork."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                optional: true,
+                description: "(Optional) The notes about the curator that appear in the iTunes Store."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the curator."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing an curator in the iTunes Store.")
+        ]),
+    Schema(
+        name: "Artist",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "genreNames",
+                type: .Array(name: "String"),
+                description: "The names of the genres associated with this artist."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                description: "(Optional) The notes about the artist that appear in the iTunes Store."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the curator."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing an curator in the iTunes Store.")
+        ]),
+    Schema(
         name: "Artwork",
         props: [
-            Prop(name: "url",
-                 type: .URL,
-                 primarykey: true),
             Prop(name: "width",
                  type: .Int,
-                 default: -1),
+                 default: -1,
+                 description: "The maximum width available for the image."),
             Prop(name: "height",
                  type: .Int,
-                 default: -1),
+                 default: -1,
+                 description: "The maximum height available for the image."),
+            Prop(name: "url",
+                 type: .URL,
+                 primarykey: true,
+                 description: "The URL to request the image asset. The image file name must be preceded by {w}x{h}, as placeholders for the width and height values described above (for example, {w}x{h}bb.jpg)."),
             Prop(name: "bgColor",
                  type: .UIColor,
-                 optional: true),
+                 optional: true,
+                 description: "(Optional) The average background color of the image."),
             Prop(name: "textColor1",
                  type: .UIColor,
-                 optional: true),
+                 optional: true,
+                 description: "(Optional) The primary text color that may be used if the background color is displayed."),
             Prop(name: "textColor2",
                  type: .UIColor,
-                 optional: true),
+                 optional: true,
+                 description: "(Optional) The secondary text color that may be used if the background color is displayed."),
             Prop(name: "textColor3",
                  type: .UIColor,
-                 optional: true),
+                 optional: true,
+                 description: "(Optional) The tertiary text color that may be used if the background color is displayed."),
             Prop(name: "textColor4",
                  type: .UIColor,
-                 optional: true)
+                 optional: true,
+                 description: "(Optional) The final post-tertiary text color that maybe be used if the background color is displayed.")
+        ]),
+//    Schema(
+//        name: "Chart",
+//        props: [
+//            Prop(
+//                name: "id",
+//                type: .Identifier,
+//                primarykey: true,
+//                description: "Persistent identifier of the resource. This member is required."),
+//            Prop(
+//                name: "name",
+//                type: .String,
+//                description: "The localized name for the chart."),
+//            Prop(
+//                name: "chart",
+//                type: .String,
+//                description: "The chart identifier."),
+//            Prop(
+//                name: "href",
+//                type: .URL,
+//                description: "The URL for the chart."),
+//            Prop(
+//                name: "data",
+//                type: .String,
+//                description: "An array of the objects that were requested ordered by popularity. For example, if songs were specified as the chart type in the request, the array contains Song objects."),
+//            Prop(
+//                name: "next",
+//                type: .URL,
+//                optional: true,
+//                description: "(Optional) The URL for the next page."),
+//        ]),
+    Schema(
+        name: "Curator",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                description: "The curator artwork."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                optional: true,
+                description: "(Optional) The notes about the curator."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the curator."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing a curator in Apple Music.")
+        ]),
+    Schema(
+        name: "EditorialNotes",
+        props: [
+            Prop(
+                name: "standard",
+                type: .String,
+                description: "Notes shown when the content is being prominently displayed."),
+            Prop(
+                name: "short",
+                type: .String,
+                description: "Abbreviated notes shown in-line or when the content is shown alongside other content.")
+        ]),
+    Schema(
+        name: "Genre",
+        props: [
+            Prop(
+                name: "name",
+                type: .String,
+                primarykey: true,
+                description: "The localized name of the genre.")
+        ]),
+    Schema(
+        name: "MusicVideo",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "albumName",
+                type: .String,
+                optional: true,
+                description: "(Optional) The name of the album the music video appears on."),
+            Prop(
+                name: "artistName",
+                type: .String,
+                description: "The artist’s name."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                description: "The artwork for the music video’s associated album."),
+            Prop(
+                name: "contentRating",
+                type: .String,
+                optional: true,
+                description: "(Optional) The RIAA rating of the content. The possible values for this rating are clean and explicit. No value means no rating."),
+            Prop(
+                name: "durationInMillis",
+                type: .Int,
+                optional: true,
+                description: "(Optional) The duration of the music video in milliseconds."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                description: "(Optional) The editorial notes for the music video."),
+            Prop(
+                name: "genreNames",
+                type: .Array(name: "String"),
+                description: "The music video’s associated genres."),
+            Prop(
+                name: "isrc",
+                type: .String,
+                description: "The ISRC (International Standard Recording Code) for the music video."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the music video."),
+            Prop(
+                name: "playParams",
+                type: .PlayParameters,
+                optional: true,
+                description: "(Optional) The parameters to use to playback the music video."),
+            Prop(
+                name: "previews",
+                type: .Array(name: "Preview"),
+                description: "The preview assets for the music video."),
+            Prop(
+                name: "releaseDate",
+                type: .Date,
+                description: "The release date of the music video in YYYY-MM-DD format."),
+            Prop(
+                name: "trackNumber",
+                type: .Int,
+                optional: true,
+                description: "(Optional) The number of the music video in the album’s track list."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "A clear url directly to the music video."),
+            Prop(
+                name: "videoSubType",
+                type: .String,
+                optional: true,
+                description: "(Optional) The video subtype associated with the content.")
+        ]),
+    Schema(
+        name: "PlayParameters",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "The ID of the content to use for playback."),
+            Prop(
+                name: "kind",
+                type: .String,
+                description: "The kind of the content to use for playback.")
+        ]),
+    Schema(
+        name: "Playlist",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                optional: true,
+                description: "(Optional) The playlist artwork."),
+            Prop(
+                name: "curatorName",
+                type: .String,
+                optional: true,
+                description: "(Optional) The display name of the curator."),
+            Prop(
+                name: "description",
+                type: .EditorialNotes,
+                description: "(Optional) A description of the playlist."),
+            Prop(
+                name: "lastModifiedDate",
+                type: .Date,
+                description: "The date the playlist was last modified."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the album."),
+            Prop(
+                name: "playlistType",
+                type: .String,
+                description: "The type of playlist."),
+            Prop(
+                name: "playParams",
+                type: .PlayParameters,
+                optional: true,
+                description: "(Optional) The parameters to use to playback the tracks in the playlist."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing an album in the iTunes Store.")
+        ]),
+    Schema(
+        name: "Preview",
+        props: [
+            Prop(
+                name: "url",
+                type: .URL,
+                primarykey: true,
+                description: "The preview URL for the content."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                optional: true,
+                description: "(Optional) The preview artwork for the associated music video.")
         ]),
     Schema(
         name: "Song",
-        protocols: ["Identifiable"],
         props: [
-            Prop(name: "id",
-                 type: .Identifier,
-                 primarykey: true),
-            Prop(name: "artistName",
-                 type: .String)
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "albumName",
+                type: .String,
+                description: "The name of the album the song appears on."),
+            Prop(
+                name: "artistName",
+                type: .String,
+                description: "The artist’s name."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                description: "The album artwork."),
+            Prop(
+                name: "composerName",
+                type: .String,
+                optional: true,
+                description: "(Optional) The song’s composer."),
+            Prop(
+                name: "contentRating",
+                type: .String,
+                optional: true,
+                description: "(Optional) The RIAA rating of the content. The possible values for this rating are clean and explicit. No value means no rating."),
+            Prop(
+                name: "discNumber",
+                type: .Int,
+                description: "The disc number the song appears on."),
+            Prop(
+                name: "durationInMillis",
+                type: .Int,
+                optional: true,
+                description: "(Optional) The duration of the song in milliseconds."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                description: "(Optional) The notes about the song that appear in the iTunes Store."),
+            Prop(
+                name: "genreNames",
+                type: .Array(name: "String"),
+                description: "The genre names the song is associated with."),
+            Prop(
+                name: "isrc",
+                type: .String,
+                description: "The ISRC (International Standard Recording Code) for the song."),
+            Prop(
+                name: "movementCount",
+                type: .Int,
+                optional: true,
+                description: "(Optional, classical music only) The movement count of this song."),
+            Prop(
+                name: "movementName",
+                type: .String,
+                optional: true,
+                description: "(Optional, classical music only) The movement name of this song."),
+            Prop(
+                name: "movementNumber",
+                type: .Int,
+                optional: true,
+                description: "(Optional, classical music only) The movement number of this song."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the song."),
+            Prop(
+                name: "playParams",
+                type: .PlayParameters,
+                optional: true,
+                description: "(Optional) The parameters to use to playback the song."),
+            Prop(
+                name: "previews",
+                type: .Array(name: "Preview"),
+                description: "The preview assets for the song."),
+            Prop(
+                name: "releaseDate",
+                type: .Date,
+                description: "The release date of the music video in YYYY-MM-DD format."),
+            Prop(
+                name: "trackNumber",
+                type: .Int,
+                description: "The number of the song in the album’s track list."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing a song in the iTunes Store."),
+            Prop(
+                name: "workName",
+                type: .String,
+                optional: true,
+                description: "(Optional, classical music only) The name of the associated work.")
+        ]),
+    Schema(
+        name: "Station",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "artwork",
+                type: .Artwork,
+                description: "The radio station artwork."),
+            Prop(
+                name: "durationInMillis",
+                type: .Int,
+                optional: true,
+                description: "(Optional) The duration of the stream. Not emitted for 'live' or programmed stations."),
+            Prop(
+                name: "editorialNotes",
+                type: .EditorialNotes,
+                description: "(Optional) The notes about the station that appear in Apple Music."),
+            Prop(
+                name: "episodeNumber",
+                type: .String,
+                optional: true,
+                description: "(Optional) The episode number of the station. Only emitted when the station represents an episode of a show or other content."),
+            Prop(
+                name: "isLive",
+                type: .Bool,
+                description: "Indicates whether the station is a live stream."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the station."),
+            Prop(
+                name: "url",
+                type: .URL,
+                description: "The URL for sharing a station in Apple Music.")
+        ]),
+    Schema(
+        name: "Storefront",
+        props: [
+            Prop(
+                name: "id",
+                type: .Identifier,
+                primarykey: true,
+                description: "Persistent identifier of the resource. This member is required."),
+            Prop(
+                name: "name",
+                type: .String,
+                description: "The localized name of the storefront."),
+            Prop(
+                name: "supportedLanguageTags",
+                type: .Array(name: "String"),
+                description: "The localizations that the storefront supports, represented as an array of language tags."),
+            Prop(
+                name: "defaultLanguageTag",
+                type: .String,
+                description: "The default language for the storefront, represented as a language tag.")
         ])
 ]
 
