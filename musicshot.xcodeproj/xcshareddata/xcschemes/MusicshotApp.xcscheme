@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
+               BlueprintIdentifier = "D97C2E9320D29F65006BCD05"
                BuildableName = "MusicshotApp.app"
                BlueprintName = "MusicshotApp"
                ReferencedContainer = "container:musicshot.xcodeproj">
@@ -28,11 +28,31 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D97C2EB120D29F67006BCD05"
+               BuildableName = "MusicshotAppUITests.xctest"
+               BlueprintName = "MusicshotAppUITests"
+               ReferencedContainer = "container:musicshot.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D97C2EA620D29F67006BCD05"
+               BuildableName = "MusicshotAppTests.xctest"
+               BlueprintName = "MusicshotAppTests"
+               ReferencedContainer = "container:musicshot.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
+            BlueprintIdentifier = "D97C2E9320D29F65006BCD05"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">
@@ -55,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
+            BlueprintIdentifier = "D97C2E9320D29F65006BCD05"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">
@@ -74,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D986C9BA208CAB0A0039A7F8"
+            BlueprintIdentifier = "D97C2E9320D29F65006BCD05"
             BuildableName = "MusicshotApp.app"
             BlueprintName = "MusicshotApp"
             ReferencedContainer = "container:musicshot.xcodeproj">
