@@ -3,7 +3,7 @@ included:
   - MusicshotUtility
   - MusicshotEntity
   - MusicshotRepository
-  - MusicshotCore
+  - MusicshotDomain
   - MusicshotUI
   - MusicshotApp
   - scripts

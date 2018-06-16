@@ -1,3 +1,5 @@
+#!/usr/bin/swift
+
 import Foundation
 
 struct ValueType {
@@ -85,7 +87,65 @@ struct Schema {
     }
 }
 
-func write(schema: Schema) -> String {
+func log(_ any: Any...) {
+    print(any)
+}
+
+func writeSchemaForDomain(_ schema: Schema) -> String {
+    var output = ""
+
+    func print(_ value: String, terminator: String = "\n") {
+        Swift.print(value, terminator: terminator, to: &output)
+    }
+    func indent(_ level: Int = 0) -> String {
+        return String(repeating: "    ", count: level)
+    }
+    var protocols = schema.protocols.filter { $0 != "Identifiable" }
+    let isEntity = schema.protocols.contains("Identifiable")
+    if isEntity {
+        protocols.insert("Entity", at: 0)
+    }
+    let protocolString = protocols.isEmpty ? "" : ": \(protocols.joined(separator: ", "))"
+    print("\(indent())open class \(schema.name)\(protocolString) {")
+    if let codes = schema.code?.components(separatedBy: "\n") {
+        for code in codes {
+            print("\(indent())    \(code)")
+        }
+        print("")
+    }
+
+    if isEntity, let pk = schema.props.first(where: { $0.primarykey == true }) {
+        let actual = pk.type.realmType?.type ?? pk.type
+        print("\(indent())    public typealias Identifier = Tagged<\(schema.name), \(actual.name)>\n")
+    }
+    for prop in schema.props {
+        let realmList = prop.type.name == "Array"
+        let isObject = prop.type.name == "Object"
+        let typeName = realmList
+            ? "[\(prop.type.extraInfo["identifier"]!)]"
+            : isObject ? prop.type.extraInfo["identifier"]! : prop.type.name
+
+        if let desc = prop.description {
+            print("\(indent())    /// \(desc)")
+        }
+        if typeName == "Identifier" {
+            print("\(indent())    public let \(prop.name): \(typeName)")
+            print("")
+            print("\(indent())    public init(id: Identifier) {")
+            print("\(indent())        self.id = id")
+            print("\(indent())    }")
+            print("")
+        } else {
+            print("\(indent())    open var \(prop.name): \(typeName)\(prop.optional ? "?" : "") { fatalError(\"abstract\") }")
+        }
+    }
+
+    print("\(indent())}\n")
+
+    return output
+}
+
+func writeSchemaForRepository(_ schema: Schema) -> String {
     var output = ""
 
     func print(_ value: String, terminator: String = "\n") {
@@ -283,6 +343,7 @@ let schemas = [
             ]),
     Schema(
         name: "AppleCurator",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -309,6 +370,7 @@ let schemas = [
         ]),
     Schema(
         name: "Artist",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -400,6 +462,7 @@ let schemas = [
 //        ]),
     Schema(
         name: "Curator",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -447,6 +510,7 @@ let schemas = [
         ]),
     Schema(
         name: "MusicVideo",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -522,6 +586,7 @@ let schemas = [
         ]),
     Schema(
         name: "PlayParameters",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -535,6 +600,7 @@ let schemas = [
         ]),
     Schema(
         name: "Playlist",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -593,6 +659,7 @@ let schemas = [
         ]),
     Schema(
         name: "Song",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -690,6 +757,7 @@ let schemas = [
         ]),
     Schema(
         name: "Station",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -729,6 +797,7 @@ let schemas = [
         ]),
     Schema(
         name: "Storefront",
+        protocols: ["Identifiable"],
         props: [
             Prop(
                 name: "id",
@@ -751,5 +820,5 @@ let schemas = [
 ]
 
 for schema in schemas {
-    print(write(schema: schema))
+    print(writeSchemaForDomain(schema))
 }
