@@ -2,7 +2,7 @@
 //  Song.swift
 //  MusicshotDomain
 //
-//  Created by 林達也 on 2018/06/16.
+//  Created by 林達也.
 //  Copyright © 2018年 林達也. All rights reserved.
 //
 
@@ -11,13 +11,12 @@ import Foundation
 open class Song: Entity {
     public typealias Identifier = Tagged<Song, String>
 
-    /// Persistent identifier of the resource. This member is required.
-    public let id: Identifier
-
     public init(id: Identifier) {
         self.id = id
     }
 
+    /// Persistent identifier of the resource. This member is required.
+    public let id: Identifier
     /// The name of the album the song appears on.
     open var albumName: String { fatalError("abstract") }
     /// The artist’s name.

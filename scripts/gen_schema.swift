@@ -116,7 +116,15 @@ func writeSchemaForDomain(_ schema: Schema) -> String {
 
     if isEntity, let pk = schema.props.first(where: { $0.primarykey == true }) {
         let actual = pk.type.realmType?.type ?? pk.type
-        print("\(indent())    public typealias Identifier = Tagged<\(schema.name), \(actual.name)>\n")
+        print("\(indent())    public typealias Identifier = Tagged<\(schema.name), \(actual.name)>")
+        print("")
+        print("\(indent())    public init(id: Identifier) {")
+        print("\(indent())        self.id = id")
+        print("\(indent())    }")
+        print("")
+    } else {
+        print("\(indent())    public init() {}")
+        print("")
     }
     for prop in schema.props {
         let realmList = prop.type.name == "Array"
@@ -130,11 +138,6 @@ func writeSchemaForDomain(_ schema: Schema) -> String {
         }
         if typeName == "Identifier" {
             print("\(indent())    public let \(prop.name): \(typeName)")
-            print("")
-            print("\(indent())    public init(id: Identifier) {")
-            print("\(indent())        self.id = id")
-            print("\(indent())    }")
-            print("")
         } else {
             print("\(indent())    open var \(prop.name): \(typeName)\(prop.optional ? "?" : "") { fatalError(\"abstract\") }")
         }
@@ -154,17 +157,11 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
     func indent(_ level: Int = 0) -> String {
         return String(repeating: "    ", count: level)
     }
-    let protocols = schema.protocols.isEmpty ? "" : ", \(schema.protocols.joined(separator: ", "))"
-    print("\(indent())public final class \(schema.name): RealmSwift.Object\(protocols) {")
-    if let codes = schema.code?.components(separatedBy: "\n") {
-        for code in codes {
-            print("\(indent())    \(code)")
-        }
-        print("")
-    }
-
+    print("\(indent())final class \(schema.name)Impl: \(schema.name) {")
+    print("\(indent())    @objc(\(schema.name)Storage)")
+    print("\(indent())    final class Storage: RealmSwift.Object {")
     if let pk = schema.props.first(where: { $0.primarykey == true }) {
-        print("\(indent())    public override class func primaryKey() -> String? { return \"_\(pk.name)\" }\n")
+        print("\(indent())        override class func primaryKey() -> String? { return \"\(pk.name)\" }\n")
     }
 
     for prop in schema.props {
@@ -172,15 +169,20 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         let `default` = "\(prop.default ?? prop.type.realmType?.type.value ?? prop.type.value)"
         let realmOptional = prop.optional && actual.primitive
         let realmList = prop.type.name == "Array"
+        let isObject = prop.type.name == "Object"
+        func getTypeName() -> String {
+            guard isObject || realmList else { return actual.name }
+            if actual.name == "String" { return actual.name }
+            return actual.name.replacingOccurrences(of: "!", with: "") + "Impl.Storage"
+        }
         if realmList {
-            print("\(indent())    private let _\(prop.name) = List<\(actual.name)>()")
+            print("\(indent())        let \(prop.name) = List<\(getTypeName())>()")
         } else if realmOptional {
-            print("\(indent())    private let _\(prop.name) = RealmOptional<\(actual.name)>(\(prop.default ?? "nil"))")
+            print("\(indent())        let \(prop.name) = RealmOptional<\(getTypeName())>(\(prop.default ?? "nil"))")
         } else {
-            let isObject = prop.type.name == "Object"
             print("""
-            \(indent())    @objc private dynamic var \
-            _\(prop.name): \(actual.name)\(prop.optional && !isObject ? "?" : "")
+            \(indent())        @objc dynamic var \
+            \(prop.name): \(getTypeName())\(isObject ? "!" : "")\(prop.optional && !isObject ? "?" : "")
             """, terminator: "")
             if prop.optional || isObject {
                 print("")
@@ -190,6 +192,22 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         }
     }
 
+    print("\(indent())    }\n")
+    print("\(indent())    private let storage: Storage\n")
+    print("\(indent())    init(storage: Storage) {")
+    print("\(indent())        self.storage = storage")
+    let isEntity = schema.protocols.contains("Identifiable")
+    if isEntity {
+        print("\(indent())        super.init(id: .init(rawValue: storage.id))")
+    } else {
+        print("\(indent())        super.init()")
+    }
+    print("\(indent())    }")
+    print("")
+    print("\(indent())    convenience init?(storage: Storage?) {")
+    print("\(indent())        guard let storage = storage else { return nil }")
+    print("\(indent())        self.init(storage: storage)")
+    print("\(indent())    }")
     print("")
 
     for prop in schema.props {
@@ -199,12 +217,17 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         let readonly = prop.readonly ? "" : " internal(set)"
 
         let isObject = prop.type.name == "Object"
+        let typeName = realmList
+            ? "[\(prop.type.extraInfo["identifier"]!)]"
+            : isObject ? prop.type.extraInfo["identifier"]! : prop.type.name
+
+        if prop.name == "id" { continue }
 
         let getter: String
-        let value = realmOptional ? "_\(prop.name).value" : "_\(prop.name)"
+        let value = realmOptional ? "storage.\(prop.name).value" : "storage.\(prop.name)"
         if let realmType = prop.type.realmType {
             if isObject {
-                getter = "\(value)"
+                getter = "\(typeName)Impl(storage: \(value))"
             } else {
                 if prop.optional {
                     getter = "\(value).flatMap \(realmType.toValue)"
@@ -217,15 +240,9 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         }
         let swiftlint = getter.hasSuffix("!") ? "  // swiftlint:disable:this force_unwrapping" : ""
 
-        if let desc = prop.description {
-            print("\(indent())    /// \(desc)")
-        }
-        let typeName = realmList
-            ? "[\(prop.type.extraInfo["identifier"]!)]"
-            : isObject ? prop.type.extraInfo["identifier"]! : prop.type.name
         print("""
             \(indent())    \(prop.readonly ? "" : "@nonobjc ")\
-            public\(readonly) var \(prop.name): \(typeName)\(prop.optional ? "?" : "") {
+            override var \(prop.name): \(typeName)\(prop.optional ? "?" : "") {
             """, terminator: "")
         if prop.readonly {
             print(" return \(getter) }\(swiftlint)")
@@ -618,7 +635,7 @@ let schemas = [
                 optional: true,
                 description: "(Optional) The display name of the curator."),
             Prop(
-                name: "description",
+                name: "editorialNotes",
                 type: .EditorialNotes,
                 description: "(Optional) A description of the playlist."),
             Prop(
@@ -820,5 +837,36 @@ let schemas = [
 ]
 
 for schema in schemas {
-    print(writeSchemaForDomain(schema))
+    let domain = """
+    //
+    //  \(schema.name).swift
+    //  MusicshotDomain
+    //
+    //  Created by 林達也.
+    //  Copyright © 2018年 林達也. All rights reserved.
+    //
+
+    import Foundation
+
+    \(writeSchemaForDomain(schema))
+    """
+
+    let repository = """
+    //
+    //  \(schema.name).swift
+    //  MusicshotRepository
+    //
+    //  Created by 林達也.
+    //  Copyright © 2018年 林達也. All rights reserved.
+    //
+
+    import Foundation
+    import RealmSwift
+    import MusicshotDomain
+
+    \(writeSchemaForRepository(schema))
+    """
+
+    try! domain.write(toFile: "./MusicshotDomain/Sources/Model/\(schema.name).swift", atomically: true, encoding: .utf8)
+    try! repository.write(toFile: "./MusicshotRepository/Sources/Model/\(schema.name).swift", atomically: true, encoding: .utf8)
 }

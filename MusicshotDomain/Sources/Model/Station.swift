@@ -2,7 +2,7 @@
 //  Station.swift
 //  MusicshotDomain
 //
-//  Created by 林達也 on 2018/06/16.
+//  Created by 林達也.
 //  Copyright © 2018年 林達也. All rights reserved.
 //
 
@@ -11,13 +11,12 @@ import Foundation
 open class Station: Entity {
     public typealias Identifier = Tagged<Station, String>
 
-    /// Persistent identifier of the resource. This member is required.
-    public let id: Identifier
-
     public init(id: Identifier) {
         self.id = id
     }
 
+    /// Persistent identifier of the resource. This member is required.
+    public let id: Identifier
     /// The radio station artwork.
     open var artwork: Artwork { fatalError("abstract") }
     /// (Optional) The duration of the stream. Not emitted for 'live' or programmed stations.

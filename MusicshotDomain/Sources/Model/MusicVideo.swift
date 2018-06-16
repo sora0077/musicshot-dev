@@ -2,7 +2,7 @@
 //  MusicVideo.swift
 //  MusicshotDomain
 //
-//  Created by 林達也 on 2018/06/16.
+//  Created by 林達也.
 //  Copyright © 2018年 林達也. All rights reserved.
 //
 
@@ -11,13 +11,12 @@ import Foundation
 open class MusicVideo: Entity {
     public typealias Identifier = Tagged<MusicVideo, String>
 
-    /// Persistent identifier of the resource. This member is required.
-    public let id: Identifier
-
     public init(id: Identifier) {
         self.id = id
     }
 
+    /// Persistent identifier of the resource. This member is required.
+    public let id: Identifier
     /// (Optional) The name of the album the music video appears on.
     open var albumName: String? { fatalError("abstract") }
     /// The artist’s name.
