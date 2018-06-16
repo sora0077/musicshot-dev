@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension EditorialNotes {
+    typealias Storage = EditorialNotesImpl.Storage
+}
+
 final class EditorialNotesImpl: EditorialNotes {
     @objc(EditorialNotesStorage)
     final class Storage: RealmSwift.Object {

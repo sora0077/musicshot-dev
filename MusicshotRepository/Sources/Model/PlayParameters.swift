@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension PlayParameters {
+    typealias Storage = PlayParametersImpl.Storage
+}
+
 final class PlayParametersImpl: PlayParameters {
     @objc(PlayParametersStorage)
     final class Storage: RealmSwift.Object {

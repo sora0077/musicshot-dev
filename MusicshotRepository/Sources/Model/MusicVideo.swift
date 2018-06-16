@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension MusicVideo {
+    typealias Storage = MusicVideoImpl.Storage
+}
+
 final class MusicVideoImpl: MusicVideo {
     @objc(MusicVideoStorage)
     final class Storage: RealmSwift.Object {

@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension Station {
+    typealias Storage = StationImpl.Storage
+}
+
 final class StationImpl: Station {
     @objc(StationStorage)
     final class Storage: RealmSwift.Object {
@@ -19,7 +23,7 @@ final class StationImpl: Station {
         @objc dynamic var artwork: ArtworkImpl.Storage!
         let durationInMillis = RealmOptional<Int>(nil)
         @objc dynamic var editorialNotes: EditorialNotesImpl.Storage!
-        @objc dynamic var episodeNumber: String?
+        let episodeNumber = RealmOptional<Int>(nil)
         @objc dynamic var isLive: Bool = false
         @objc dynamic var name: String = ""
         @objc dynamic var url: String = ""
@@ -40,7 +44,7 @@ final class StationImpl: Station {
     override var artwork: Artwork { return ArtworkImpl(storage: storage.artwork) }
     override var durationInMillis: Int? { return storage.durationInMillis.value }
     override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: storage.editorialNotes) }
-    override var episodeNumber: String? { return storage.episodeNumber }
+    override var episodeNumber: Int? { return storage.episodeNumber.value }
     override var isLive: Bool { return storage.isLive }
     override var name: String { return storage.name }
     override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping

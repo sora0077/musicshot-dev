@@ -10,11 +10,16 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension Genre {
+    typealias Storage = GenreImpl.Storage
+}
+
 final class GenreImpl: Genre {
     @objc(GenreStorage)
     final class Storage: RealmSwift.Object {
-        override class func primaryKey() -> String? { return "name" }
+        override class func primaryKey() -> String? { return "id" }
 
+        @objc dynamic var id: String = ""
         @objc dynamic var name: String = ""
     }
 
@@ -22,7 +27,7 @@ final class GenreImpl: Genre {
 
     init(storage: Storage) {
         self.storage = storage
-        super.init()
+        super.init(id: .init(rawValue: storage.id))
     }
 
     convenience init?(storage: Storage?) {

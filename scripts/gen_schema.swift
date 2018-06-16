@@ -157,6 +157,10 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
     func indent(_ level: Int = 0) -> String {
         return String(repeating: "    ", count: level)
     }
+    print("\(indent())extension \(schema.name) {")
+    print("\(indent())    typealias Storage = \(schema.name)Impl.Storage")
+    print("\(indent())}")
+    print("")
     print("\(indent())final class \(schema.name)Impl: \(schema.name) {")
     print("\(indent())    @objc(\(schema.name)Storage)")
     print("\(indent())    final class Storage: RealmSwift.Object {")
@@ -231,6 +235,8 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
             } else {
                 if prop.optional {
                     getter = "\(value).flatMap \(realmType.toValue)"
+                } else if realmList && prop.type.extraInfo["identifier"] == "Preview" {
+                    getter = "\(value).map(\(prop.type.extraInfo["identifier"]!)Impl.init(storage:))"
                 } else {
                     getter = "\(realmType.toValue)(\(value))\(realmType.optional ? "!" : "")"
                 }
@@ -283,7 +289,12 @@ extension ValueType {
 let schemas = [
     Schema(
         name: "Activity",
+        protocols: ["Identifiable"],
         props: [
+            Prop(name: "id",
+                 type: .Identifier,
+                 primarykey: true,
+                 description: "Persistent identifier of the resource. This member is required."),
             Prop(name: "artwork",
                  type: .Artwork,
                  description: "The activity artwork."),
@@ -296,7 +307,6 @@ let schemas = [
                  description: "The localized name of the activity."),
             Prop(name: "url",
                  type: .URL,
-                 primarykey: true,
                  description: "The URL for sharing an activity in the iTunes Store.")
         ]),
     Schema(
@@ -518,7 +528,12 @@ let schemas = [
         ]),
     Schema(
         name: "Genre",
+        protocols: ["Identifiable"],
         props: [
+            Prop(name: "id",
+                 type: .Identifier,
+                 primarykey: true,
+                 description: "Persistent identifier of the resource. This member is required."),
             Prop(
                 name: "name",
                 type: .String,
@@ -796,7 +811,7 @@ let schemas = [
                 description: "(Optional) The notes about the station that appear in Apple Music."),
             Prop(
                 name: "episodeNumber",
-                type: .String,
+                type: .Int,
                 optional: true,
                 description: "(Optional) The episode number of the station. Only emitted when the station represents an episode of a show or other content."),
             Prop(

@@ -10,11 +10,16 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension Activity {
+    typealias Storage = ActivityImpl.Storage
+}
+
 final class ActivityImpl: Activity {
     @objc(ActivityStorage)
     final class Storage: RealmSwift.Object {
-        override class func primaryKey() -> String? { return "url" }
+        override class func primaryKey() -> String? { return "id" }
 
+        @objc dynamic var id: String = ""
         @objc dynamic var artwork: ArtworkImpl.Storage!
         @objc dynamic var editorialNotes: EditorialNotesImpl.Storage!
         @objc dynamic var name: String = ""
@@ -25,7 +30,7 @@ final class ActivityImpl: Activity {
 
     init(storage: Storage) {
         self.storage = storage
-        super.init()
+        super.init(id: .init(rawValue: storage.id))
     }
 
     convenience init?(storage: Storage?) {

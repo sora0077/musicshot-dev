@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension Storefront {
+    typealias Storage = StorefrontImpl.Storage
+}
+
 final class StorefrontImpl: Storefront {
     @objc(StorefrontStorage)
     final class Storage: RealmSwift.Object {

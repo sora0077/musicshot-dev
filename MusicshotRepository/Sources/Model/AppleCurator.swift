@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension AppleCurator {
+    typealias Storage = AppleCuratorImpl.Storage
+}
+
 final class AppleCuratorImpl: AppleCurator {
     @objc(AppleCuratorStorage)
     final class Storage: RealmSwift.Object {

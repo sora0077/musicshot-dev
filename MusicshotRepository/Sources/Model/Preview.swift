@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
+extension Preview {
+    typealias Storage = PreviewImpl.Storage
+}
+
 final class PreviewImpl: Preview {
     @objc(PreviewStorage)
     final class Storage: RealmSwift.Object {

@@ -10,10 +10,8 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-private extension UIColor {
-    convenience init(hex: Int) {
-        fatalError()
-    }
+extension Artwork {
+    typealias Storage = ArtworkImpl.Storage
 }
 
 final class ArtworkImpl: Artwork {

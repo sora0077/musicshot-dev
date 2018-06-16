@@ -8,9 +8,15 @@
 
 import Foundation
 
-open class Genre {
-    public init() {}
+open class Genre: Entity {
+    public typealias Identifier = Tagged<Genre, String>
 
+    public init(id: Identifier) {
+        self.id = id
+    }
+
+    /// Persistent identifier of the resource. This member is required.
+    public let id: Identifier
     /// The localized name of the genre.
     open var name: String { fatalError("abstract") }
 }

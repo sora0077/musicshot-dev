@@ -24,7 +24,7 @@ open class Station: Entity {
     /// (Optional) The notes about the station that appear in Apple Music.
     open var editorialNotes: EditorialNotes { fatalError("abstract") }
     /// (Optional) The episode number of the station. Only emitted when the station represents an episode of a show or other content.
-    open var episodeNumber: String? { fatalError("abstract") }
+    open var episodeNumber: Int? { fatalError("abstract") }
     /// Indicates whether the station is a live stream.
     open var isLive: Bool { fatalError("abstract") }
     /// The localized name of the station.

@@ -8,9 +8,15 @@
 
 import Foundation
 
-open class Activity {
-    public init() {}
+open class Activity: Entity {
+    public typealias Identifier = Tagged<Activity, String>
 
+    public init(id: Identifier) {
+        self.id = id
+    }
+
+    /// Persistent identifier of the resource. This member is required.
+    public let id: Identifier
     /// The activity artwork.
     open var artwork: Artwork { fatalError("abstract") }
     /// (Optional) The notes about the activity that appear in the iTunes Store.
