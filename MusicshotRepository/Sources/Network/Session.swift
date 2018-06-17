@@ -48,3 +48,27 @@ private final class AlamofireAdapter: SessionAdapter {
         }
     }
 }
+
+import RxSwift
+
+extension APIKit.Session: ReactiveCompatible {}
+
+extension Reactive where Base: APIKit.Session {
+    static func response<Req: APIKit.Request>(from request: Req) -> Single<Req.Response> {
+        return Single.create(subscribe: { event in
+            var token = Base.send(request, handler: { result in
+                switch result {
+                case .success(let response):
+                    event(.success(response))
+
+                case .failure(let error):
+                    event(.error(error))
+                }
+            })
+            return Disposables.create {
+                token?.cancel()
+                token = nil
+            }
+        })
+    }
+}

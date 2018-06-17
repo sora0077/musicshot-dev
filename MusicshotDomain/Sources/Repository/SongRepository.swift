@@ -11,5 +11,21 @@ import RxSwift
 
 public protocol SongRepository {
 
-    func fetch(by ids: Song.Identifier...) -> Single<Void>
+    func fetch(by ids: [Song.Identifier]) -> Single<Void>
+}
+
+extension SongRepository {
+
+    public func fetch(by ids: Song.Identifier...) -> Single<Void> {
+        return fetch(by: ids)
+    }
+}
+
+public protocol StorefrontRepository {
+
+    func currentStorefront() throws -> Storefront?
+    func saveCurrentStorefront(_ storefront: Storefront?) throws
+
+    func fetch(by ids: [Storefront.Identifier]) -> Single<Void>
+    func fetchAll() -> Single<Void>
 }

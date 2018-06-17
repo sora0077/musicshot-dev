@@ -882,6 +882,6 @@ for schema in schemas {
     \(writeSchemaForRepository(schema))
     """
 
-    try! domain.write(toFile: "./MusicshotDomain/Sources/Model/\(schema.name).swift", atomically: true, encoding: .utf8)
-    try! repository.write(toFile: "./MusicshotRepository/Sources/Model/\(schema.name).swift", atomically: true, encoding: .utf8)
+    try! domain.write(toFile: "./MusicshotDomain/Sources/Model/Entity/\(schema.name).swift", atomically: true, encoding: .utf8)
+    try! repository.write(toFile: "./MusicshotRepository/Sources/Model/Entity/\(schema.name).swift", atomically: true, encoding: .utf8)
 }
