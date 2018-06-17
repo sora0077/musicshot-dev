@@ -33,6 +33,12 @@ extension Sequence where Element: Identifiable {
     }
 }
 
+extension Sequence where Element: RawRepresentable {
+    public func rawValues() -> [Element.RawValue] {
+        return map { $0.rawValue }
+    }
+}
+
 //
 // MARK: -
 public protocol Entity: Identifiable {}

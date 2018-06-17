@@ -13,7 +13,9 @@ import RealmSwift
 final class Preference: RealmSwift.Object {
     override class func primaryKey() -> String? { return "pk" }
 
-    static var pkValue: String { return "pk" }
+    static func from(_ realm: Realm) -> Preference? {
+        return realm.object(ofType: self, forPrimaryKey: "pk")
+    }
 
     @objc private dynamic var pk = "pk"
     @objc dynamic var storefront: StorefrontImpl.Storage?

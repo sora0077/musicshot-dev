@@ -159,6 +159,8 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
     }
     print("\(indent())extension \(schema.name) {")
     print("\(indent())    typealias Storage = \(schema.name)Impl.Storage")
+    print("")
+    print("\(indent())    var storage: Storage { return (self as! \(schema.name)Impl)._storage }  // swiftlint:disable:this force_cast")
     print("\(indent())}")
     print("")
     print("\(indent())final class \(schema.name)Impl: \(schema.name) {")
@@ -197,9 +199,9 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
     }
 
     print("\(indent())    }\n")
-    print("\(indent())    private let storage: Storage\n")
+    print("\(indent())    fileprivate let _storage: Storage\n")
     print("\(indent())    init(storage: Storage) {")
-    print("\(indent())        self.storage = storage")
+    print("\(indent())        self._storage = storage")
     let isEntity = schema.protocols.contains("Identifiable")
     if isEntity {
         print("\(indent())        super.init(id: .init(rawValue: storage.id))")
@@ -228,7 +230,7 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         if prop.name == "id" { continue }
 
         let getter: String
-        let value = realmOptional ? "storage.\(prop.name).value" : "storage.\(prop.name)"
+        let value = realmOptional ? "_storage.\(prop.name).value" : "_storage.\(prop.name)"
         if let realmType = prop.type.realmType {
             if isObject {
                 getter = "\(typeName)Impl(storage: \(value))"

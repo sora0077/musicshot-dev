@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Preview {
     typealias Storage = PreviewImpl.Storage
+
+    var storage: Storage { return (self as! PreviewImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class PreviewImpl: Preview {
@@ -23,10 +25,10 @@ final class PreviewImpl: Preview {
         @objc dynamic var artwork: ArtworkImpl.Storage!
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init()
     }
 
@@ -35,6 +37,6 @@ final class PreviewImpl: Preview {
         self.init(storage: storage)
     }
 
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
-    override var artwork: Artwork? { return ArtworkImpl(storage: storage.artwork) }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var artwork: Artwork? { return ArtworkImpl(storage: _storage.artwork) }
 }

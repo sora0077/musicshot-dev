@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension MusicVideo {
     typealias Storage = MusicVideoImpl.Storage
+
+    var storage: Storage { return (self as! MusicVideoImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class MusicVideoImpl: MusicVideo {
@@ -37,10 +39,10 @@ final class MusicVideoImpl: MusicVideo {
         @objc dynamic var videoSubType: String?
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -49,19 +51,19 @@ final class MusicVideoImpl: MusicVideo {
         self.init(storage: storage)
     }
 
-    override var albumName: String? { return storage.albumName }
-    override var artistName: String { return storage.artistName }
-    override var artwork: Artwork { return ArtworkImpl(storage: storage.artwork) }
-    override var contentRating: String? { return storage.contentRating }
-    override var durationInMillis: Int? { return storage.durationInMillis.value }
-    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: storage.editorialNotes) }
-    override var genreNames: [String] { return Array(storage.genreNames) }
-    override var isrc: String { return storage.isrc }
-    override var name: String { return storage.name }
-    override var playParams: PlayParameters? { return PlayParametersImpl(storage: storage.playParams) }
-    override var previews: [Preview] { return storage.previews.map(PreviewImpl.init(storage:)) }
-    override var releaseDate: Date { return storage.releaseDate }
-    override var trackNumber: Int? { return storage.trackNumber.value }
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
-    override var videoSubType: String? { return storage.videoSubType }
+    override var albumName: String? { return _storage.albumName }
+    override var artistName: String { return _storage.artistName }
+    override var artwork: Artwork { return ArtworkImpl(storage: _storage.artwork) }
+    override var contentRating: String? { return _storage.contentRating }
+    override var durationInMillis: Int? { return _storage.durationInMillis.value }
+    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: _storage.editorialNotes) }
+    override var genreNames: [String] { return Array(_storage.genreNames) }
+    override var isrc: String { return _storage.isrc }
+    override var name: String { return _storage.name }
+    override var playParams: PlayParameters? { return PlayParametersImpl(storage: _storage.playParams) }
+    override var previews: [Preview] { return _storage.previews.map(PreviewImpl.init(storage:)) }
+    override var releaseDate: Date { return _storage.releaseDate }
+    override var trackNumber: Int? { return _storage.trackNumber.value }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var videoSubType: String? { return _storage.videoSubType }
 }

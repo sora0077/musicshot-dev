@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Station {
     typealias Storage = StationImpl.Storage
+
+    var storage: Storage { return (self as! StationImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class StationImpl: Station {
@@ -29,10 +31,10 @@ final class StationImpl: Station {
         @objc dynamic var url: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -41,11 +43,11 @@ final class StationImpl: Station {
         self.init(storage: storage)
     }
 
-    override var artwork: Artwork { return ArtworkImpl(storage: storage.artwork) }
-    override var durationInMillis: Int? { return storage.durationInMillis.value }
-    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: storage.editorialNotes) }
-    override var episodeNumber: Int? { return storage.episodeNumber.value }
-    override var isLive: Bool { return storage.isLive }
-    override var name: String { return storage.name }
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var artwork: Artwork { return ArtworkImpl(storage: _storage.artwork) }
+    override var durationInMillis: Int? { return _storage.durationInMillis.value }
+    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: _storage.editorialNotes) }
+    override var episodeNumber: Int? { return _storage.episodeNumber.value }
+    override var isLive: Bool { return _storage.isLive }
+    override var name: String { return _storage.name }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }

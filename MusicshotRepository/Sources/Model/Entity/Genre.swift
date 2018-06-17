@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Genre {
     typealias Storage = GenreImpl.Storage
+
+    var storage: Storage { return (self as! GenreImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class GenreImpl: Genre {
@@ -23,10 +25,10 @@ final class GenreImpl: Genre {
         @objc dynamic var name: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -35,5 +37,5 @@ final class GenreImpl: Genre {
         self.init(storage: storage)
     }
 
-    override var name: String { return storage.name }
+    override var name: String { return _storage.name }
 }

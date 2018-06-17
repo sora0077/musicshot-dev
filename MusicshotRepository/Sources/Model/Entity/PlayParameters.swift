@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension PlayParameters {
     typealias Storage = PlayParametersImpl.Storage
+
+    var storage: Storage { return (self as! PlayParametersImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class PlayParametersImpl: PlayParameters {
@@ -23,10 +25,10 @@ final class PlayParametersImpl: PlayParameters {
         @objc dynamic var kind: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -35,5 +37,5 @@ final class PlayParametersImpl: PlayParameters {
         self.init(storage: storage)
     }
 
-    override var kind: String { return storage.kind }
+    override var kind: String { return _storage.kind }
 }

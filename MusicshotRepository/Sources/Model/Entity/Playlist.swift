@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Playlist {
     typealias Storage = PlaylistImpl.Storage
+
+    var storage: Storage { return (self as! PlaylistImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class PlaylistImpl: Playlist {
@@ -30,10 +32,10 @@ final class PlaylistImpl: Playlist {
         @objc dynamic var url: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -42,12 +44,12 @@ final class PlaylistImpl: Playlist {
         self.init(storage: storage)
     }
 
-    override var artwork: Artwork? { return ArtworkImpl(storage: storage.artwork) }
-    override var curatorName: String? { return storage.curatorName }
-    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: storage.editorialNotes) }
-    override var lastModifiedDate: Date { return storage.lastModifiedDate }
-    override var name: String { return storage.name }
-    override var playlistType: String { return storage.playlistType }
-    override var playParams: PlayParameters? { return PlayParametersImpl(storage: storage.playParams) }
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var artwork: Artwork? { return ArtworkImpl(storage: _storage.artwork) }
+    override var curatorName: String? { return _storage.curatorName }
+    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: _storage.editorialNotes) }
+    override var lastModifiedDate: Date { return _storage.lastModifiedDate }
+    override var name: String { return _storage.name }
+    override var playlistType: String { return _storage.playlistType }
+    override var playParams: PlayParameters? { return PlayParametersImpl(storage: _storage.playParams) }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }

@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Artist {
     typealias Storage = ArtistImpl.Storage
+
+    var storage: Storage { return (self as! ArtistImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class ArtistImpl: Artist {
@@ -26,10 +28,10 @@ final class ArtistImpl: Artist {
         @objc dynamic var url: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -38,8 +40,8 @@ final class ArtistImpl: Artist {
         self.init(storage: storage)
     }
 
-    override var genreNames: [String] { return Array(storage.genreNames) }
-    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: storage.editorialNotes) }
-    override var name: String { return storage.name }
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var genreNames: [String] { return Array(_storage.genreNames) }
+    override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: _storage.editorialNotes) }
+    override var name: String { return _storage.name }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }

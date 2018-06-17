@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension EditorialNotes {
     typealias Storage = EditorialNotesImpl.Storage
+
+    var storage: Storage { return (self as! EditorialNotesImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class EditorialNotesImpl: EditorialNotes {
@@ -21,10 +23,10 @@ final class EditorialNotesImpl: EditorialNotes {
         @objc dynamic var short: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init()
     }
 
@@ -33,6 +35,6 @@ final class EditorialNotesImpl: EditorialNotes {
         self.init(storage: storage)
     }
 
-    override var standard: String { return storage.standard }
-    override var short: String { return storage.short }
+    override var standard: String { return _storage.standard }
+    override var short: String { return _storage.short }
 }

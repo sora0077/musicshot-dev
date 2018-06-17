@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Artwork {
     typealias Storage = ArtworkImpl.Storage
+
+    var storage: Storage { return (self as! ArtworkImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class ArtworkImpl: Artwork {
@@ -29,10 +31,10 @@ final class ArtworkImpl: Artwork {
         let textColor4 = RealmOptional<Int>(nil)
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init()
     }
 
@@ -41,12 +43,12 @@ final class ArtworkImpl: Artwork {
         self.init(storage: storage)
     }
 
-    override var width: Int { return storage.width }
-    override var height: Int { return storage.height }
-    override var url: URL { return { URL(string: $0) }(storage.url)! }  // swiftlint:disable:this force_unwrapping
-    override var bgColor: UIColor? { return storage.bgColor.value.flatMap { UIColor(hex: $0) } }
-    override var textColor1: UIColor? { return storage.textColor1.value.flatMap { UIColor(hex: $0) } }
-    override var textColor2: UIColor? { return storage.textColor2.value.flatMap { UIColor(hex: $0) } }
-    override var textColor3: UIColor? { return storage.textColor3.value.flatMap { UIColor(hex: $0) } }
-    override var textColor4: UIColor? { return storage.textColor4.value.flatMap { UIColor(hex: $0) } }
+    override var width: Int { return _storage.width }
+    override var height: Int { return _storage.height }
+    override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var bgColor: UIColor? { return _storage.bgColor.value.flatMap { UIColor(hex: $0) } }
+    override var textColor1: UIColor? { return _storage.textColor1.value.flatMap { UIColor(hex: $0) } }
+    override var textColor2: UIColor? { return _storage.textColor2.value.flatMap { UIColor(hex: $0) } }
+    override var textColor3: UIColor? { return _storage.textColor3.value.flatMap { UIColor(hex: $0) } }
+    override var textColor4: UIColor? { return _storage.textColor4.value.flatMap { UIColor(hex: $0) } }
 }

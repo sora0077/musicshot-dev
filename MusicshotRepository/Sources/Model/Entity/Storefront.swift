@@ -12,6 +12,8 @@ import MusicshotDomain
 
 extension Storefront {
     typealias Storage = StorefrontImpl.Storage
+
+    var storage: Storage { return (self as! StorefrontImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
 final class StorefrontImpl: Storefront {
@@ -25,10 +27,10 @@ final class StorefrontImpl: Storefront {
         @objc dynamic var defaultLanguageTag: String = ""
     }
 
-    private let storage: Storage
+    fileprivate let _storage: Storage
 
     init(storage: Storage) {
-        self.storage = storage
+        self._storage = storage
         super.init(id: .init(rawValue: storage.id))
     }
 
@@ -37,7 +39,7 @@ final class StorefrontImpl: Storefront {
         self.init(storage: storage)
     }
 
-    override var name: String { return storage.name }
-    override var supportedLanguageTags: [String] { return Array(storage.supportedLanguageTags) }
-    override var defaultLanguageTag: String { return storage.defaultLanguageTag }
+    override var name: String { return _storage.name }
+    override var supportedLanguageTags: [String] { return Array(_storage.supportedLanguageTags) }
+    override var defaultLanguageTag: String { return _storage.defaultLanguageTag }
 }
