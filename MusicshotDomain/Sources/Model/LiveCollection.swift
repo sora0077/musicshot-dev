@@ -8,25 +8,71 @@
 
 import Foundation
 
-open class LiveCollection<Element>: Collection {
-    public enum Change {
-        case initial(LiveCollection<Element>)
-        case update(LiveCollection<Element>, deletions: [Int], insertions: [Int], modifications: [Int])
-        case error(Error)
-    }
+public enum LiveCollectionChange {
+    case initial
+    case update(deletions: [Int], insertions: [Int], modifications: [Int])
+    case error(Error)
+}
 
-    open class Token {
-        public init() {}
-    }
+open class LiveCollectionToken {
 
     public init() {}
+}
 
-    open func observe(_ event: @escaping (Change) -> Void) -> Token { fatalError() }
+public protocol LiveCollection: Collection {
+
+    func observe(_ event: @escaping (LiveCollectionChange) -> Void) -> LiveCollectionToken
+}
+
+private class _AnyLiveCollectionBase<Element>: LiveCollection {
+
+    var startIndex: Int { fatalError() }
+    var endIndex: Int { fatalError() }
+
+    subscript (idx: Int) -> Element { fatalError() }
+    func index(after i: Int) -> Int { fatalError() }
+
+    func observe(_ event: @escaping (LiveCollectionChange) -> Void) -> LiveCollectionToken {
+        fatalError()
+    }
+}
+
+private class AnyLiveCollectionBase<C: LiveCollection>: _AnyLiveCollectionBase<C.Element> where C.Index == Int {
+
+    private let base: C
+
+    init(_ collection: C) {
+        base = collection
+    }
+
+    override var startIndex: Int { return base.startIndex }
+    override var endIndex: Int { return base.endIndex }
+
+    override subscript (idx: Int) -> Element { return base[idx] }
+    override func index(after i: Int) -> Int { return base.index(after: i) }
+
+    override func observe(_ event: @escaping (LiveCollectionChange) -> Void) -> LiveCollectionToken {
+        return base.observe(event)
+    }
+}
+
+public final class AnyLiveCollection<Element>: LiveCollection {
+
+    private let base: _AnyLiveCollectionBase<Element>
+
+    public init<C: LiveCollection>(_ collection: C) where C.Element == Element, C.Index == Int {
+        base = AnyLiveCollectionBase(collection)
+    }
 
     // MARK: - Collection confirmance
-    open var startIndex: Int { fatalError() }
-    open var endIndex: Int { fatalError() }
+    public var startIndex: Int { return base.startIndex }
+    public var endIndex: Int { return base.endIndex }
 
-    open subscript (idx: Int) -> Element { fatalError() }
-    open func index(after i: Int) -> Int { fatalError() }
+    public subscript (idx: Int) -> Element { return base[idx] }
+    public func index(after i: Int) -> Int { return base.index(after: i) }
+
+    // MARK: -
+    public func observe(_ event: @escaping (LiveCollectionChange) -> Void) -> LiveCollectionToken {
+        return base.observe(event)
+    }
 }

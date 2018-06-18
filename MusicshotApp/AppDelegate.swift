@@ -7,14 +7,24 @@
 //
 
 import UIKit
+@testable import MusicshotRepository
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private let repo = StorefrontRepositoryImpl()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        do {
+            print(try repo.allStorefronts())
+        } catch {
+            print(error)
+        }
+
         return true
     }
 

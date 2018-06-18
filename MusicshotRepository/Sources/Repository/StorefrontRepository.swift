@@ -59,6 +59,10 @@ final class StorefrontRepositoryImpl: StorefrontRepository {
         }
     }
 
+    func allStorefronts() throws -> AnyLiveCollection<Storefront> {
+        return AnyLiveCollection(try Realm().objects(StorefrontImpl.Storage.self))
+    }
+
     func fetch(by ids: [Storefront.Identifier]) -> Single<Void> {
         return Single
             .read { realm -> GetMultipleStorefronts in

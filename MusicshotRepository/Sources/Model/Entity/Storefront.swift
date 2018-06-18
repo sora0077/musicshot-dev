@@ -10,13 +10,15 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension Storefront {
+extension Storefront: EntityConvertible {
     typealias Storage = StorefrontImpl.Storage
+    typealias Impl = StorefrontImpl
 
     var storage: Storage { return (self as! StorefrontImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class StorefrontImpl: Storefront {
+final class StorefrontImpl: Storefront, EntityImplConvertible {
+
     @objc(StorefrontStorage)
     final class Storage: RealmSwift.Object {
         override class func primaryKey() -> String? { return "id" }
