@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension Artwork {
-    typealias Storage = ArtworkImpl.Storage
+extension Artwork: EntityConvertible {
+    typealias Impl = ArtworkImpl
+    typealias Storage = Impl.Storage
 
     var storage: Storage { return (self as! ArtworkImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class ArtworkImpl: Artwork {
+final class ArtworkImpl: Artwork, EntityImplConvertible {
     @objc(ArtworkStorage)
     final class Storage: RealmSwift.Object {
         override class func primaryKey() -> String? { return "url" }

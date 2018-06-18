@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension PlayParameters {
-    typealias Storage = PlayParametersImpl.Storage
+extension PlayParameters: EntityConvertible {
+    typealias Impl = PlayParametersImpl
+    typealias Storage = Impl.Storage
 
     var storage: Storage { return (self as! PlayParametersImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class PlayParametersImpl: PlayParameters {
+final class PlayParametersImpl: PlayParameters, EntityImplConvertible {
     @objc(PlayParametersStorage)
     final class Storage: RealmSwift.Object {
         override class func primaryKey() -> String? { return "id" }

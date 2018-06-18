@@ -157,13 +157,14 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
     func indent(_ level: Int = 0) -> String {
         return String(repeating: "    ", count: level)
     }
-    print("\(indent())extension \(schema.name) {")
-    print("\(indent())    typealias Storage = \(schema.name)Impl.Storage")
+    print("\(indent())extension \(schema.name): EntityConvertible {")
+    print("\(indent())    typealias Impl = \(schema.name)Impl")
+    print("\(indent())    typealias Storage = Impl.Storage")
     print("")
     print("\(indent())    var storage: Storage { return (self as! \(schema.name)Impl)._storage }  // swiftlint:disable:this force_cast")
     print("\(indent())}")
     print("")
-    print("\(indent())final class \(schema.name)Impl: \(schema.name) {")
+    print("\(indent())final class \(schema.name)Impl: \(schema.name), EntityImplConvertible {")
     print("\(indent())    @objc(\(schema.name)Storage)")
     print("\(indent())    final class Storage: RealmSwift.Object {")
     if let pk = schema.props.first(where: { $0.primarykey == true }) {

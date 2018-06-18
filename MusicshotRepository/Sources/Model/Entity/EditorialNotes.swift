@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension EditorialNotes {
-    typealias Storage = EditorialNotesImpl.Storage
+extension EditorialNotes: EntityConvertible {
+    typealias Impl = EditorialNotesImpl
+    typealias Storage = Impl.Storage
 
     var storage: Storage { return (self as! EditorialNotesImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class EditorialNotesImpl: EditorialNotes {
+final class EditorialNotesImpl: EditorialNotes, EntityImplConvertible {
     @objc(EditorialNotesStorage)
     final class Storage: RealmSwift.Object {
         @objc dynamic var standard: String = ""

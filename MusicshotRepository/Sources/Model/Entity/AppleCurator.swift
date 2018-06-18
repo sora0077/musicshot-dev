@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension AppleCurator {
-    typealias Storage = AppleCuratorImpl.Storage
+extension AppleCurator: EntityConvertible {
+    typealias Impl = AppleCuratorImpl
+    typealias Storage = Impl.Storage
 
     var storage: Storage { return (self as! AppleCuratorImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class AppleCuratorImpl: AppleCurator {
+final class AppleCuratorImpl: AppleCurator, EntityImplConvertible {
     @objc(AppleCuratorStorage)
     final class Storage: RealmSwift.Object {
         override class func primaryKey() -> String? { return "id" }

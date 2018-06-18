@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 import MusicshotDomain
 
-extension Preview {
-    typealias Storage = PreviewImpl.Storage
+extension Preview: EntityConvertible {
+    typealias Impl = PreviewImpl
+    typealias Storage = Impl.Storage
 
     var storage: Storage { return (self as! PreviewImpl)._storage }  // swiftlint:disable:this force_cast
 }
 
-final class PreviewImpl: Preview {
+final class PreviewImpl: Preview, EntityImplConvertible {
     @objc(PreviewStorage)
     final class Storage: RealmSwift.Object {
         override class func primaryKey() -> String? { return "url" }

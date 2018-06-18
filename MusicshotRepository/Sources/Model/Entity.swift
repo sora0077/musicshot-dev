@@ -9,11 +9,11 @@
 import Foundation
 import MusicshotDomain
 
-protocol EntityConvertible: Entity {
+protocol EntityConvertible {
     associatedtype Impl: EntityImplConvertible
 }
 
-protocol EntityImplConvertible: Entity {
+protocol EntityImplConvertible {
     associatedtype Storage
 
     init(storage: Storage)
