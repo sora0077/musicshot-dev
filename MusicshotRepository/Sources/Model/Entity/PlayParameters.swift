@@ -40,3 +40,8 @@ final class PlayParametersImpl: PlayParameters, EntityImplConvertible {
 
     override var kind: String { return _storage.kind }
 }
+
+extension PlayParametersImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

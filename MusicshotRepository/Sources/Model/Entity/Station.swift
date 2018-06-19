@@ -52,3 +52,8 @@ final class StationImpl: Station, EntityImplConvertible {
     override var name: String { return _storage.name }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }
+
+extension StationImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

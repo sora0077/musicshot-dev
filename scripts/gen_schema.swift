@@ -273,6 +273,9 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
         }
     }
 
+    print("\(indent())}\n\n")
+    print("\(indent())extension \(schema.name)Impl: CustomStringConvertible {\n")
+    print("\(indent())    var description: String { return _storage.description }")
     print("\(indent())}\n")
 
     return output

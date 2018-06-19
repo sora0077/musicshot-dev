@@ -54,3 +54,8 @@ final class PlaylistImpl: Playlist, EntityImplConvertible {
     override var playParams: PlayParameters? { return PlayParametersImpl(storage: _storage.playParams) }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }
+
+extension PlaylistImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

@@ -41,3 +41,8 @@ final class PreviewImpl: Preview, EntityImplConvertible {
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
     override var artwork: Artwork? { return ArtworkImpl(storage: _storage.artwork) }
 }
+
+extension PreviewImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

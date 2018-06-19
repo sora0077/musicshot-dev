@@ -78,3 +78,8 @@ final class SongImpl: Song, EntityImplConvertible {
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
     override var workName: String? { return _storage.workName }
 }
+
+extension SongImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

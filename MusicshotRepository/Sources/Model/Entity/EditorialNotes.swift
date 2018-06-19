@@ -39,3 +39,8 @@ final class EditorialNotesImpl: EditorialNotes, EntityImplConvertible {
     override var standard: String { return _storage.standard }
     override var short: String { return _storage.short }
 }
+
+extension EditorialNotesImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

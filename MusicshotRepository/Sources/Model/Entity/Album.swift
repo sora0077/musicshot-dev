@@ -68,3 +68,8 @@ final class AlbumImpl: Album, EntityImplConvertible {
     override var trackCount: Int { return _storage.trackCount }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
 }
+
+extension AlbumImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

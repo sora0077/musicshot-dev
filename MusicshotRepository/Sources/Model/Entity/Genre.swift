@@ -40,3 +40,8 @@ final class GenreImpl: Genre, EntityImplConvertible {
 
     override var name: String { return _storage.name }
 }
+
+extension GenreImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

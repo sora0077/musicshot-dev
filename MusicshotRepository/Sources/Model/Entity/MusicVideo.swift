@@ -68,3 +68,8 @@ final class MusicVideoImpl: MusicVideo, EntityImplConvertible {
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
     override var videoSubType: String? { return _storage.videoSubType }
 }
+
+extension MusicVideoImpl: CustomStringConvertible {
+
+    var description: String { return _storage.description }
+}

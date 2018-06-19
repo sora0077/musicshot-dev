@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         print(storefronts[i])
                     }
                     for i in modifications {
-                        print(storefronts[i].name)
+                        print(storefronts[i])
                     }
 
                 case .error:
