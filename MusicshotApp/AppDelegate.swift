@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MusicshotDomain
 @testable import MusicshotRepository
 
 @UIApplicationMain
@@ -15,12 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     private let repo = StorefrontRepositoryImpl()
+    private var token: LiveCollectionToken!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
         do {
-            print(try repo.allStorefronts())
+            let storefronts = try repo.allStorefronts()
+            token = storefronts.observe { change in
+                print(change)
+                switch change {
+                case .initial:
+                    break
+
+                case .update(let deletions, let insertions, let modifications):
+                    for i in insertions {
+                        print(storefronts[i])
+                    }
+                    for i in modifications {
+                        print(storefronts[i].name)
+                    }
+
+                case .error:
+                    break
+                }
+            }
+
+            _ = repo.fetchAll().subscribe()
         } catch {
             print(error)
         }

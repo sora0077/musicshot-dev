@@ -20,12 +20,12 @@ abstract_target 'Musicshot' do
 
     target 'MusicshotDomain' do
       inherit! :search_paths
-      pod 'Firebase/Core'
-      pod 'Firebase/Auth'
-      pod 'Firebase/Firestore'
 
       target 'MusicshotRepository' do
         inherit! :search_paths
+        pod 'Firebase/Core'
+        pod 'Firebase/Auth'
+        pod 'Firebase/Firestore'
 
         target 'MusicshotApp' do
           inherit! :search_paths

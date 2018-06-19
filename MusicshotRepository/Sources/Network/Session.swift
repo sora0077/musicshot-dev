@@ -15,6 +15,10 @@ import MusicshotUtility
 final class MusicSession: AppleMusicKit.Session {
     open override class var shared: MusicSession { return _shared }
     private static let _shared = MusicSession(adapter: AlamofireAdapter())
+
+    override init(adapter: SessionAdapter, callbackQueue: CallbackQueue = .main) {
+        super.init(adapter: adapter, callbackQueue: callbackQueue)
+    }
 }
 
 final class NetworkSession: APIKitSession {
@@ -53,7 +57,27 @@ import RxSwift
 
 extension APIKit.Session: ReactiveCompatible {}
 
-extension Reactive where Base: APIKit.Session {
+extension Reactive where Base: MusicSession {
+    static func response<Req: AppleMusicKit.Request>(from request: Req) -> Single<Req.Response> {
+        return Single.create(subscribe: { event in
+            var token = Base.send(request, handler: { result in
+                switch result {
+                case .success(let response):
+                    event(.success(response))
+
+                case .failure(let error):
+                    event(.error(error))
+                }
+            })
+            return Disposables.create {
+                token?.cancel()
+                token = nil
+            }
+        })
+    }
+}
+
+extension Reactive where Base: NetworkSession {
     static func response<Req: APIKit.Request>(from request: Req) -> Single<Req.Response> {
         return Single.create(subscribe: { event in
             var token = Base.send(request, handler: { result in
