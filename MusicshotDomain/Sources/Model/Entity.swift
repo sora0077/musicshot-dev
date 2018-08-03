@@ -17,24 +17,24 @@ public protocol Identifiable: Hashable {
     var id: Identifier { get }
 }
 
-extension Identifiable where IdentifierRawValue: Equatable {
+extension Identifiable where Self.Identifier: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-extension Identifiable where IdentifierRawValue: Hashable {
+extension Identifiable where Self.Identifier: Hashable {
     public var hashValue: Int { return id.hashValue }
 }
 
 extension Sequence where Element: Identifiable {
-    public func ids() -> [Element.Identifier] {
+    public var ids: [Element.Identifier] {
         return map { $0.id }
     }
 }
 
 extension Sequence where Element: RawRepresentable {
-    public func rawValues() -> [Element.RawValue] {
+    public var rawValues: [Element.RawValue] {
         return map { $0.rawValue }
     }
 }
@@ -42,3 +42,5 @@ extension Sequence where Element: RawRepresentable {
 //
 // MARK: -
 public protocol Entity: Identifiable {}
+
+public protocol LiveEntity: Entity {}

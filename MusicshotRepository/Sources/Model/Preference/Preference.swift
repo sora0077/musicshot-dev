@@ -19,4 +19,5 @@ final class Preference: RealmSwift.Object {
 
     @objc private dynamic var pk = "pk"
     @objc dynamic var storefront: StorefrontImpl.Storage?
+    @objc dynamic var language: String?
 }

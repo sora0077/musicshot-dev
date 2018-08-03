@@ -30,15 +30,15 @@ final class SongRepositoryImpl: SongRepository {
                 let cached = realm.objects(Song.Storage.self)
                     .filter("id IN %@", ids)
                     .map(SongImpl.init(storage:))
-                    .ids()
+                    .ids
                 let required = Set(ids).subtracting(cached)
-                return GetMultipleSongs(storefront: storefront.id, ids: required.rawValues())
+                return GetMultipleSongs(storefront: storefront.id, ids: required.rawValues)
             }
             .flatMap(MusicSession.rx.response)
             .map { response in
                 let realm = try Realm()
                 try realm.write {
-                    realm.add(response.data.compactMap { $0.attributes }, update: true)
+                    realm.add(response.data.compactMap(\.attributes), update: true)
                 }
             }
     }

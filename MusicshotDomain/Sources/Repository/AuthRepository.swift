@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import RxSwift
 
-public protocol AuthorizationTokenRepository {
-    
-    func currentToken() throws -> AuthorizationToken?
+public protocol AuthRepository {
+
+    func currentUser() throws -> AuthUser?
+
+    func signin() -> Single<Void>
 }

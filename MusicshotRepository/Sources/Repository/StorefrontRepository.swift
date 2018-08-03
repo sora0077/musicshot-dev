@@ -42,10 +42,13 @@ extension Single {
             return Disposables.create()
         })
     }
-
 }
 
-final class StorefrontRepositoryImpl: StorefrontRepository {
+public func registry() -> StorefrontRepository {
+    return StorefrontRepositoryImpl()
+}
+
+private final class StorefrontRepositoryImpl: StorefrontRepository {
     func currentStorefront() throws -> Storefront? {
         return StorefrontImpl(storage: Preference.from(try Realm())?.storefront)
     }
@@ -60,7 +63,7 @@ final class StorefrontRepositoryImpl: StorefrontRepository {
     }
 
     func allStorefronts() throws -> AnyLiveCollection<Storefront> {
-        return AnyLiveCollection(try Realm().objects(StorefrontImpl.Storage.self))
+        return AnyLiveCollection(try Realm().objects(Storefront.Storage.self))
     }
 
     func fetch(by ids: [Storefront.Identifier]) -> Single<Void> {
@@ -69,15 +72,15 @@ final class StorefrontRepositoryImpl: StorefrontRepository {
                 let cached = realm.objects(Storefront.Storage.self)
                     .filter("id IN %@", ids)
                     .map(StorefrontImpl.init(storage:))
-                    .ids()
+                    .ids
                 let required = Set(ids).subtracting(cached)
-                return GetMultipleStorefronts.init(ids: required.rawValues())
+                return GetMultipleStorefronts.init(ids: required.rawValues)
             }
             .flatMap(MusicSession.rx.response)
             .map { response in
                 let realm = try Realm()
                 try realm.write {
-                    realm.add(response.data.compactMap { $0.attributes }, update: true)
+                    realm.add(response.data.compactMap(\.attributes), update: true)
                 }
             }
     }
@@ -87,8 +90,14 @@ final class StorefrontRepositoryImpl: StorefrontRepository {
             .map { response in
                 let realm = try Realm()
                 try realm.write {
-                    realm.add(response.data.compactMap { $0.attributes }, update: true)
+                    realm.add(response.data.compactMap(\.attributes), update: true)
                 }
             }
+    }
+}
+
+extension Sequence {
+    func compactMap<T>(_ keyPath: KeyPath<Element, T?>) -> [T] {
+        return compactMap { $0[keyPath: keyPath] }
     }
 }

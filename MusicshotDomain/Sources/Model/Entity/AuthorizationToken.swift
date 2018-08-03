@@ -8,7 +8,8 @@
 
 import Foundation
 
-open class AuthorizationToken {
-    
+open class AuthUser {
+
     open var developerToken: String { fatalError() }
+
 }

@@ -18,6 +18,10 @@ final class MusicSession: AppleMusicKit.Session {
 
     override init(adapter: SessionAdapter, callbackQueue: CallbackQueue = .main) {
         super.init(adapter: adapter, callbackQueue: callbackQueue)
+
+        authorization = Authorization(developerToken: """
+        eyJraWQiOiI3Vlk1UlQ0MjMzIiwidHlwIjoiSldUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJCMlRENTRVNE1BIiwiaWF0IjoxNTI5NDE3MjI2LjU5MTg5NCwiZXhwIjoxNTQ1MTg3MjI2LjU5MTg5NX0.jUKQSuQwIX7i-TJ2fHKqIVdGoNFOIE4xYIYiQoiLUdCJZCqozUYi__ZZKfykEgmW-21Q0585GTOArzRb6P5YKg
+        """)
     }
 }
 

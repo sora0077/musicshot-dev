@@ -63,8 +63,9 @@
 		D94BC89220D2BE8E00754AEC /* Tagged.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BC86D20D2B54600754AEC /* Tagged.framework */; };
 		D955CD1420ADC63600A6F193 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955CD1320ADC63600A6F193 /* Sequence.swift */; };
 		D9568D1A20D952D900E0DD53 /* StorefrontRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9568D1920D952D900E0DD53 /* StorefrontRepository.swift */; };
-		D9568D1C20D9536900E0DD53 /* AuthorizationTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9568D1B20D9536900E0DD53 /* AuthorizationTokenRepository.swift */; };
+		D9568D1C20D9536900E0DD53 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9568D1B20D9536900E0DD53 /* AuthRepository.swift */; };
 		D9568D2020D9548000E0DD53 /* AuthorizationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9568D1F20D9548000E0DD53 /* AuthorizationToken.swift */; };
+		D9568D2420D9640700E0DD53 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9568D2320D9640700E0DD53 /* Auth.swift */; };
 		D96E580D20D496D100193EE5 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E580C20D496D100193EE5 /* Song.swift */; };
 		D96E580F20D4AC3E00193EE5 /* Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E580E20D4AC3E00193EE5 /* Storefront.swift */; };
 		D96E581120D4AC5900193EE5 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E581020D4AC5900193EE5 /* Station.swift */; };
@@ -260,8 +261,9 @@
 		D94BC89020D2BE5500754AEC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		D955CD1320ADC63600A6F193 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		D9568D1920D952D900E0DD53 /* StorefrontRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorefrontRepository.swift; sourceTree = "<group>"; };
-		D9568D1B20D9536900E0DD53 /* AuthorizationTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTokenRepository.swift; sourceTree = "<group>"; };
+		D9568D1B20D9536900E0DD53 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		D9568D1F20D9548000E0DD53 /* AuthorizationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationToken.swift; sourceTree = "<group>"; };
+		D9568D2320D9640700E0DD53 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		D96E580C20D496D100193EE5 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		D96E580E20D4AC3E00193EE5 /* Storefront.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storefront.swift; sourceTree = "<group>"; };
 		D96E581020D4AC5900193EE5 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 		D94BC88A20D2BD6A00754AEC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9568D2120D963CC00E0DD53 /* Module */,
 				D94BC88F20D2BE4500754AEC /* Model */,
 				D94BC88E20D2BE3000754AEC /* Repository */,
 			);
@@ -530,7 +533,7 @@
 			isa = PBXGroup;
 			children = (
 				D97EFB6720D5195700315774 /* Repository.swift */,
-				D9568D1B20D9536900E0DD53 /* AuthorizationTokenRepository.swift */,
+				D9568D1B20D9536900E0DD53 /* AuthRepository.swift */,
 				D9568D1920D952D900E0DD53 /* StorefrontRepository.swift */,
 				D926277E20D4F4E9009EA801 /* SongRepository.swift */,
 			);
@@ -589,6 +592,22 @@
 				D926276720D4F286009EA801 /* Storefront.swift */,
 			);
 			path = AppleMusic;
+			sourceTree = "<group>";
+		};
+		D9568D2120D963CC00E0DD53 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				D9568D2220D963F200E0DD53 /* Auth */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		D9568D2220D963F200E0DD53 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D9568D2320D9640700E0DD53 /* Auth.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		D96E583020D4BC8B00193EE5 /* MusicshotRepository */ = {
@@ -1139,30 +1158,31 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicshotApp/Pods-MusicshotApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Keys/Keys.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Keys.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1241,8 +1261,9 @@
 				D96E581320D4AC7800193EE5 /* Preview.swift in Sources */,
 				D96E581920D4ACCE00193EE5 /* MusicVideo.swift in Sources */,
 				D96E581D20D4AD1D00193EE5 /* EditorialNotes.swift in Sources */,
-				D9568D1C20D9536900E0DD53 /* AuthorizationTokenRepository.swift in Sources */,
+				D9568D1C20D9536900E0DD53 /* AuthRepository.swift in Sources */,
 				D96E582520D4AD8B00193EE5 /* AppleCurator.swift in Sources */,
+				D9568D2420D9640700E0DD53 /* Auth.swift in Sources */,
 				D96E582120D4AD5900193EE5 /* Activity.swift in Sources */,
 				D96E581120D4AC5900193EE5 /* Station.swift in Sources */,
 				D96E581F20D4AD3600193EE5 /* Curator.swift in Sources */,
