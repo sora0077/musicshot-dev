@@ -18,33 +18,36 @@ open class MusicVideo: Entity {
     /// Persistent identifier of the resource. This member is required.
     public let id: Identifier
     /// (Optional) The name of the album the music video appears on.
-    open var albumName: String? { fatalError("abstract") }
+    open var albumName: String? { abstract() }
     /// The artist’s name.
-    open var artistName: String { fatalError("abstract") }
+    open var artistName: String { abstract() }
     /// The artwork for the music video’s associated album.
-    open var artwork: Artwork { fatalError("abstract") }
+    open var artwork: Artwork { abstract() }
     /// (Optional) The RIAA rating of the content. The possible values for this rating are clean and explicit. No value means no rating.
-    open var contentRating: String? { fatalError("abstract") }
+    open var contentRating: String? { abstract() }
     /// (Optional) The duration of the music video in milliseconds.
-    open var durationInMillis: Int? { fatalError("abstract") }
+    open var durationInMillis: Int? { abstract() }
     /// (Optional) The editorial notes for the music video.
-    open var editorialNotes: EditorialNotes { fatalError("abstract") }
+    open var editorialNotes: EditorialNotes { abstract() }
     /// The music video’s associated genres.
-    open var genreNames: [String] { fatalError("abstract") }
+    open var genreNames: [String] { abstract() }
     /// The ISRC (International Standard Recording Code) for the music video.
-    open var isrc: String { fatalError("abstract") }
+    open var isrc: String { abstract() }
     /// The localized name of the music video.
-    open var name: String { fatalError("abstract") }
+    open var name: String { abstract() }
     /// (Optional) The parameters to use to playback the music video.
-    open var playParams: PlayParameters? { fatalError("abstract") }
+    open var playParams: PlayParameters? { abstract() }
     /// The preview assets for the music video.
-    open var previews: [Preview] { fatalError("abstract") }
+    open var previews: [Preview] { abstract() }
     /// The release date of the music video in YYYY-MM-DD format.
-    open var releaseDate: Date { fatalError("abstract") }
+    open var releaseDate: Date { abstract() }
     /// (Optional) The number of the music video in the album’s track list.
-    open var trackNumber: Int? { fatalError("abstract") }
+    open var trackNumber: Int? { abstract() }
     /// A clear url directly to the music video.
-    open var url: URL { fatalError("abstract") }
+    open var url: URL { abstract() }
     /// (Optional) The video subtype associated with the content.
-    open var videoSubType: String? { fatalError("abstract") }
+    open var videoSubType: String? { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

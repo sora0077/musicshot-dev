@@ -53,6 +53,7 @@ final class PlaylistImpl: Playlist, EntityImplConvertible {
     override var playlistType: String { return _storage.playlistType }
     override var playParams: PlayParameters? { return PlayParametersImpl(storage: _storage.playParams) }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension PlaylistImpl: CustomStringConvertible {

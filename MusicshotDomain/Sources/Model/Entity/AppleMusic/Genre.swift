@@ -18,5 +18,8 @@ open class Genre: Entity {
     /// Persistent identifier of the resource. This member is required.
     public let id: Identifier
     /// The localized name of the genre.
-    open var name: String { fatalError("abstract") }
+    open var name: String { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

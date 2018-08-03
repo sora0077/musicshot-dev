@@ -45,6 +45,7 @@ final class ArtistImpl: Artist, EntityImplConvertible {
     override var editorialNotes: EditorialNotes { return EditorialNotesImpl(storage: _storage.editorialNotes) }
     override var name: String { return _storage.name }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension ArtistImpl: CustomStringConvertible {

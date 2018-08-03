@@ -18,5 +18,8 @@ open class PlayParameters: Entity {
     /// The ID of the content to use for playback.
     public let id: Identifier
     /// The kind of the content to use for playback.
-    open var kind: String { fatalError("abstract") }
+    open var kind: String { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

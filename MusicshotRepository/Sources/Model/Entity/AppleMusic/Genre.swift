@@ -39,6 +39,7 @@ final class GenreImpl: Genre, EntityImplConvertible {
     }
 
     override var name: String { return _storage.name }
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension GenreImpl: CustomStringConvertible {

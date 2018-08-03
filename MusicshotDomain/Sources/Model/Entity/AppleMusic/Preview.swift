@@ -12,7 +12,10 @@ open class Preview {
     public init() {}
 
     /// The preview URL for the content.
-    open var url: URL { fatalError("abstract") }
+    open var url: URL { abstract() }
     /// (Optional) The preview artwork for the associated music video.
-    open var artwork: Artwork? { fatalError("abstract") }
+    open var artwork: Artwork? { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

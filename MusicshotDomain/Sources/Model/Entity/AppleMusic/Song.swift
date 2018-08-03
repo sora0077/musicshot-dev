@@ -18,43 +18,46 @@ open class Song: Entity {
     /// Persistent identifier of the resource. This member is required.
     public let id: Identifier
     /// The name of the album the song appears on.
-    open var albumName: String { fatalError("abstract") }
+    open var albumName: String { abstract() }
     /// The artist’s name.
-    open var artistName: String { fatalError("abstract") }
+    open var artistName: String { abstract() }
     /// The album artwork.
-    open var artwork: Artwork { fatalError("abstract") }
+    open var artwork: Artwork { abstract() }
     /// (Optional) The song’s composer.
-    open var composerName: String? { fatalError("abstract") }
+    open var composerName: String? { abstract() }
     /// (Optional) The RIAA rating of the content. The possible values for this rating are clean and explicit. No value means no rating.
-    open var contentRating: String? { fatalError("abstract") }
+    open var contentRating: String? { abstract() }
     /// The disc number the song appears on.
-    open var discNumber: Int { fatalError("abstract") }
+    open var discNumber: Int { abstract() }
     /// (Optional) The duration of the song in milliseconds.
-    open var durationInMillis: Int? { fatalError("abstract") }
+    open var durationInMillis: Int? { abstract() }
     /// (Optional) The notes about the song that appear in the iTunes Store.
-    open var editorialNotes: EditorialNotes { fatalError("abstract") }
+    open var editorialNotes: EditorialNotes { abstract() }
     /// The genre names the song is associated with.
-    open var genreNames: [String] { fatalError("abstract") }
+    open var genreNames: [String] { abstract() }
     /// The ISRC (International Standard Recording Code) for the song.
-    open var isrc: String { fatalError("abstract") }
+    open var isrc: String { abstract() }
     /// (Optional, classical music only) The movement count of this song.
-    open var movementCount: Int? { fatalError("abstract") }
+    open var movementCount: Int? { abstract() }
     /// (Optional, classical music only) The movement name of this song.
-    open var movementName: String? { fatalError("abstract") }
+    open var movementName: String? { abstract() }
     /// (Optional, classical music only) The movement number of this song.
-    open var movementNumber: Int? { fatalError("abstract") }
+    open var movementNumber: Int? { abstract() }
     /// The localized name of the song.
-    open var name: String { fatalError("abstract") }
+    open var name: String { abstract() }
     /// (Optional) The parameters to use to playback the song.
-    open var playParams: PlayParameters? { fatalError("abstract") }
+    open var playParams: PlayParameters? { abstract() }
     /// The preview assets for the song.
-    open var previews: [Preview] { fatalError("abstract") }
+    open var previews: [Preview] { abstract() }
     /// The release date of the music video in YYYY-MM-DD format.
-    open var releaseDate: Date { fatalError("abstract") }
+    open var releaseDate: Date { abstract() }
     /// The number of the song in the album’s track list.
-    open var trackNumber: Int { fatalError("abstract") }
+    open var trackNumber: Int { abstract() }
     /// The URL for sharing a song in the iTunes Store.
-    open var url: URL { fatalError("abstract") }
+    open var url: URL { abstract() }
     /// (Optional, classical music only) The name of the associated work.
-    open var workName: String? { fatalError("abstract") }
+    open var workName: String? { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

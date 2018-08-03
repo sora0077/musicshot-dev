@@ -39,6 +39,7 @@ final class PlayParametersImpl: PlayParameters, EntityImplConvertible {
     }
 
     override var kind: String { return _storage.kind }
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension PlayParametersImpl: CustomStringConvertible {

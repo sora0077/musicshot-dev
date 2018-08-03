@@ -43,6 +43,7 @@ final class StorefrontImpl: Storefront, EntityImplConvertible {
     override var name: String { return _storage.name }
     override var supportedLanguageTags: [String] { return Array(_storage.supportedLanguageTags) }
     override var defaultLanguageTag: String { return _storage.defaultLanguageTag }
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension StorefrontImpl: CustomStringConvertible {

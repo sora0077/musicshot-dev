@@ -52,6 +52,7 @@ final class ArtworkImpl: Artwork, EntityImplConvertible {
     override var textColor2: UIColor? { return _storage.textColor2.value.flatMap { UIColor(hex: $0) } }
     override var textColor3: UIColor? { return _storage.textColor3.value.flatMap { UIColor(hex: $0) } }
     override var textColor4: UIColor? { return _storage.textColor4.value.flatMap { UIColor(hex: $0) } }
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension ArtworkImpl: CustomStringConvertible {

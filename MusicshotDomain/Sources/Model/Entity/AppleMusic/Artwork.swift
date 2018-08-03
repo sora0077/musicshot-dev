@@ -12,19 +12,22 @@ open class Artwork {
     public init() {}
 
     /// The maximum width available for the image.
-    open var width: Int { fatalError("abstract") }
+    open var width: Int { abstract() }
     /// The maximum height available for the image.
-    open var height: Int { fatalError("abstract") }
+    open var height: Int { abstract() }
     /// The URL to request the image asset. The image file name must be preceded by {w}x{h}, as placeholders for the width and height values described above (for example, {w}x{h}bb.jpg).
-    open var url: URL { fatalError("abstract") }
+    open var url: URL { abstract() }
     /// (Optional) The average background color of the image.
-    open var bgColor: UIColor? { fatalError("abstract") }
+    open var bgColor: UIColor? { abstract() }
     /// (Optional) The primary text color that may be used if the background color is displayed.
-    open var textColor1: UIColor? { fatalError("abstract") }
+    open var textColor1: UIColor? { abstract() }
     /// (Optional) The secondary text color that may be used if the background color is displayed.
-    open var textColor2: UIColor? { fatalError("abstract") }
+    open var textColor2: UIColor? { abstract() }
     /// (Optional) The tertiary text color that may be used if the background color is displayed.
-    open var textColor3: UIColor? { fatalError("abstract") }
+    open var textColor3: UIColor? { abstract() }
     /// (Optional) The final post-tertiary text color that maybe be used if the background color is displayed.
-    open var textColor4: UIColor? { fatalError("abstract") }
+    open var textColor4: UIColor? { abstract() }
+
+    /// Indicates if the object can no longer be accessed because it is now invalid.
+    open var isInvalidated: Bool { abstract() }
 }

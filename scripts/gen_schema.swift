@@ -139,9 +139,12 @@ func writeSchemaForDomain(_ schema: Schema) -> String {
         if typeName == "Identifier" {
             print("\(indent())    public let \(prop.name): \(typeName)")
         } else {
-            print("\(indent())    open var \(prop.name): \(typeName)\(prop.optional ? "?" : "") { fatalError(\"abstract\") }")
+            print("\(indent())    open var \(prop.name): \(typeName)\(prop.optional ? "?" : "") { abstract() }")
         }
     }
+    print("")
+    print("\(indent())    /// Indicates if the object can no longer be accessed because it is now invalid.")
+    print("\(indent())    open var isInvalidated: Bool { abstract() }")
 
     print("\(indent())}\n")
 
@@ -272,6 +275,7 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
             print("\(indent())    }")
         }
     }
+    print("\(indent())    override var isInvalidated: Bool { return _storage.isInvalidated }")
 
     print("\(indent())}\n\n")
     print("\(indent())extension \(schema.name)Impl: CustomStringConvertible {\n")

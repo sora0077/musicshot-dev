@@ -67,6 +67,7 @@ final class AlbumImpl: Album, EntityImplConvertible {
     override var playParams: PlayParameters? { return PlayParametersImpl(storage: _storage.playParams) }
     override var trackCount: Int { return _storage.trackCount }
     override var url: URL { return { URL(string: $0) }(_storage.url)! }  // swiftlint:disable:this force_unwrapping
+    override var isInvalidated: Bool { return _storage.isInvalidated }
 }
 
 extension AlbumImpl: CustomStringConvertible {
