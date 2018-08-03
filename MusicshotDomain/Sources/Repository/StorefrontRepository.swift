@@ -14,7 +14,7 @@ public protocol StorefrontRepository {
     func currentStorefront() throws -> Storefront?
     func saveCurrentStorefront(_ storefront: Storefront?) throws
 
-    func allStorefronts() throws -> AnyLiveCollection<Storefront>
+    func allStorefronts() throws -> LiveCollection<Storefront>
 
     func fetch(by ids: [Storefront.Identifier]) -> Single<Void>
     func fetchAll() -> Single<Void>

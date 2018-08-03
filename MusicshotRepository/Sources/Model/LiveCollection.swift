@@ -10,24 +10,25 @@ import Foundation
 import MusicshotDomain
 import RealmSwift
 
-extension AnyLiveCollection {
-    convenience init<C: RealmCollection>(_ collection: C)
+extension LiveCollection {
+    static func from<C: RealmCollection>(_ collection: C) -> LiveCollection
         where Element: EntityConvertible, C.Element == Element.Impl.Storage {
 
-        self.init(LiveCollectionImpl(collection))
+        return LiveCollectionImpl(collection)
     }
 }
 
-final class LiveCollectionImpl<Element>: LiveCollection
+private final class LiveCollectionImpl<Element>: LiveCollection<Element>
     where Element: EntityConvertible, Element.Impl.Storage: RealmCollectionValue {
 
     typealias Storage = Element.Impl.Storage
 
-    private final class Token: LiveCollectionToken {
+    class _Token: Token {
         private let notificationToken: NotificationToken
 
         init(_ token: NotificationToken) {
             notificationToken = token
+            super.init()
         }
 
         deinit {
@@ -39,25 +40,26 @@ final class LiveCollectionImpl<Element>: LiveCollection
 
     init<C>(_ collection: C) where C: RealmCollection, C.Element == Storage {
         self.collection = AnyRealmCollection(collection)
+        super.init()
     }
 
-    func observe(_ event: @escaping (LiveCollectionChange) -> Void) -> LiveCollectionToken {
-        return Token(
+    override func observe(_ event: @escaping (Change) -> Void) -> Token {
+        return _Token(
             collection.observe { change in
-                event(LiveCollectionChange(change))
+                event(Change(change))
             }
         )
     }
 
-    var startIndex: Int { return collection.startIndex }
-    var endIndex: Int { return collection.endIndex }
+    override var startIndex: Int { return collection.startIndex }
+    override var endIndex: Int { return collection.endIndex }
 
-    func index(after i: Int) -> Int { return collection.index(after: i) }
+    override func index(after i: Int) -> Int { return collection.index(after: i) }
 
-    subscript (idx: Int) -> Element { return Element.Impl(storage: collection[idx]) as! Element }
+    override subscript (idx: Int) -> Element { return Element.Impl(storage: collection[idx]) as! Element }
 }
 
-private extension LiveCollectionChange {
+private extension LiveCollection.Change {
     init<T>(_ change: RealmCollectionChange<T>) where T: RealmCollection {
         switch change {
         case .initial:

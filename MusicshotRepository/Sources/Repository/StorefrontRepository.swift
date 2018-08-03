@@ -45,6 +45,11 @@ extension Single {
 }
 
 public func registry() -> StorefrontRepository {
+    do {
+        var configuration = Realm.Configuration.defaultConfiguration
+        configuration.deleteRealmIfMigrationNeeded = true
+        Realm.Configuration.defaultConfiguration = configuration
+    }
     return StorefrontRepositoryImpl()
 }
 
@@ -62,8 +67,8 @@ private final class StorefrontRepositoryImpl: StorefrontRepository {
         }
     }
 
-    func allStorefronts() throws -> AnyLiveCollection<Storefront> {
-        return AnyLiveCollection(try Realm().objects(Storefront.Storage.self))
+    func allStorefronts() throws -> LiveCollection<Storefront> {
+        return LiveCollection.from(try Realm().objects(Storefront.Storage.self))
     }
 
     func fetch(by ids: [Storefront.Identifier]) -> Single<Void> {
