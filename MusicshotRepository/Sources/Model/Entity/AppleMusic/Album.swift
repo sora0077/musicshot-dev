@@ -38,6 +38,7 @@ final class AlbumImpl: Album, EntityImplConvertible {
         @objc dynamic var playParams: PlayParametersImpl.Storage!
         @objc dynamic var trackCount: Int = 0
         @objc dynamic var url: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

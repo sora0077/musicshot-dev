@@ -27,6 +27,7 @@ final class ActivityImpl: Activity, EntityImplConvertible {
         @objc dynamic var editorialNotes: EditorialNotesImpl.Storage!
         @objc dynamic var name: String = ""
         @objc dynamic var url: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

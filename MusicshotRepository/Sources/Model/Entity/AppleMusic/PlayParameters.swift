@@ -24,6 +24,7 @@ final class PlayParametersImpl: PlayParameters, EntityImplConvertible {
 
         @objc dynamic var id: String = ""
         @objc dynamic var kind: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

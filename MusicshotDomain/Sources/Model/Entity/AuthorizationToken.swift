@@ -10,6 +10,5 @@ import Foundation
 
 open class AuthUser {
 
-    open var developerToken: String { fatalError() }
-
+    open var developerToken: String { abstract() }
 }

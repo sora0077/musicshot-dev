@@ -30,6 +30,7 @@ final class ArtworkImpl: Artwork, EntityImplConvertible {
         let textColor2 = RealmOptional<Int>(nil)
         let textColor3 = RealmOptional<Int>(nil)
         let textColor4 = RealmOptional<Int>(nil)
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

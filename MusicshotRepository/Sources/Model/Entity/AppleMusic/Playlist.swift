@@ -31,6 +31,7 @@ final class PlaylistImpl: Playlist, EntityImplConvertible {
         @objc dynamic var playlistType: String = ""
         @objc dynamic var playParams: PlayParametersImpl.Storage!
         @objc dynamic var url: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

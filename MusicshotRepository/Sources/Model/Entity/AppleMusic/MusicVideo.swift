@@ -38,6 +38,7 @@ final class MusicVideoImpl: MusicVideo, EntityImplConvertible {
         let trackNumber = RealmOptional<Int>(nil)
         @objc dynamic var url: String = ""
         @objc dynamic var videoSubType: String?
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

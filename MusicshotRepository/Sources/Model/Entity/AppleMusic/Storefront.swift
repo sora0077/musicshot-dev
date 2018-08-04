@@ -26,6 +26,7 @@ final class StorefrontImpl: Storefront, EntityImplConvertible {
         @objc dynamic var name: String = ""
         let supportedLanguageTags = List<String>()
         @objc dynamic var defaultLanguageTag: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

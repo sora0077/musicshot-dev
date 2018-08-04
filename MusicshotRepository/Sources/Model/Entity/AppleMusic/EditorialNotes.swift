@@ -22,6 +22,7 @@ final class EditorialNotesImpl: EditorialNotes, EntityImplConvertible {
     final class Storage: RealmSwift.Object {
         @objc dynamic var standard: String = ""
         @objc dynamic var short: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

@@ -19,3 +19,10 @@ public protocol StorefrontRepository {
     func fetch(by ids: [Storefront.Identifier]) -> Single<Void>
     func fetchAll() -> Single<Void>
 }
+
+extension StorefrontRepository {
+
+    public func fetch(by ids: Storefront.Identifier...) -> Single<Void> {
+        return fetch(by: ids)
+    }
+}

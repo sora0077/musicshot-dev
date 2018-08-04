@@ -43,6 +43,7 @@ final class SongImpl: Song, EntityImplConvertible {
         @objc dynamic var trackNumber: Int = 0
         @objc dynamic var url: String = ""
         @objc dynamic var workName: String?
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

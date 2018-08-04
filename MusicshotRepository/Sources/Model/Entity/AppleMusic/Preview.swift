@@ -24,6 +24,7 @@ final class PreviewImpl: Preview, EntityImplConvertible {
 
         @objc dynamic var url: String = ""
         @objc dynamic var artwork: ArtworkImpl.Storage!
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

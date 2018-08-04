@@ -30,6 +30,7 @@ final class StationImpl: Station, EntityImplConvertible {
         @objc dynamic var isLive: Bool = false
         @objc dynamic var name: String = ""
         @objc dynamic var url: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage

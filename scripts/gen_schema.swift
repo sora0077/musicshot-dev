@@ -201,6 +201,7 @@ func writeSchemaForRepository(_ schema: Schema) -> String {
             }
         }
     }
+    print("\(indent())        @objc private dynamic var createDate: Date = Date()")
 
     print("\(indent())    }\n")
     print("\(indent())    fileprivate let _storage: Storage\n")

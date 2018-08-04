@@ -24,6 +24,7 @@ final class GenreImpl: Genre, EntityImplConvertible {
 
         @objc dynamic var id: String = ""
         @objc dynamic var name: String = ""
+        @objc private dynamic var createDate: Date = Date()
     }
 
     fileprivate let _storage: Storage
