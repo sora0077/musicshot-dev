@@ -29,6 +29,7 @@ abstract_target 'Musicshot' do
 
         target 'MusicshotApp' do
           inherit! :search_paths
+          pod 'SwiftLint'
         end
       end
     end
