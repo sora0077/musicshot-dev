@@ -18,6 +18,10 @@ public struct Repository {
     }
 }
 
+public func repos<R>() -> R {
+    fatalError()
+}
+
 public var repository: Repository {
     return _repository
 }

@@ -12,6 +12,5 @@ import RxSwift
 public protocol AuthRepository {
 
     func currentUser() throws -> AuthUser?
-
-    func signin() -> Single<Void>
+    func saveCurrentUser(_ user: AuthUser?) throws
 }

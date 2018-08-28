@@ -12,35 +12,21 @@ import RealmSwift
 import MusicshotDomain
 import MusicshotUtility
 
-extension Storefront {
-    public struct NotFound: Error {}
-}
-
 extension Single {
     static func storefront(_ closure: @escaping (Realm, Storefront.Storage) throws -> Element) -> Single<Element> {
-        return Single.create(subscribe: { event in
-            do {
-                let realm = try Realm()
-                guard let storefront = Preference.from(realm)?.storefront else {
-                    throw Storefront.NotFound()
-                }
-                event(.success(try closure(realm, storefront)))
-            } catch {
-                event(.error(error))
+        return Single.deferred {
+            let realm = try Realm()
+            guard let storefront = Preference.from(realm)?.storefront else {
+                throw Storefront.NotFound()
             }
-            return Disposables.create()
-        })
+            return try .just(closure(realm, storefront))
+        }
     }
 
     static func read(_ closure: @escaping (Realm) throws -> Element) -> Single<Element> {
-        return Single.create(subscribe: { event in
-            do {
-                event(.success(try closure(Realm())))
-            } catch {
-                event(.error(error))
-            }
-            return Disposables.create()
-        })
+        return Single.deferred {
+            return try .just(closure(Realm()))
+        }
     }
 }
 
@@ -51,6 +37,15 @@ public func registry() -> StorefrontRepository {
         Realm.Configuration.defaultConfiguration = configuration
     }
     return StorefrontRepositoryImpl()
+}
+
+public enum Infra {
+}
+
+extension Infra {
+    public static var storefront: StorefrontRepository {
+        return StorefrontRepositoryImpl()
+    }
 }
 
 private final class StorefrontRepositoryImpl: StorefrontRepository {
@@ -78,8 +73,8 @@ private final class StorefrontRepositoryImpl: StorefrontRepository {
                     .filter("id IN %@", ids)
                     .map(StorefrontImpl.init(storage:))
                     .ids
-                let required = Set(ids).subtracting(cached)
-                return GetMultipleStorefronts.init(ids: required.rawValues)
+                let required = Set(ids) - cached
+                return GetMultipleStorefronts(ids: required.rawValues)
             }
             .flatMap(MusicSession.rx.response)
             .map { response in
@@ -91,7 +86,7 @@ private final class StorefrontRepositoryImpl: StorefrontRepository {
     }
 
     func fetchAll() -> Single<Void> {
-        return MusicSession.rx.response(from: GetAllStorefronts(language: "ja-JP"))
+        return MusicSession.rx.response(from: GetAllStorefronts())
             .map { response in
                 let realm = try Realm()
                 try realm.write {

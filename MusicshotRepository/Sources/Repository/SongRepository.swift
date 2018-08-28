@@ -23,7 +23,13 @@ extension UIColor {
     }
 }
 
-final class SongRepositoryImpl: SongRepository {
+extension Infra {
+    public static var song: SongRepository {
+        return SongRepositoryImpl()
+    }
+}
+
+private final class SongRepositoryImpl: SongRepository {
     func fetch(by ids: [Song.Identifier]) -> Single<Void> {
         return Single
             .storefront { realm, storefront -> GetMultipleSongs in
@@ -31,7 +37,7 @@ final class SongRepositoryImpl: SongRepository {
                     .filter("id IN %@", ids)
                     .map(SongImpl.init(storage:))
                     .ids
-                let required = Set(ids).subtracting(cached)
+                let required = Set(ids) - cached
                 return GetMultipleSongs(storefront: storefront.id, ids: required.rawValues)
             }
             .flatMap(MusicSession.rx.response)

@@ -15,25 +15,31 @@ func abstract() -> Never {
 
 public protocol Identifiable: Hashable {
     associatedtype IdentifierTag
-    associatedtype IdentifierRawValue = Int
+    associatedtype IdentifierRawValue
     typealias Identifier = Tagged<IdentifierTag, IdentifierRawValue>
 
     var id: Identifier { get }
 }
 
-extension Identifiable where Self.Identifier: Equatable {
+extension Identifiable where Self.IdentifierRawValue: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-extension Identifiable where Self.Identifier: Hashable {
+extension Identifiable where Self.IdentifierRawValue: Hashable {
     public var hashValue: Int { return id.hashValue }
 }
 
 extension Sequence where Element: Identifiable {
     public var ids: [Element.Identifier] {
         return map { $0.id }
+    }
+}
+
+extension Set where Element: Identifiable, Element.IdentifierRawValue: Hashable {
+    public func mapped() -> [Element.Identifier: Element] {
+        return Dictionary(uniqueKeysWithValues: map { ($0.id, $0) })
     }
 }
 
@@ -47,4 +53,6 @@ extension Sequence where Element: RawRepresentable {
 // MARK: -
 public protocol Entity: Identifiable {}
 
-public protocol LiveEntity: Entity {}
+extension Entity {
+    public typealias NotFound = DomainErrors.NotFound<Self>
+}

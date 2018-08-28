@@ -13,3 +13,13 @@ extension Sequence {
         return Array(self)
     }
 }
+
+extension Set {
+    public static func - (lhs: Set, rhs: Set) -> Set {
+        return lhs.subtracting(rhs)
+    }
+
+    public static func - <S: Sequence>(lhs: Set, rhs: S) -> Set where S.Element == Element {
+        return lhs.subtracting(rhs)
+    }
+}

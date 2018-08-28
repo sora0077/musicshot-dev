@@ -10,6 +10,7 @@
 		3AE62B83F1A35241A0C56375 /* Pods_MusicshotDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00163C2AA9D740F7C55B9338 /* Pods_MusicshotDomain.framework */; };
 		555FB0F04FE645148CD62769 /* Pods_MusicshotRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6046864A350D32E240EE26FE /* Pods_MusicshotRepository.framework */; };
 		67BC81BB94C7CB8F3E7D25E9 /* Pods_Musicshot_MusicshotUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80205B2A56F1B73EE48C9958 /* Pods_Musicshot_MusicshotUtility.framework */; };
+		D90B689E211753320055D7B3 /* DomainErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90B689D211753320055D7B3 /* DomainErrors.swift */; };
 		D9103699208CE68600760CE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9103698208CE68600760CE4 /* Logger.swift */; };
 		D926276F20D4F288009EA801 /* MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926276020D4F285009EA801 /* MusicVideo.swift */; };
 		D926277020D4F288009EA801 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926276120D4F285009EA801 /* Playlist.swift */; };
@@ -229,6 +230,7 @@
 		8352824C28FEFCE053D533B1 /* Pods-MusicshotApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicshotApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicshotApp/Pods-MusicshotApp.release.xcconfig"; sourceTree = "<group>"; };
 		884FB9EC7AD015B52101F58C /* Pods-Musicshot-MusicshotUtility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Musicshot-MusicshotUtility.release.xcconfig"; path = "Pods/Target Support Files/Pods-Musicshot-MusicshotUtility/Pods-Musicshot-MusicshotUtility.release.xcconfig"; sourceTree = "<group>"; };
 		A2DC687E29191316E2A97347 /* Pods-MusicshotDomain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicshotDomain.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicshotDomain/Pods-MusicshotDomain.release.xcconfig"; sourceTree = "<group>"; };
+		D90B689D211753320055D7B3 /* DomainErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainErrors.swift; sourceTree = "<group>"; };
 		D9103698208CE68600760CE4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D926276020D4F285009EA801 /* MusicVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVideo.swift; sourceTree = "<group>"; };
 		D926276120D4F285009EA801 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				D9568D2120D963CC00E0DD53 /* Module */,
 				D94BC88F20D2BE4500754AEC /* Model */,
 				D94BC88E20D2BE3000754AEC /* Repository */,
+				D90B689D211753320055D7B3 /* DomainErrors.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1256,7 +1259,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\n$PODS_ROOT/SwiftLint/swiftlint autocorrect\n#$PODS_ROOT/SwiftLint/swiftlint";
+			shellScript = "#\n$PODS_ROOT/SwiftLint/swiftlint autocorrect\n#$PODS_ROOT/SwiftLint/swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1275,6 +1278,7 @@
 				D96E580D20D496D100193EE5 /* Song.swift in Sources */,
 				D96E581320D4AC7800193EE5 /* Preview.swift in Sources */,
 				D96E581920D4ACCE00193EE5 /* MusicVideo.swift in Sources */,
+				D90B689E211753320055D7B3 /* DomainErrors.swift in Sources */,
 				D96E581D20D4AD1D00193EE5 /* EditorialNotes.swift in Sources */,
 				D9568D1C20D9536900E0DD53 /* AuthRepository.swift in Sources */,
 				D96E582520D4AD8B00193EE5 /* AppleCurator.swift in Sources */,
